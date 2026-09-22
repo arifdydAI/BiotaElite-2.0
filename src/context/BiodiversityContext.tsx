@@ -209,12 +209,13 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
   const isVersionMatch = version === CURRENT_SEED_VERSION;
 
   if (!isVersionMatch) {
-    // Stale or missing version: write current version and fresh authoritative seed
+    // Stale or missing version: write current version and return fresh authoritative seed
     safeSetItem(SEED_VERSION_KEY, CURRENT_SEED_VERSION);
-    safeSetItem('biota_species', JSON.stringify(SEED_SPECIES));
-    safeSetItem('biota_taxa', JSON.stringify(SEED_TAXA));
-    safeSetItem('biota_taxon_knowledge', JSON.stringify(SEED_TAXON_KNOWLEDGE));
-    safeSetItem('biota_references', JSON.stringify(SEED_REFERENCES));
+    // Clear obsolete cache to free storage quota immediately
+    safeRemoveItem('biota_species');
+    safeRemoveItem('biota_taxa');
+    safeRemoveItem('biota_taxon_knowledge');
+    safeRemoveItem('biota_references');
     return {
       species: SEED_SPECIES,
       taxa: SEED_TAXA,
@@ -235,29 +236,14 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
   const parsedBatchesRes = safeParseJson<BatchImportRecord[]>(safeGetItem('biota_batches'), []);
   const parsedConflictsRes = safeParseJson<ConflictRecord[]>(safeGetItem('biota_conflicts'), []);
 
-  // Validate integrity: must be arrays and meet minimum node count
-  const validTaxa = (Array.isArray(parsedTaxaRes.value) && parsedTaxaRes.value.length >= 190) ? parsedTaxaRes.value : SEED_TAXA;
-  const validKnowledge = (Array.isArray(parsedKnowledgeRes.value) && parsedKnowledgeRes.value.length >= 80) ? parsedKnowledgeRes.value : SEED_TAXON_KNOWLEDGE;
-  const validSpecies = (Array.isArray(parsedSpeciesRes.value) && parsedSpeciesRes.value.length > 0) ? parsedSpeciesRes.value : SEED_SPECIES;
-  const validRefs = (Array.isArray(parsedRefsRes.value) && parsedRefsRes.value.length > 0) ? parsedRefsRes.value : SEED_REFERENCES;
-  const validLogs = Array.isArray(parsedLogsRes.value) ? parsedLogsRes.value : INITIAL_AUDIT_LOGS;
-  const validBatches = Array.isArray(parsedBatchesRes.value) ? parsedBatchesRes.value : [];
-  const validConflicts = Array.isArray(parsedConflictsRes.value) ? parsedConflictsRes.value : [];
-
-  // Heal storage if corruption occurred or fallback was applied
-  if (parsedTaxaRes.corrupted || validTaxa !== parsedTaxaRes.value) safeSetItem('biota_taxa', JSON.stringify(validTaxa));
-  if (parsedKnowledgeRes.corrupted || validKnowledge !== parsedKnowledgeRes.value) safeSetItem('biota_taxon_knowledge', JSON.stringify(validKnowledge));
-  if (parsedSpeciesRes.corrupted || validSpecies !== parsedSpeciesRes.value) safeSetItem('biota_species', JSON.stringify(validSpecies));
-  if (parsedRefsRes.corrupted || validRefs !== parsedRefsRes.value) safeSetItem('biota_references', JSON.stringify(validRefs));
-
   return {
-    species: validSpecies,
-    taxa: validTaxa,
-    taxonKnowledge: validKnowledge,
-    references: validRefs,
-    auditLogs: validLogs,
-    batches: validBatches,
-    conflicts: validConflicts
+    species: parsedSpeciesRes.value,
+    taxa: parsedTaxaRes.value,
+    taxonKnowledge: parsedKnowledgeRes.value,
+    references: parsedRefsRes.value,
+    auditLogs: parsedLogsRes.value,
+    batches: parsedBatchesRes.value,
+    conflicts: parsedConflictsRes.value
   };
 }
 
@@ -281,21 +267,33 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
 
-  // Sync to localStorage safely
+  // Sync to localStorage asynchronously in background without blocking initial interactive frame on mobile CPUs
   useEffect(() => {
-    safeSetItem('biota_species', JSON.stringify(species));
+    const timer = setTimeout(() => {
+      safeSetItem('biota_species', JSON.stringify(species));
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [species]);
 
   useEffect(() => {
-    safeSetItem('biota_taxa', JSON.stringify(taxa));
+    const timer = setTimeout(() => {
+      safeSetItem('biota_taxa', JSON.stringify(taxa));
+    }, 2500);
+    return () => clearTimeout(timer);
   }, [taxa]);
 
   useEffect(() => {
-    safeSetItem('biota_taxon_knowledge', JSON.stringify(taxonKnowledge));
+    const timer = setTimeout(() => {
+      safeSetItem('biota_taxon_knowledge', JSON.stringify(taxonKnowledge));
+    }, 3000);
+    return () => clearTimeout(timer);
   }, [taxonKnowledge]);
 
   useEffect(() => {
-    safeSetItem('biota_references', JSON.stringify(references));
+    const timer = setTimeout(() => {
+      safeSetItem('biota_references', JSON.stringify(references));
+    }, 3500);
+    return () => clearTimeout(timer);
   }, [references]);
 
   useEffect(() => {

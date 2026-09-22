@@ -17,48 +17,69 @@ import { RequireAuth } from './components/auth/RequireAuth';
 import { Header } from './components/common/Header';
 import { Navigation } from './components/common/Navigation';
 import { Footer } from './components/common/Footer';
-
-// Auth Pages
-import { LoginPage } from './pages/auth/LoginPage';
-import { AccessDeniedPage } from './pages/auth/AccessDeniedPage';
-
-// Public Pages
-import { HomePage } from './pages/public/HomePage';
-import { SpeciesPage } from './pages/public/SpeciesPage';
-import { SpeciesDetailPage } from './pages/public/SpeciesDetailPage';
-import { FishPage } from './pages/public/FishPage';
-import { MarinePage } from './pages/public/MarinePage';
-import { BangladeshPage } from './pages/public/BangladeshPage';
-import { TaxonomyPage } from './pages/public/TaxonomyPage';
-import { ScientificNamesPage } from './pages/public/ScientificNamesPage';
-import { IdentificationPage } from './pages/public/IdentificationPage';
-import { ReferencesPage } from './pages/public/ReferencesPage';
-import { SearchPage } from './pages/public/SearchPage';
-import { AboutPage } from './pages/public/AboutPage';
-
-// Core Zoology & Dichotomous Key Pages
-import { AnimalKingdomPage } from './pages/public/AnimalKingdomPage';
-import { AnimalBiodiversityPage } from './pages/public/AnimalBiodiversityPage';
-import { ComparativeZoologyPage } from './pages/public/ComparativeZoologyPage';
-import { EvolutionPhylogenyPage } from './pages/public/EvolutionPhylogenyPage';
-import { AnatomyPhysiologyPage } from './pages/public/AnatomyPhysiologyPage';
-import { VertebrateExplorerPage } from './pages/public/VertebrateExplorerPage';
-import { DichotomousKeyPage } from './pages/public/DichotomousKeyPage';
-
-// Admin Components & Pages
-import { AdminLayout } from './components/admin/AdminLayout';
-import { DashboardPage } from './pages/admin/DashboardPage';
-import { SpeciesManagerPage } from './pages/admin/SpeciesManagerPage';
-import { TaxonomyManagerPage } from './pages/admin/TaxonomyManagerPage';
-import { ReviewQueuePage } from './pages/admin/ReviewQueuePage';
-import { ReferenceManagerPage } from './pages/admin/ReferenceManagerPage';
-import { AuditLogPage } from './pages/admin/AuditLogPage';
-import { UsersPage } from './pages/admin/UsersPage';
-import { SettingsPage } from './pages/admin/SettingsPage';
-import { BatchImportPage } from './pages/admin/BatchImportPage';
-import { ImportBatchesPage } from './pages/admin/ImportBatchesPage';
-import { ConflictCenterPage } from './pages/admin/ConflictCenterPage';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+
+// Immediate Landing Page (eager for fast initial paint)
+import { HomePage } from './pages/public/HomePage';
+
+// Auth Pages (Lazy)
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage').then(m => ({ default: m.LoginPage })));
+const AccessDeniedPage = React.lazy(() => import('./pages/auth/AccessDeniedPage').then(m => ({ default: m.AccessDeniedPage })));
+
+// Secondary Public Pages (Lazy)
+const SpeciesPage = React.lazy(() => import('./pages/public/SpeciesPage').then(m => ({ default: m.SpeciesPage })));
+const SpeciesDetailPage = React.lazy(() => import('./pages/public/SpeciesDetailPage').then(m => ({ default: m.SpeciesDetailPage })));
+const FishPage = React.lazy(() => import('./pages/public/FishPage').then(m => ({ default: m.FishPage })));
+const MarinePage = React.lazy(() => import('./pages/public/MarinePage').then(m => ({ default: m.MarinePage })));
+const BangladeshPage = React.lazy(() => import('./pages/public/BangladeshPage').then(m => ({ default: m.BangladeshPage })));
+const TaxonomyPage = React.lazy(() => import('./pages/public/TaxonomyPage').then(m => ({ default: m.TaxonomyPage })));
+const ScientificNamesPage = React.lazy(() => import('./pages/public/ScientificNamesPage').then(m => ({ default: m.ScientificNamesPage })));
+const IdentificationPage = React.lazy(() => import('./pages/public/IdentificationPage').then(m => ({ default: m.IdentificationPage })));
+const ReferencesPage = React.lazy(() => import('./pages/public/ReferencesPage').then(m => ({ default: m.ReferencesPage })));
+const SearchPage = React.lazy(() => import('./pages/public/SearchPage').then(m => ({ default: m.SearchPage })));
+const AboutPage = React.lazy(() => import('./pages/public/AboutPage').then(m => ({ default: m.AboutPage })));
+
+// Core Zoology & Dichotomous Key Pages (Lazy)
+const AnimalKingdomPage = React.lazy(() => import('./pages/public/AnimalKingdomPage').then(m => ({ default: m.AnimalKingdomPage })));
+const AnimalBiodiversityPage = React.lazy(() => import('./pages/public/AnimalBiodiversityPage').then(m => ({ default: m.AnimalBiodiversityPage })));
+const ComparativeZoologyPage = React.lazy(() => import('./pages/public/ComparativeZoologyPage').then(m => ({ default: m.ComparativeZoologyPage })));
+const EvolutionPhylogenyPage = React.lazy(() => import('./pages/public/EvolutionPhylogenyPage').then(m => ({ default: m.EvolutionPhylogenyPage })));
+const AnatomyPhysiologyPage = React.lazy(() => import('./pages/public/AnatomyPhysiologyPage').then(m => ({ default: m.AnatomyPhysiologyPage })));
+const VertebrateExplorerPage = React.lazy(() => import('./pages/public/VertebrateExplorerPage').then(m => ({ default: m.VertebrateExplorerPage })));
+const DichotomousKeyPage = React.lazy(() => import('./pages/public/DichotomousKeyPage').then(m => ({ default: m.DichotomousKeyPage })));
+
+// Admin Components & Pages (Lazy)
+const AdminLayout = React.lazy(() => import('./components/admin/AdminLayout').then(m => ({ default: m.AdminLayout })));
+const DashboardPage = React.lazy(() => import('./pages/admin/DashboardPage').then(m => ({ default: m.DashboardPage })));
+const SpeciesManagerPage = React.lazy(() => import('./pages/admin/SpeciesManagerPage').then(m => ({ default: m.SpeciesManagerPage })));
+const TaxonomyManagerPage = React.lazy(() => import('./pages/admin/TaxonomyManagerPage').then(m => ({ default: m.TaxonomyManagerPage })));
+const ReviewQueuePage = React.lazy(() => import('./pages/admin/ReviewQueuePage').then(m => ({ default: m.ReviewQueuePage })));
+const ReferenceManagerPage = React.lazy(() => import('./pages/admin/ReferenceManagerPage').then(m => ({ default: m.ReferenceManagerPage })));
+const AuditLogPage = React.lazy(() => import('./pages/admin/AuditLogPage').then(m => ({ default: m.AuditLogPage })));
+const UsersPage = React.lazy(() => import('./pages/admin/UsersPage').then(m => ({ default: m.UsersPage })));
+const SettingsPage = React.lazy(() => import('./pages/admin/SettingsPage').then(m => ({ default: m.SettingsPage })));
+const BatchImportPage = React.lazy(() => import('./pages/admin/BatchImportPage').then(m => ({ default: m.BatchImportPage })));
+const ImportBatchesPage = React.lazy(() => import('./pages/admin/ImportBatchesPage').then(m => ({ default: m.ImportBatchesPage })));
+const ConflictCenterPage = React.lazy(() => import('./pages/admin/ConflictCenterPage').then(m => ({ default: m.ConflictCenterPage })));
+
+// Lightweight Route Transition Fallback
+const RouteLoadingFallback: React.FC = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh', padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+      <div
+        style={{
+          width: '32px',
+          height: '32px',
+          border: '3px solid rgba(16, 185, 129, 0.2)',
+          borderTopColor: 'var(--color-primary, #10b981)',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite'
+        }}
+      />
+      <span style={{ fontSize: '0.85rem', color: 'var(--text-muted, #94a3b8)' }}>Loading module...</span>
+    </div>
+  </div>
+);
 
 // Public Layout Wrapper
 const PublicLayout: React.FC = () => {
@@ -68,7 +89,9 @@ const PublicLayout: React.FC = () => {
       <Navigation />
       <main className="main-content">
         <ErrorBoundary>
-          <Outlet />
+          <React.Suspense fallback={<RouteLoadingFallback />}>
+            <Outlet />
+          </React.Suspense>
         </ErrorBoundary>
       </main>
       <Footer />
@@ -86,8 +109,8 @@ export const App: React.FC = () => {
               {/* ----------------------------------------------------------------
                 PUBLIC AUTH ROUTES — No authentication required.
               ---------------------------------------------------------------- */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/access-denied" element={<AccessDeniedPage />} />
+              <Route path="/login" element={<React.Suspense fallback={<RouteLoadingFallback />}><LoginPage /></React.Suspense>} />
+              <Route path="/access-denied" element={<React.Suspense fallback={<RouteLoadingFallback />}><AccessDeniedPage /></React.Suspense>} />
 
               {/* ----------------------------------------------------------------
                 PUBLIC BIODIVERSITY SURFACE — No authentication required.
@@ -138,7 +161,7 @@ export const App: React.FC = () => {
                 All /admin sub-routes inherit this protection.
               ---------------------------------------------------------------- */}
               <Route element={<RequireAuth minimumRole="admin" />}>
-                <Route path="/admin" element={<AdminLayout />}>
+                <Route path="/admin" element={<React.Suspense fallback={<RouteLoadingFallback />}><AdminLayout /></React.Suspense>}>
                   <Route index element={<DashboardPage />} />
                   <Route path="species" element={<SpeciesManagerPage />} />
                   <Route path="taxonomy" element={<TaxonomyManagerPage />} />

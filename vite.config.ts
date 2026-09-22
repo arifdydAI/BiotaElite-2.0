@@ -13,4 +13,52 @@ export default defineConfig({
       ignored: ['**/.tmp*/**', '**/*.tmp', '**/scripts/**'],
     },
   },
+  build: {
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter(dep => !dep.includes('data-ident-keys') && !dep.includes('data-taxon-knowledge'));
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') || id.includes('react-router-dom') || id.includes('react')) {
+              return 'vendor-react';
+            }
+            if (id.includes('firebase')) {
+              return 'vendor-firebase';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            return 'vendor-misc';
+          }
+          if (id.includes('src/data/seedIdentKeys')) {
+            return 'data-ident-keys';
+          }
+          if (id.includes('src/data/seedTaxonKnowledge')) {
+            return 'data-taxon-knowledge';
+          }
+          if (id.includes('src/data/seedSpecies')) {
+            return 'data-species';
+          }
+          if (id.includes('src/data/seedTaxa')) {
+            return 'data-taxa';
+          }
+          if (
+            id.includes('src/data/zoologyPhylaData') ||
+            id.includes('src/data/comparativeData') ||
+            id.includes('src/data/evolutionData') ||
+            id.includes('src/data/anatomyPhysiologyData') ||
+            id.includes('src/data/vertebratesData')
+          ) {
+            return 'data-core-zoology';
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1500,
+  },
 })
+
