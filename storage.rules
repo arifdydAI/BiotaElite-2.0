@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // SECURITY HARDENED — MASTER-FIX-01
+    // All writes require authenticated staff membership verified via Firestore.
+    // Public can read media; only staff can write.
+    // Staff membership is confirmed against the /users/{uid} Firestore collection.
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isStaffUser() {
+      return isSignedIn() &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role in
+        ['super_admin', 'admin', 'editor', 'reviewer', 'data_manager'];
+    }
+
+    match /species/{speciesId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaffUser()
+        && request.resource.size < 15 * 1024 * 1024 // 15MB limit
+        && request.resource.contentType.matches('image/(jpeg|png|webp|svg\\+xml)');
+    }
+
+    match /taxa/{taxonId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaffUser()
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp|svg\\+xml)');
+    }
+  }
+}

@@ -1,0 +1,812 @@
+<USER_REQUEST>
+MASTER-FIX-14 — GLOBAL TAXONOMIC DEPTH, FAMILY → GENUS → SPECIES EXPANSION & CANONICAL SPECIES DATA
+
+PROJECT:
+BiotaElite 2.0
+Path:
+C:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2
+
+LOCAL SERVER:
+http://localhost:2021/
+
+IMPORTANT:
+This is a continuation task.
+DO NOT restart the project.
+DO NOT redesign unrelated UI.
+DO NOT undo or weaken any previous Master-Fix.
+
+First inspect the current implementation and preserve all valid work from MASTER-FIX-01 through MASTER-FIX-13.
+
+==================================================
+PRIMARY OBJECTIVE
+==================================================
+
+Expand BiotaElite from a shallow representative taxonomy dataset into a significantly deeper GLOBAL zoological knowledge dataset.
+
+The target architecture is:
+
+Kingdom
+→ Major Group / Phylum
+→ Class / Subclass / other applicable intermediate ranks
+→ Order
+→ Family
+→ Genus
+→ Species
+
+Use source-driven taxonomy.
+
+Do NOT force a fixed hierarchy where authoritative sources use different ranks.
+
+The result must remain a:
+
+"Curated Global Representative Zoological Dataset"
+
+NOT a claim that BiotaElite contains every species on Earth.
+
+==================================================
+1. GLOBAL SCOPE — NON-NEGOTIABLE
+==================================================
+
+The following remain GLOBAL:
+
+- Taxonomy
+- Scientific Name Index
+- Synonym Index
+- Species Catalogue
+- Identification Keys
+- Fishes
+- Marine Life
+- Taxonomy Hub
+
+Bangladesh remains a REGIONAL EXTENSION only.
+
+Never make Bangladesh occurrence a prerequisite for a global species record.
+
+Global species must remain accessible even when:
+
+bangladeshOccurrence.present === false
+
+Never show misleading messages such as:
+
+"0 species worldwide"
+
+when the actual meaning is:
+
+"0 Bangladesh records"
+
+Keep Bangladesh occurrence as a separate regional context.
+
+==================================================
+2. EXPAND TAXONOMIC DEPTH
+==================================================
+
+Audit the existing 409+ taxonomy nodes.
+
+Identify every major group that currently has:
+
+- only a phylum/group node
+- very few classes
+- very few orders
+- missing families
+- missing genera
+- very few species
+
+Expand these progressively.
+
+Priority groups:
+
+1. Porifera
+2. Cnidaria
+3. Ctenophora
+4. Annelida
+5. Mollusca
+6. Arthropoda
+7. Echinodermata
+8. Chordata
+9. Fishes
+10. Amphibia
+11. Reptilia
+12. Aves
+13. Mammalia
+
+Also inspect whether other major zoological groups already represented in Taxonomy require expansion.
+
+Do not arbitrarily add groups just to increase counts.
+
+==================================================
+3. FAMILY → GENUS → SPECIES DEPTH
+==================================================
+
+For every selected important Order:
+
+Order
+→ representative Families
+→ representative Genera
+→ representative Species
+
+Target quality:
+
+At least several representative Families per important Order where authoritative data permits.
+
+At least several representative Genera per selected Family.
+
+At least 2–5 high-quality representative species per selected Genus where practical.
+
+Quality is more important than numerical targets.
+
+Never fabricate examples merely to reach a number.
+
+==================================================
+4. FISH TAXONOMY
+==================================================
+
+PRESERVE the existing 73-order BiotaElite fish framework.
+
+Do NOT replace it with a new arbitrary count.
+
+Do NOT delete existing valid Orders.
+
+Expand under:
+
+Fishes
+→ Agnatha
+→ Chondrichthyes
+→ Osteichthyes
+→ appropriate intermediate ranks
+→ Orders
+→ Families
+→ Genera
+→ Species
+
+Every added fish species must connect correctly to:
+
+Order
+Family
+Genus
+Species
+
+Use authoritative fish sources, especially:
+
+- Eschmeyer's Catalog of Fishes / CAS
+- FishBase
+- Fishes of the World
+- Catalogue of Life
+- relevant specialist literature
+
+Respect the documented Pleuronectiformes authority disagreement.
+
+Do not silently change the existing 73-order policy.
+
+==================================================
+5. INVERTEBRATE EXPANSION
+==================================================
+
+Expand the major invertebrate groups with real taxonomic depth.
+
+Examples:
+
+PORIFERA
+Phylum
+→ Classes
+→ Orders
+→ Families
+→ Genera
+→ Species
+
+CNIDARIA
+Phylum
+→ Anthozoa
+→ Scyphozoa
+→ Hydrozoa
+→ Cubozoa
+→ applicable Orders
+→ Families
+→ Genera
+→ Species
+
+MOLLUSCA
+→ Polyplacophora
+→ Gastropoda
+→ Bivalvia
+→ Cephalopoda
+→ other applicable classes/orders/families/genera/species
+
+ARTHROPODA
+Maintain source-driven treatment of:
+
+- Chelicerata
+- Myriapoda
+- Crustacea
+- Hexapoda
+
+Expand important families/genera/species.
+
+ECHINODERMATA
+Expand:
+
+- Asteroidea
+- Ophiuroidea
+- Echinoidea
+- Holothuroidea
+- Crinoidea
+
+where authoritative taxonomy supports them.
+
+ANNELIDA
+Expand major lineages and representative families/genera/species.
+
+CTENOPHORA
+Expand with authoritative representative taxa rather than leaving only a single example.
+
+==================================================
+6. VERTEBRATE EXPANSION
+==================================================
+
+Expand:
+
+AMPHIBIA
+→ Anura
+→ Caudata
+→ Gymnophiona
+→ Families
+→ Genera
+→ Species
+
+REPTILIA
+→ Testudines
+→ Squamata
+→ Crocodylia
+→ Rhynchocephalia
+→ Families
+→ Genera
+→ Species
+
+AVES
+Do NOT pretend to include every bird order/species.
+
+Instead create a clearly labeled curated representative dataset.
+
+Expand multiple important avian Orders:
+
+Passeriformes
+Accipitriformes
+Strigiformes
+Anseriformes
+Galliformes
+Columbiformes
+Psittaciformes
+Piciformes
+Coraciiformes
+Charadriiformes
+Pelecaniformes
+Sphenisciformes
+etc., where authoritative taxonomy supports them.
+
+MAMMALIA
+Expand representative lineages:
+
+Monotremata
+Marsupialia
+Eutheria / Placentalia
+Primates
+Carnivora
+Rodentia
+Chiroptera
+Cetacea
+Sirenia
+Proboscidea
+Perissodactyla
+Artiodactyla
+Lagomorpha
+Eulipotyphla
+Pholidota
+Pilosa
+Cingulata
+etc., using source-driven modern taxonomy.
+
+Do not force outdated rank structures.
+
+==================================================
+7. SPECIES RECORD REQUIREMENTS
+==================================================
+
+EVERY NEW SPECIES MUST BE CREATED AS A COMPLETE CANONICAL SPECIES RECORD.
+
+Required minimum:
+
+- stable speciesId
+- taxonId
+- scientificName
+- authorship where verified
+- accepted/common names where verified
+- kingdom
+- full taxonomy path
+- global scope
+- Bangladesh occurrence as separate regional extension
+- source references
+- verification status
+- biological summary
+- canonical image reference
+
+Do not create a species record first and postpone image/provenance.
+
+==================================================
+8. CANONICAL REAL IMAGE — REQUIRED
+==================================================
+
+For every newly added species:
+
+Add one authentic real specimen photograph whenever a suitable authoritative image exists.
+
+Preferred sources:
+
+1. Wikimedia Commons
+2. FishBase
+3. WoRMS
+4. IUCN
+5. NOAA
+6. USFWS
+7. museums
+8. universities
+9. government biodiversity institutions
+10. other authoritative institutional sources
+
+Google Images may be used only for discovery.
+
+Never use:
+
+- random image URLs
+- Pinterest
+- stock photos
+- AI-generated animals
+- unrelated species
+- decorative placeholder photos
+- generic genus/family photos as species photos
+
+Store:
+
+- speciesId
+- taxonId
+- sourceName
+- sourceUrl
+- photographer
+- license
+- attribution
+- imageType
+- verificationStatus
+- verifiedBy
+- verifiedAt
+- notes
+
+Use the existing canonical image architecture.
+
+The same canonical image record must power:
+
+Species Cards
+Species Profile
+Scientific Name Index
+Synonym Index
+Search
+Explorer
+Identification results
+Taxonomy-linked species cards
+
+Never hard-code separate image copies.
+
+==================================================
+9. BIOLOGICAL DATA
+==================================================
+
+For newly added important species, add verified biological information where available:
+
+- common names
+- morphology
+- habitat
+- distribution
+- feeding
+- reproduction
+- ecology
+- conservation/status
+- important identifying features
+- taxonomic notes
+
+Do NOT invent missing information.
+
+If authoritative information is unavailable:
+
+mark the field appropriately as pending/limited.
+
+Never turn missing information into fabricated prose.
+
+==================================================
+10. SOURCES & PROVENANCE
+==================================================
+
+Use source hierarchy appropriate to each taxon.
+
+General sources may include:
+
+- Catalogue of Life
+- ITIS
+- Encyclopedia of Life
+- relevant specialist databases
+- peer-reviewed literature
+- authoritative taxonomic monographs
+
+Fish:
+
+- Eschmeyer's Catalog of Fishes
+- FishBase
+- Fishes of the World
+
+Marine:
+
+- WoRMS
+- specialist marine databases
+
+Birds:
+
+- IOC World Bird List
+- Catalogue of Life
+- authoritative ornithological references
+
+Mammals:
+
+- Mammal Diversity Database
+- Catalogue of Life
+- authoritative mammalogy references
+
+Reptiles:
+
+- Reptile Database
+- Catalogue of Life
+
+Amphibians:
+
+- Amphibian Species of the World
+- AmphibiaWeb
+- Catalogue of Life
+
+Do not treat Catalogue of Life as infallible.
+
+Record the actual source used for each taxonomic decision.
+
+==================================================
+11. SYNONYMS & NAME INTEGRITY
+==================================================
+
+For important species, add verified synonyms where authoritative sources support them.
+
+Rules:
+
+accepted name
+≠ synonym
+
+Synonyms must resolve to the same canonical species identity.
+
+Do not create duplicate species identities because of:
+
+- spelling variants
+- historical names
+- author citation differences
+- taxonomic revisions
+- common names
+
+Scientific Name Index and Synonym Index must remain globally canonical.
+
+==================================================
+12. BANGLADESH REGIONAL EXTENSION
+==================================================
+
+Do NOT convert global species data into Bangladesh-only data.
+
+For species occurring in Bangladesh:
+
+add:
+
+bangladeshOccurrence:
+- present
+- status
+- habitat/context
+- local/common names where verified
+- national conservation status where available
+- regional references
+
+For species not occurring in Bangladesh:
+
+keep:
+
+present: false
+
+but retain the global species normally.
+
+Never delete an extralimital species because Bangladesh occurrence is false.
+
+==================================================
+13. DATA QUALITY AUDIT
+==================================================
+
+Before writing new data, automatically detect:
+
+- duplicate species
+- duplicate taxon IDs
+- duplicate scientific names
+- orphan families
+- orphan genera
+- orphan species
+- wrong parent IDs
+- family linked to wrong order
+- genus linked to wrong family
+- species linked to wrong genus
+- invalid ranks
+- invalid accepted/synonym relationships
+- missing provenance
+- missing image metadata
+- unverified images displayed as verified
+- Bangladesh/global scope leakage
+
+Fix only verified issues.
+
+==================================================
+14. DO NOT DAMAGE PREVIOUS MASTER-FIXES
+==================================================
+
+Regression must preserve:
+
+MASTER-FIX-01
+Security / RBAC
+
+MASTER-FIX-02/03
+Canonical taxonomy foundation
+
+MASTER-FIX-04
+Global non-fish Marine Life
+
+MASTER-FIX-05/06A
+Fish navigation/runtime stability
+
+MASTER-FIX-07/07B
+Verified real species images
+
+MASTER-FIX-08
+Global vs Bangladesh separation
+
+MASTER-FIX-09/09A
+73-order fish taxonomy + authority reconciliation
+
+MASTER-FIX-10
+Global species dataset
+
+MASTER-FIX-11/11A
+Taxonomy Hub
+
+MASTER-FIX-12
+Global major-group taxonomy expansion
+
+MASTER-FIX-13
+Global Identification Keys + Bangladesh Regional Keys
+
+Especially preserve:
+
+- 73 fish Orders
+- 410+ taxonomy nodes currently linked
+- existing canonical species IDs
+- existing verified image records
+- global scope
+- Bangladesh regional extension
+- 15 identification keys
+- existing security architecture
+
+==================================================
+15. TESTING
+==================================================
+
+Create:
+
+scripts/test_master_fix_14_global_taxonomic_depth.cjs
+
+It must test at minimum:
+
+A. Major groups remain present
+B. No taxonomy node has an invalid parent
+C. No orphan families
+D. No orphan genera
+E. No orphan species
+F. Species → genus → family → order path resolves
+G. Scientific names are unique for accepted species
+H. Synonyms resolve to canonical species
+I. Every new species has provenance
+J. Every new species has canonical verified image OR explicit unavailable status
+K. Unverified images cannot render as verified
+L. Global species do not depend on Bangladesh occurrence
+M. Bangladesh occurrence remains secondary
+N. Fish 73-order framework remains intact
+O. Fish/Marine separation remains intact
+P. Identification keys remain intact
+Q. Taxonomy Hub remains intact
+R. Scientific Name Index remains intact
+S. Synonym Index remains intact
+T. No duplicate canonical species identities
+U. Representative dataset labeling remains accurate
+V. All new references resolve
+W. Existing Master-Fix regression tests pass
+
+Do NOT make tests pass by weakening validation.
+
+==================================================
+16. BROWSER VERIFICATION
+==================================================
+
+Use Chrome DevTools Protocol if Playwright remains unavailable.
+
+Verify:
+
+/taxonomy
+/taxonomy/porifera
+/taxonomy/cnidaria
+/taxonomy/arthropoda
+/taxonomy/mollusca
+/taxonomy/chordata
+/taxonomy/mammalia
+/taxonomy/aves
+/taxonomy/reptilia
+/taxonomy/amphibia
+/fish
+/species
+/scientific-names
+/synonyms
+/identification
+
+Check:
+
+- no blank page
+- no runtime exception
+- no broken taxonomy links
+- species cards resolve
+- images match species
+- global scope is obvious
+- Bangladesh is secondary context
+- mobile layout remains stable
+
+==================================================
+17. ACCOUNTING
+==================================================
+
+Produce an exact before/after report.
+
+Include:
+
+- taxonomy nodes before/after
+- species before/after
+- families before/after
+- genera before/after
+- orders before/after
+- fish orders before/after
+- global species before/after
+- Bangladesh-occurring species count
+- extralimital species count
+- verified images before/after
+- unavailable images
+- synonyms before/after
+- identification keys before/after
+
+Do not invent totals.
+
+Counts must be generated directly from the actual dataset.
+
+==================================================
+18. SCIENTIFIC TERMINOLOGY
+==================================================
+
+Never call the taxonomy system:
+
+"ICZN classification"
+
+ICZN is a nomenclatural code.
+
+Use:
+
+"ICZN-compliant nomenclature"
+
+when appropriate.
+
+Classification must be described as:
+
+"source-driven modern zoological classification"
+
+or equivalent.
+
+==================================================
+19. CURATED DATASET LANGUAGE
+==================================================
+
+Use language such as:
+
+"Curated Global Representative Dataset"
+
+"Representative Global Species"
+
+"Curated species coverage"
+
+Never imply:
+
+"all species on Earth are included"
+
+unless that is actually true.
+
+==================================================
+20. EXECUTION POLICY
+==================================================
+
+You have autonomy to run normal project-local commands.
+
+Do not repeatedly ask for permission for:
+
+- npm commands
+- node scripts
+- TypeScript checks
+- lint
+- build
+- local server
+- project-local file inspection
+- browser verification
+
+Reuse the existing terminal/session where practical.
+
+However:
+
+Never bypass OS/IDE security.
+
+Never approve destructive/system-wide commands.
+
+Never expose credentials.
+
+==================================================
+FINAL STOP CONDITION
+==================================================
+
+Execute the work now.
+
+Do NOT merely describe a plan.
+
+Do NOT stop after creating scripts.
+
+Actually update the project data and implementation.
+
+Run all required tests.
+
+Run TypeScript, lint and production build.
+
+Run browser/CDP verification.
+
+Then provide a concise final report containing:
+
+1. Exact dataset expansion
+2. Taxonomy depth achieved
+3. Species added
+4. Families/genera/orders added
+5. Verified image count
+6. Provenance status
+7. Global/Bangladesh integrity
+8. Test results
+9. Browser verification
+10. Any scientifically unresolved issues
+
+STOP after MASTER-FIX-14.
+
+Do not start another feature after reporting completion.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-15T12:28:10+06:00.
+
+The user's current state is as follows:
+Other open documents:
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\pages\public\MarinePage.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\components\knowledge\TaxonKnowledgeDetail.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\i18n\translations.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\components\auth\RequireAuth.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\scripts\apply_complete_taxonomy.cjs (LANGUAGE_JAVASCRIPT)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.8 Flash (High) to Gemini 3.8 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

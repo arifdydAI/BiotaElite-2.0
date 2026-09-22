@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for Role-Based Access Control
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && getUserData().role == role;
+    }
+
+    function isAnyRole(roles) {
+      return isSignedIn() && getUserData().role in roles;
+    }
+
+    function isStaff() {
+      return isAnyRole(['super_admin', 'admin', 'editor', 'reviewer', 'data_manager']);
+    }
+
+    function isVerifier() {
+      return isAnyRole(['super_admin', 'admin', 'reviewer']);
+    }
+
+    function isAdmin() {
+      return isAnyRole(['super_admin', 'admin']);
+    }
+
+    // Public Collections: Published and verified content can be read by anyone
+    match /species/{speciesId} {
+      allow read: if resource.data.isPublished == true || isStaff();
+      allow create: if isAnyRole(['super_admin', 'admin', 'editor', 'data_manager']);
+      allow update: if isStaff() && (
+        // Only verifiers can change status to verified or published
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['isVerified', 'isPublished', 'lifecycleStatus']))
+        || isVerifier()
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /taxa/{taxonId} {
+      allow read: if true;
+      allow write: if isAnyRole(['super_admin', 'admin', 'data_manager', 'editor']);
+    }
+
+    match /scientificNames/{nameId} {
+      allow read: if true;
+      allow write: if isAnyRole(['super_admin', 'admin', 'data_manager', 'editor']);
+    }
+
+    match /references/{refId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    match /identificationKeys/{keyId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    match /media/{mediaId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    // Editorial reviews and verification submissions
+    match /reviews/{reviewId} {
+      allow read: if isStaff();
+      allow create: if isStaff();
+      allow update: if isVerifier();
+      allow delete: if isAdmin();
+    }
+
+    // Audit logs: Append-only for staff only, readable only by admins.
+    // SECURITY: Requires isStaff() (not just isSignedIn) to create audit events.
+    // Public users cannot write fake audit events.
+    // update/delete is always false — immutable audit trail (client-side enforced).
+    // NOTE: True append-only immutability for delete requires Cloud Functions/Admin SDK.
+    // The current architecture cannot prevent admin-SDK or console deletion.
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isStaff(); // HARDENED: was isSignedIn() — now requires staff role
+      allow update, delete: if false; // Immutable audit trail (client-side enforcement)
+    }
+
+    // Users & Roles: Restricted to admins and owner
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if isSignedIn();
+      allow update: if isAdmin() || (request.auth.uid == userId && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'permissions']));
+      allow delete: if hasRole('super_admin');
+    }
+
+    match /roles/{roleId} {
+      allow read: if isSignedIn();
+      allow write: if hasRole('super_admin');
+    }
+
+    match /siteContent/{contentId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,280 @@
+    <!-- Display Cookie Consent Banner -->
+    <link rel="stylesheet" type="text/css" href="/css/cookie-consent.css">
+
+    <div id="cookie-consent-container" style="display:none;">
+        <div id="cookie-consent-banner">
+            <div class="cookie-consent-banner-item">
+                <p>
+                   This website uses cookies to enhance your browsing experience and ensure the functionality of our site. For more detailed information about the types of cookies we use and how we protect your privacy, please visit our <a href='../cookieMoreinfo.php' target='_blank'>Privacy Information</a> page.
+                </p>
+            </div>
+            <div class="cookie-consent-banner-item">
+                <button id="accept-all">Accept All</button>
+                <button id="accept-necessary">Accept Necessary Cookies Only</button>
+                <button id="cookie-settings">Cookie Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Cookie Settings Dialog -->
+    <div id="cookie-settings-dialog">
+        <span id="close-dialog">&times;</span>
+        <h3>Cookie Settings</h3>
+        <p>This website uses different types of cookies to enhance your experience. Please select your preferences below:</p>
+
+        <label>
+           <div class="cookie-categ">
+                <span>Strictly Necessary</span>
+                <label class="switch">
+
+                    <input type="checkbox" id="necessary-toggle" checked disabled>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <p>
+                These cookies are essential for the website to function properly. They include session cookies, which help maintain your session while you navigate the site, as well as cookies that remember your language preferences and other essential functionalities. Without these cookies, certain features of the website cannot be provided.
+            </p>
+        </label>
+
+        <label>
+            <div class="cookie-categ">
+                <span>Performance</span>
+                <label class="switch">
+                    <input type="checkbox" id="performance-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <p>
+                These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. For example, we use Google Analytics to generate web statistics, which helps us improve our website's performance and user experience. These cookies may track information such as the pages visited, time spent on the site, and any errors encountered.
+            </p>
+        </label>
+
+        <button id="save-close">Save and Close</button>
+    </div>
+    <script src='/libs/jquery/scripts/cookie.js'></script>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Order Summary for Pleuronectiformes </title>
+	<link rel="stylesheet" href="/fishbase.css" type="text/css">
+	<link rel="stylesheet" href="/css/printscreen.css" type="text/css" media="print">
+	<link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen">
+	<style type="text/css">
+		hr {
+			border: 0;
+			border-top: 1px dashed #cccccc;
+			width: 750px;
+		}
+		#ordtbl td:first-child {
+			padding-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<!-- navigational header -->
+	<div class="navsheader" id="top">
+				<div class="onethird lalign">
+					<a href="/search.php" alt="Go back to Search page">
+						<img src="/images/png/fb-nav.png" height="35"/>
+					</a>
+				</div>
+				<div class="onethird calign"><span class="babelctrl">			<script type="text/javascript">
+				function r( id ) {
+					var babelurl = document.getElementById( id ).value;
+					if ( babelurl )
+						top.location.href = babelurl;
+				}
+
+				window.addEventListener('pageshow', function (event) {
+				var select = document.getElementById('babelctrl');
+				if (select) {
+					for (var i = 0; i < select.options.length; i++) {
+						if (select.options[i].defaultSelected) {
+							select.selectedIndex = i;
+							break;
+						}
+					}
+				}
+			});
+			</script><label for="babelctrl">Language:&nbsp</label><select id="babelctrl" name="babelctrl" onchange="r(this.id);"><option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=bahasa">Bahasa Malay/Indonesian</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=bangla">Bangla</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=scchinese">Chinese (Simplified)</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=chinese">Chinese (Traditional)</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=german">Deutsch</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes" selected="selected">English</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=spanish">Espa�ol</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=farsi">Farsi</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=french">Fran�ais</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=greek">Greek</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=hindi">Hindi</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=italian">Italiano</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=laos">Lao</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=dutch">Nederlands</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=portuguese">Portugu�s (Br)</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=portuguese_po">Portugu�s (Pt)</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=russian">Russian</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=swedish">Swedish</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=thai">Thai</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=vietnamese">Vietnamese</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=japanese">Japanese</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=arabic">Arabic</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=turkish">Turkish</option>
+<option value="/Summary/OrdersSummary.php?order=Pleuronectiformes&lang=myanmar">Myanmar</option></select></span></div>
+				<div class="onethird ralign"><a href="/manual/English/ORDERS.htm" target="_blank">More info</a></div>
+			</div>
+
+	<div align="center">
+		<br>
+		<table width="750" border="0" cellspacing="0" cellpadding="0" class="noborderx" id="ordtbl">
+			<tr>
+				<td height="40" bgcolor="#99CCCC" colspan="8">
+					<div align="center" class="f_title"> Order Summary for Pleuronectiformes </div>
+				</td>
+			</tr>
+			<tr>
+				<td width="155" height="25" class="t_value1B"><div align="left">Main Ref </div></td>
+				<td width="14" class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">
+								<a href="/references/FBRefSummary.php?ID=7463" target="_blank">Nelson, J.S., 1994</a>
+								</div></td>
+			</tr>
+			<tr height="25" bgcolor="#E0EFED">
+				<td height="25" class="t_value1B"><div align="left">Order </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">Pleuronectiformes flatfishes</div></td>
+			</tr>
+			<tr>
+				<td height="25" class="t_value1B"><div align="left">Class </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">Teleostei</div></td>
+			</tr>
+			<tr height="25" bgcolor="#E0EFED">
+				<td height="25" class="t_value1B"><div align="left">Sister Order </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">Tetraodontiformes&nbsp;15&nbsp;M years</div></td>
+			</tr>
+			<tr>
+				<td height="25" class="t_value1B"><div align="left">Ref. </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">
+								<a href="/references/FBRefSummary.php?ID=30652" target="_blank">Carroll, R., 1988</a>
+								&nbsp;|&nbsp;
+								<a href="/references/FBRefSummary.php?ID=30649" target="_blank">Helfman, G., B. Collette and D. Facey, 1997</a>
+								</div></td>
+			</tr>
+			<tr height="25" bgcolor="#E0EFED">
+				<td height="25" class="t_value1B"><div align="left">First Fossil Record</div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">late Tertiary</div></td>
+			</tr>
+			<tr>
+				<td height="25" class="t_value1B"><div align="left">Occurs in  </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td width="26" class="t_value3"><div align="center">
+				<input type="checkbox" name="Marine" checked>
+				</div></td>
+				<td width="48" class="t_value3"><div align="left">Marine</div></td>
+				<td width="23" class="t_value3"><div align="center">
+				<input type="checkbox" name="Freshwater" checked>
+				</div></td>
+				<td width="50" class="t_value3"><div align="left">Fresh</div></td>
+				<td width="21" class="t_value3"><div align="center">
+				<input type="checkbox" name="Brackish" checked>
+				</div></td>
+				<td width="413" class="t_value3"><div align="left">Brackish</div></td>
+			</tr>
+			<tr valign="top" bgcolor="#E0EFED">
+				<td height="25" class="t_value1B"><div align="left">Remark </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="justify">Adults not bilaterally symmetrical, with one eye migrating to the other side of the cranium; dorsal and anal fins with long bases, dorsal fin base overlapping at least the neurocranium except in <i>Psettodes</i>; body highly compressed, somewhat rounded on eyed side and flat on blind side; eyes can protrude above body surface allowing fish to see when buried in the substrate; usually six or seven branchiostegal rays, rarely eight; body cavity small; adults almost always without swim bladder; scales cycloid, ctenoid, or tuberculate.
+About four species probably occur in freshwater, while another 20 species that are normally marine occasionally enter freshwater.</div></td>
+			</tr>
+			<tr>
+				<td height="25" class="t_value1B"><div align="left">Class etymology </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">Greek aktis = ray, thunderbolt, beam + Greek pterygion, diminutive of pteryx = wing, fin. Ref. 45335.</div></td>
+			</tr>
+			<tr bgcolor="#E0EFED">
+				<td height="25" class="t_value1B"><div align="left">Order etymology </div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">Greek, pleura = similar, ribe, side + Greek, nektos = to swim + Latin, forma = shape. 1849 (Ref. 45335).</div></td>
+			</tr>
+			<tr valign="top">
+				<td height="25" class="t_value1B"><div align="left">Families</div></td>
+				<td class="f_title"><div align="center">:</div></td>
+				<td colspan="6" class="t_value3"><div align="left">( n = 16 )<br>
+								<a href="FamilySummary.php?ID=516">Achiridae</a>
+								<a href="FamilySummary.php?ID=523">Achiropsettidae</a>
+								<a href="FamilySummary.php?ID=439">Bothidae</a>
+								<a href="FamilySummary.php?ID=438">Citharidae</a>
+								<a href="FamilySummary.php?ID=728">Cyclopsettidae</a>
+								<a href="FamilySummary.php?ID=442">Cynoglossidae</a>
+								<a href="FamilySummary.php?ID=815">Grammatobothidae</a>
+								<a href="FamilySummary.php?ID=816">Monolenidae</a>
+								<a href="FamilySummary.php?ID=730">Oncopteridae</a>
+								<a href="FamilySummary.php?ID=678">Paralichthodidae</a>
+								<a href="FamilySummary.php?ID=514">Paralichthyidae</a>
+								<a href="FamilySummary.php?ID=440">Pleuronectidae</a>
+								<a href="FamilySummary.php?ID=670">Poecilopsettidae</a>
+								<a href="FamilySummary.php?ID=437">Psettodidae</a>
+								<a href="FamilySummary.php?ID=704">Rhombosoleidae</a>
+								<a href="FamilySummary.php?ID=589">Samaridae</a>
+								<a href="FamilySummary.php?ID=515">Scophthalmidae</a>
+								<a href="FamilySummary.php?ID=441">Soleidae</a>
+								<a href="FamilySummary.php?ID=814">Taeniopsettidae</a>
+								</div></td>
+			</tr>
+		</table>
+		<hr>
+		<table width="750" border="0" cellspacing="0" cellpadding="0" class="noborderx">
+			<tr>
+				<td><div align="center" class="t_value4">
+									<a href="../keys/KeysList.php?ordnum=61">Identification keys</a> |
+								<a href="http://tolweb.org/tree?group=Teleostei">Tree of Life</a>
+				</div></td>
+			</tr>
+		</table>
+		<hr>
+		<table width="750" border="0" cellspacing="1" cellpadding="1" class="noborderx">
+			<tr>
+				<td width="375" class="t_value3"><div align="right">
+					<form action="../references/FBRefSummary.php" method="get" target="_blank">
+					<span class="t_value1B">Ref.</span>
+					<input type="Text" name="id" size="8" class="t_value3">
+					<input type="Submit" value="Search" class="t_value4">
+					<br>
+					<span class="t_value2">[ e.g. 9948 ]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+					</form>
+					</div>
+				</td>
+				<td width="375" class="t_value3"><div align="left">
+					<form method="get" action="../glossary/Glossary.php">
+					<span class="t_value1B">Glossary</span>
+					<input type="text" name="q" size="15" class="t_value3">
+					<input type="submit" value="Search"  class="t_value4">
+					<br>
+					<span class="t_value2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[ e.g. oophagy ]</span>
+					</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<hr>
+	</div>
+		<div class="sfooter">
+						<div class="onethird lalign"><a href="/search.php">Back to Search</a></div>
+						<div class="onethird calign"></div>
+						<div class="onethird ralign">
+	<form name='mailx' method='post' action='https://fishbase.ca/mail/MailForm.php'>
+		<input type='hidden' name='code' value='1'>
+		<input type='hidden' name='pagefrom' value='http://www.fishbase.se/Summary/OrdersSummary.php?order=Pleuronectiformes - Stockholm, Sweden'>
+		<a href='javascript:document.mailx.submit()'>Comments & Corrections</a>
+	</form>
+	</div>
+					</div></body>
+</html>

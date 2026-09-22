@@ -1,0 +1,377 @@
+{
+  "source": "Eschmeyer's Catalog of Fishes, California Academy of Sciences",
+  "retrievedDate": "2026-09-14T08:07:06.507Z",
+  "classes": [
+    "Myxini",
+    "Petromyzonti",
+    "Elasmobranchii",
+    "Holocephali",
+    "Cladistii",
+    "Actinopteri",
+    "Actinistia",
+    "Dipnoi"
+  ],
+  "orders": [
+    {
+      "class": "Myxini",
+      "order": "Myxiniformes",
+      "anchor": "Myxiniformes"
+    },
+    {
+      "class": "Petromyzonti",
+      "order": "Petromyzontiformes",
+      "anchor": "Petromyzontiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Hexanchiformes",
+      "anchor": "Hexanchiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Heterodontiformes",
+      "anchor": "Heterodontiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Orectolobiformes",
+      "anchor": "Orectolobiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Lamniformes",
+      "anchor": "Lamniformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Carcharhiniformes",
+      "anchor": "Carcharhiniformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Squaliformes",
+      "anchor": "Squaliformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Echinorhiniformes",
+      "anchor": "Echinorhiniformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Pristiophoriformes",
+      "anchor": "Pristiophoriformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Squatiniformes",
+      "anchor": "Squatiniformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Torpediniformes",
+      "anchor": "Torpediniformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Rhinopristiformes",
+      "anchor": "Rhinopristiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Rajiformes",
+      "anchor": "Rajiformes"
+    },
+    {
+      "class": "Elasmobranchii",
+      "order": "Myliobatiformes",
+      "anchor": "Myliobatiformes"
+    },
+    {
+      "class": "Holocephali",
+      "order": "Chimaeriformes",
+      "anchor": "Chimaeriformes"
+    },
+    {
+      "class": "Cladistii",
+      "order": "Polypteriformes",
+      "anchor": "Polypteriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Acipenseriformes",
+      "anchor": "Acipenseriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Amiiformes",
+      "anchor": "Amiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Lepisosteiformes",
+      "anchor": "Lepisosteiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Hiodontiformes",
+      "anchor": "Hiodontiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Osteoglossiformes",
+      "anchor": "Osteoglossiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Elopiformes",
+      "anchor": "Elopiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Albuliformes",
+      "anchor": "Albuliformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Notacanthiformes",
+      "anchor": "Notacanthiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Anguilliformes",
+      "anchor": "Anguilliformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Clupeiformes",
+      "anchor": "Clupeiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Alepocephaliformes",
+      "anchor": "Alepocephaliformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Gonorynchiformes",
+      "anchor": "Gonorynchiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Cypriniformes",
+      "anchor": "Cypriniformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Gymnotiformes",
+      "anchor": "Gymnotiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Characiformes",
+      "anchor": "Characiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Siluriformes",
+      "anchor": "Siluriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Lepidogalaxiiformes",
+      "anchor": "Lepidogalaxiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Argentiniformes",
+      "anchor": "Argentiniformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Salmoniformes",
+      "anchor": "Salmoniformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Galaxiiformes",
+      "anchor": "Galaxiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Osmeriformes",
+      "anchor": "Osmeriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Stomiiformes",
+      "anchor": "Stomiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Ateleopodiformes",
+      "anchor": "Ateleopodiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Aulopiformes",
+      "anchor": "Aulopiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Myctophiformes",
+      "anchor": "Myctophiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Lampriformes",
+      "anchor": "Lampriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Polymixiiformes",
+      "anchor": "Polymixiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Percopsiformes",
+      "anchor": "Percopsiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Zeiformes",
+      "anchor": "Zeiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Gadiformes",
+      "anchor": "Gadiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Trachichthyiformes",
+      "anchor": "Trachichthyiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Beryciformes",
+      "anchor": "Beryciformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Ophidiiformes",
+      "anchor": "Ophidiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Batrachoidiformes",
+      "anchor": "Batrachoidiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Gobiiformes",
+      "anchor": "Gobiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Syngnathiformes",
+      "anchor": "Syngnathiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Scombriformes",
+      "anchor": "Scombriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Synbranchiformes",
+      "anchor": "Synbranchiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Anabantiformes",
+      "anchor": "Anabantiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Carangiformes",
+      "anchor": "Carangiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Atheriniformes",
+      "anchor": "Atheriniformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Beloniformes",
+      "anchor": "Beloniformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Cyprinodontiformes",
+      "anchor": "Cyprinodontiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Cichliformes",
+      "anchor": "Cichliformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Mugiliformes",
+      "anchor": "Mugiliformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Blenniiformes",
+      "anchor": "Blenniiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Perciformes",
+      "anchor": "Perciformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Centrarchiformes",
+      "anchor": "Centrarchiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Labriformes",
+      "anchor": "Labriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Acropomatiformes",
+      "anchor": "Acropomatiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Acanthuriformes",
+      "anchor": "Acanthuriformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Lophiiformes",
+      "anchor": "Lophiiformes"
+    },
+    {
+      "class": "Actinopteri",
+      "order": "Tetraodontiformes",
+      "anchor": "Tetraodontiformes"
+    },
+    {
+      "class": "Actinistia",
+      "order": "Coelacanthiformes",
+      "anchor": "Coelacanthiformes"
+    },
+    {
+      "class": "Dipnoi",
+      "order": "Ceratodontiformes",
+      "anchor": "Ceratodontiformes"
+    }
+  ],
+  "familiesCount": 624
+}

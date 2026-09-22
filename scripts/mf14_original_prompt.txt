@@ -1,0 +1,148 @@
+<USER_REQUEST>
+MASTER-FIX-14 — GLOBAL TAXONOMIC DEPTH, FAMILY → GENUS → SPECIES EXPANSION & CANONICAL SPECIES DATA
+
+PROJECT:
+BiotaElite 2.0
+Path:
+C:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2
+
+LOCAL SERVER:
+http://localhost:2021/
+
+IMPORTANT:
+This is a continuation task.
+DO NOT restart the project.
+DO NOT redesign unrelated UI.
+DO NOT undo or weaken any previous Master-Fix.
+
+First inspect the current implementation and preserve all valid work from MASTER-FIX-01 through MASTER-FIX-13.
+
+==================================================
+PRIMARY OBJECTIVE
+==================================================
+
+Expand BiotaElite from a shallow representative taxonomy dataset into a significantly deeper GLOBAL zoological knowledge dataset.
+
+The target architecture is:
+
+Kingdom
+→ Major Group / Phylum
+→ Class / Subclass / other applicable intermediate ranks
+→ Order
+→ Family
+→ Genus
+→ Species
+
+Use source-driven taxonomy.
+
+Do NOT force a fixed hierarchy where authoritative sources use different ranks.
+
+The result must remain a:
+
+"Curated Global Representative Zoological Dataset"
+
+NOT a claim that BiotaElite contains every species on Earth.
+
+==================================================
+1. GLOBAL SCOPE — NON-NEGOTIABLE
+==================================================
+
+The following remain GLOBAL:
+
+- Taxonomy
+- Scientific Name Index
+- Synonym Index
+- Species Catalogue
+- Identification Keys
+- Fishes
+- Marine Life
+- Taxonomy Hub
+
+Bangladesh remains a REGIONAL EXTENSION only.
+
+Never make Bangladesh occurrence a prerequisite for a global species record.
+
+Global species must remain accessible even when:
+
+bangladeshOccurrence.present === false
+
+Never show misleading messages such as:
+
+"0 species worldwide"
+
+when the actual meaning is:
+
+"0 Bangladesh records"
+
+Keep Bangladesh occurrence as a separate regional context.
+
+==================================================
+2. EXPAND TAXONOMIC DEPTH
+==================================================
+
+Audit the existing 409+ taxonomy nodes.
+
+Identify 
+<truncated 13375 bytes>
+local file inspection
+- browser verification
+
+Reuse the existing terminal/session where practical.
+
+However:
+
+Never bypass OS/IDE security.
+
+Never approve destructive/system-wide commands.
+
+Never expose credentials.
+
+==================================================
+FINAL STOP CONDITION
+==================================================
+
+Execute the work now.
+
+Do NOT merely describe a plan.
+
+Do NOT stop after creating scripts.
+
+Actually update the project data and implementation.
+
+Run all required tests.
+
+Run TypeScript, lint and production build.
+
+Run browser/CDP verification.
+
+Then provide a concise final report containing:
+
+1. Exact dataset expansion
+2. Taxonomy depth achieved
+3. Species added
+4. Families/genera/orders added
+5. Verified image count
+6. Provenance status
+7. Global/Bangladesh integrity
+8. Test results
+9. Browser verification
+10. Any scientifically unresolved issues
+
+STOP after MASTER-FIX-14.
+
+Do not start another feature after reporting completion.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-15T12:28:10+06:00.
+
+The user's current state is as follows:
+Other open documents:
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\pages\public\MarinePage.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\components\knowledge\TaxonKnowledgeDetail.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\i18n\translations.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\src\components\auth\RequireAuth.tsx (LANGUAGE_TSX)
+- c:\Users\UESR\.gemini\antigravity-ide\scratch\biota-elite-2\scripts\apply_complete_taxonomy.cjs (LANGUAGE_JAVASCRIPT)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.8 Flash (High) to Gemini 3.8 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
