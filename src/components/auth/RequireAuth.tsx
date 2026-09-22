@@ -23,7 +23,7 @@ import type { UserRole } from '../../types/auth';
 
 // Role hierarchy — used to check minimum role requirement.
 // Higher index = higher privilege.
-const ROLE_HIERARCHY: UserRole[] = [
+export const ROLE_HIERARCHY: UserRole[] = [
   'public_user',
   'data_manager',
   'editor',
@@ -32,7 +32,7 @@ const ROLE_HIERARCHY: UserRole[] = [
   'super_admin',
 ];
 
-function hasMinimumRole(currentRole: UserRole, minimumRole: UserRole): boolean {
+export function hasMinimumRole(currentRole: UserRole, minimumRole: UserRole): boolean {
   const currentIdx = ROLE_HIERARCHY.indexOf(currentRole);
   const minimumIdx = ROLE_HIERARCHY.indexOf(minimumRole);
   if (currentIdx === -1 || minimumIdx === -1) return false;

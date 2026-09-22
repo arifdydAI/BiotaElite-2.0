@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
-import { Search, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { Search, ShieldCheck } from 'lucide-react';
+import { hasMinimumRole } from '../auth/RequireAuth';
 
 export const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const { role, isAuthenticated } = useAuth();
   const [quickQuery, setQuickQuery] = useState('');
   const navigate = useNavigate();
+
+  const isAuthorizedAdmin = isAuthenticated && hasMinimumRole(role, 'admin');
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,8 +82,8 @@ export const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Admin Navigation & Role Badge */}
-          {isAuthenticated ? (
+          {/* Admin Navigation & Role Badge — Visible ONLY to authenticated authorized admins */}
+          {isAuthorizedAdmin && (
             <Link
               to="/admin"
               className="btn btn-sm"
@@ -93,11 +96,6 @@ export const Header: React.FC = () => {
             >
               <ShieldCheck size={14} />
               <span>Admin ({role.replace('_', ' ')})</span>
-            </Link>
-          ) : (
-            <Link to="/login" className="btn btn-secondary btn-sm" style={{ gap: '0.35rem' }}>
-              <ShieldAlert size={14} />
-              <span>{t('nav.admin')}</span>
             </Link>
           )}
         </div>
