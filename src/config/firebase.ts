@@ -1,8 +1,8 @@
 // BiotaElite 2.0 Firebase Architecture & Initialization
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
+import { getAuth, type Auth } from 'firebase/auth';
+import { getFirestore, type Firestore } from 'firebase/firestore';
+import { getStorage, type FirebaseStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'demo-api-key',
@@ -13,15 +13,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:123456789012:web:demoapp',
 };
 
-// Initialize Firebase App
-export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-
-// Firebase Services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-
-// Check if active credentials exist
+// Check if active credentials exist — must be computed before initializeApp.
 export const isLiveFirebaseConfigured = Boolean(
   import.meta.env.VITE_FIREBASE_API_KEY && 
   import.meta.env.VITE_FIREBASE_PROJECT_ID &&
@@ -30,3 +22,15 @@ export const isLiveFirebaseConfigured = Boolean(
 
 export const shouldUseLocalFallback = 
   import.meta.env.VITE_USE_LOCAL_FALLBACK === 'true' || !isLiveFirebaseConfigured;
+
+// Initialize Firebase App (always needed for SDK internals even in fallback mode).
+export const app: FirebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
+// Firebase Services — only instantiated when live credentials are present.
+// When running in local fallback mode (no real credentials), these are null.
+// This prevents the Firebase SDK from attempting network handshakes to
+// googleapis.com on startup, which would timeout on slow cellular connections.
+export const auth: Auth | null = isLiveFirebaseConfigured ? getAuth(app) : null;
+export const db: Firestore | null = isLiveFirebaseConfigured ? getFirestore(app) : null;
+export const storage: FirebaseStorage | null = isLiveFirebaseConfigured ? getStorage(app) : null;
+

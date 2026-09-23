@@ -15,8 +15,19 @@ export default defineConfig({
   },
   build: {
     modulePreload: {
+      // Exclude all large data chunks from eager modulepreload injection.
+      // These are lazily loaded on-demand when the user navigates to the
+      // relevant page, so there is no benefit to preloading them on startup.
+      // Removing them from the initial HTML reduces startup bandwidth by
+      // ~268 kB gzip (data-species + data-taxa alone) on every page load.
       resolveDependencies(_filename, deps) {
-        return deps.filter(dep => !dep.includes('data-ident-keys') && !dep.includes('data-taxon-knowledge'));
+        return deps.filter(dep =>
+          !dep.includes('data-ident-keys') &&
+          !dep.includes('data-taxon-knowledge') &&
+          !dep.includes('data-species') &&
+          !dep.includes('data-taxa') &&
+          !dep.includes('data-core-zoology')
+        );
       },
     },
     rollupOptions: {
