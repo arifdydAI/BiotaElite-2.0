@@ -344,8 +344,24 @@ span.scientific-name,
   }
 
   .nav-links-scroll {
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: visible;
     flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+
+  .nav-links-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-section {
+    display: contents;
+  }
+
+  .nav-dropdown-btn-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .nav-dropdown-menu,
@@ -383,12 +399,99 @@ span.scientific-name,
   }
 }
 
-/* Mobile Navigation Architecture (< 768px) */
-@media (max-width: 767px) {
+/* Medium Desktop Viewports (768px - 1440px) */
+@media (min-width: 768px) and (max-width: 1440px) {
   .nav-links-scroll {
+    gap: 0.2rem;
+    padding: 0.35rem 0.65rem;
+  }
+
+  .nav-link,
+  .nav-dropdown-btn {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.8125rem;
+    gap: 0.3rem;
+  }
+}
+
+/* Mobile Header & Navigation Architecture (< 768px) */
+@media (max-width: 767px) {
+  .header-top {
     flex-wrap: wrap;
     padding: 0.5rem 0.75rem;
-    gap: 0.35rem;
+    gap: 0.5rem;
+  }
+
+  .header-top form {
+    order: 3;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0.25rem 0 0 0 !important;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .brand-logo-img {
+    height: 36px;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .nav-links-scroll {
+    display: flex;
+    flex-direction: column;
+    padding: 0.6rem 0.75rem;
+    gap: 0.25rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .nav-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+  }
+
+  .nav-section-primary {
+    gap: 0.25rem;
+  }
+
+  .nav-section-grouped {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 0.25rem;
+  }
+
+  .nav-section-about {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.875rem;
+    border-radius: var(--radius-md);
+    box-sizing: border-box;
+    justify-content: flex-start;
+    text-align: left;
+    min-height: 42px;
   }
 
   .nav-dropdown {
@@ -398,22 +501,55 @@ span.scientific-name,
 
   .nav-dropdown-btn {
     width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.875rem;
+    border-radius: var(--radius-md);
+    box-sizing: border-box;
+    min-height: 42px;
+  }
+
+  .nav-dropdown-btn-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .nav-dropdown-chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--text-muted);
   }
 
   .nav-dropdown-menu {
     position: static;
-    width: 100%;
-    margin-top: 0.35rem;
-    margin-bottom: 0.35rem;
-    background: rgba(15, 25, 29, 0.95);
+    width: auto;
+    margin: 0.35rem 0 0.35rem 0.5rem;
+    background: rgba(15, 25, 29, 0.8);
     border: 1px solid var(--border-accent);
-    border-radius: var(--radius-md);
+    border-left: 2px solid var(--accent-emerald);
+    border-radius: var(--radius-sm);
     padding: 0.35rem;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.25rem;
     z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  .nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.825rem;
+    min-height: 38px;
+    box-sizing: border-box;
   }
 }
 
@@ -695,6 +831,8 @@ span.scientific-name,
   background: var(--bg-surface);
   padding: 3rem 1.25rem 2rem;
   margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footer-content {
@@ -703,17 +841,37 @@ span.scientific-name,
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
   gap: 2.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-footer {
+    padding: 1.75rem 1rem 1.25rem;
+  }
+
+  .footer-bottom {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 600px) {
   .footer-content {
     grid-template-columns: 1fr;
+    gap: 1.35rem;
   }
 }
 
@@ -727,6 +885,8 @@ span.scientific-name,
   align-items: center;
   font-size: 0.8rem;
   color: var(--text-muted);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Back Button Component Styling */

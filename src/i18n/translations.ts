@@ -36,6 +36,16 @@ export const TRANSLATIONS: TranslationDictionary = {
   'nav.searchPlaceholder': { en: 'Search scientific name, common name, or family...', bn: 'বৈজ্ঞানিক নাম, সাধারণ নাম বা গোত্র খুঁজুন...' },
   'nav.quickSearch': { en: 'Search', bn: 'অনুসন্ধান' },
 
+  // Footer & Authoritative Sources
+  'footer.authorities': { 
+    en: 'Taxonomic classifications, species authorities, and conservation assessments aligned with global peer-reviewed biodiversity standards.', 
+    bn: 'শ্রেণীবিন্যাস, প্রজাতির স্বীকৃতি ও সংরক্ষণ অবস্থা বৈশ্বিক স্বীকৃত জীববিজ্ঞান ডাটাবেসের সাথে সমন্বিত।' 
+  },
+  'footer.rights': { 
+    en: 'All rights reserved.', 
+    bn: 'সর্বস্বত্ব সংরক্ষিত।' 
+  },
+
   // Common UI Actions & Buttons
   'common.back': { en: 'Back', bn: 'ফিরে যান' },
   'common.backToCatalog': { en: 'Back to Species Catalog', bn: 'প্রজাতি ক্যাটালগে ফিরে যান' },

@@ -91,6 +91,19 @@ try {
   assert(false, `Navigation.tsx audit error: ${e.message}`);
 }
 
+// 4. Audit Footer.tsx for conditional rendering
+try {
+  const footerPath = path.join(rootDir, 'src/components/common/Footer.tsx');
+  const footerContent = fs.readFileSync(footerPath, 'utf8');
+
+  assert(footerContent.includes("isAuthorizedAdmin"), 'Footer calculates isAuthorizedAdmin from auth context');
+  assert(footerContent.includes("hasMinimumRole(role, 'admin')"), 'Footer uses canonical hasMinimumRole check');
+  assert(footerContent.includes("{isAuthorizedAdmin && ("), 'Admin link in Footer is strictly conditioned on isAuthorizedAdmin');
+  assert(!footerContent.includes("to=\"/login\""), 'Footer does NOT contain hardcoded login link');
+} catch (e) {
+  assert(false, `Footer.tsx audit error: ${e.message}`);
+}
+
 console.log('\n================================================================');
 console.log(`TOTAL: ${passed} passed, ${failed} failed`);
 console.log('================================================================\n');

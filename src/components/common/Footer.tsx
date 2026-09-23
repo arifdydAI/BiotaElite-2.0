@@ -1,11 +1,15 @@
-// BiotaElite 2.0 Scientific Footer Component
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import { useAuth } from '../../context/AuthContext';
 import { Compass, ShieldCheck, ExternalLink } from 'lucide-react';
+import { hasMinimumRole } from '../auth/RequireAuth';
 
 export const Footer: React.FC = () => {
   const { t, language } = useLanguage();
+  const { role, isAuthenticated } = useAuth();
+
+  const isAuthorizedAdmin = isAuthenticated && hasMinimumRole(role, 'admin');
 
   return (
     <footer className="site-footer">
@@ -60,7 +64,14 @@ export const Footer: React.FC = () => {
             <li><Link to="/identification" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{t('nav.identification')}</Link></li>
             <li><Link to="/references" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{t('nav.references')}</Link></li>
             <li><Link to="/about" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{t('nav.about')}</Link></li>
-            <li><Link to="/admin" style={{ color: 'var(--accent-emerald-light)', textDecoration: 'none' }}>{t('nav.admin')}</Link></li>
+            {isAuthorizedAdmin && (
+              <li>
+                <Link to="/admin" style={{ color: 'var(--accent-emerald-light)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <ShieldCheck size={13} />
+                  <span>{t('nav.admin')}</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -70,7 +81,7 @@ export const Footer: React.FC = () => {
             {language === 'bn' ? 'স্বীকৃত তথ্যসূত্র' : 'Authoritative Sources'}
           </h4>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.75rem', lineHeight: '1.5' }}>
-            {t('footer.authorities')}
+            {t('footer.authorities', 'Taxonomic classifications, species authorities, and conservation assessments aligned with global peer-reviewed biodiversity standards.')}
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.75rem' }}>
             <a href="https://www.fishbase.se" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-marine-light)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
@@ -87,7 +98,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} BiotaElite 2.0 Zoological Information System. {t('footer.rights')}</span>
+        <span>© {new Date().getFullYear()} BiotaElite 2.0 Zoological Information System. {t('footer.rights', 'All rights reserved.')}</span>
         <span>Build MASTER-BUILD-02A • Audited & Reconciled Dataset</span>
       </div>
     </footer>

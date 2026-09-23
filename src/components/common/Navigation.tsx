@@ -330,146 +330,161 @@ export const Navigation: React.FC = () => {
   return (
     <nav className="nav-container" ref={navRef} aria-label="Main Navigation">
       <div className="nav-links-scroll">
-        {/* 1. Species Catalog */}
-        <NavLink
-          to="/species"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <Grid size={15} />
-          <span>{t('nav.species')}</span>
-        </NavLink>
-
-        {/* 2. Fish Biodiversity */}
-        <NavLink
-          to="/fish"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <Fish size={15} />
-          <span>{t('nav.fish')}</span>
-        </NavLink>
-
-        {/* 3. Marine Life */}
-        <NavLink
-          to="/marine"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <Waves size={15} />
-          <span>{t('nav.marine')}</span>
-        </NavLink>
-
-        {/* 4. Bangladesh Biodiversity */}
-        <NavLink
-          to="/bangladesh"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <MapPin size={15} />
-          <span>{t('nav.bangladesh')}</span>
-        </NavLink>
-
-        {/* 5. Taxonomy */}
-        <NavLink
-          to="/taxonomy"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <Layers size={15} />
-          <span>{t('nav.taxonomy')}</span>
-        </NavLink>
-
-        {/* 6. CORE ZOOLOGY DROPDOWN */}
-        <div 
-          className="nav-dropdown"
-          onMouseEnter={() => handleMouseEnter('zoology')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <button
-            ref={zoologyTriggerRef}
-            onClick={(e) => handleToggle('zoology', e)}
-            className={`nav-dropdown-btn ${isZoologyActive ? 'active' : ''}`}
-            aria-expanded={openDropdown === 'zoology'}
-            aria-haspopup="true"
+        {/* Primary Zoological Portals */}
+        <div className="nav-section nav-section-primary">
+          {/* 1. Species Catalog */}
+          <NavLink
+            to="/species"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
           >
-            <Sparkles size={15} className={isZoologyActive ? 'text-accent' : ''} />
-            <span>{t('nav.coreZoology')}</span>
-            <ChevronDown 
-              size={13} 
-              className={`nav-dropdown-chevron ${openDropdown === 'zoology' ? 'open' : ''}`} 
-            />
-          </button>
+            <Grid size={15} />
+            <span>{t('nav.species')}</span>
+          </NavLink>
 
-          {/* Mobile In-flow Submenu */}
-          {isMobile && openDropdown === 'zoology' && (
-            <div className="nav-dropdown-menu" role="menu" aria-label="Core Zoology submenu">
-              {renderZoologySubmenu()}
-            </div>
-          )}
+          {/* 2. Fish Biodiversity */}
+          <NavLink
+            to="/fish"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            <Fish size={15} />
+            <span>{t('nav.fish')}</span>
+          </NavLink>
+
+          {/* 3. Marine Life */}
+          <NavLink
+            to="/marine"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            <Waves size={15} />
+            <span>{t('nav.marine')}</span>
+          </NavLink>
+
+          {/* 4. Bangladesh Biodiversity */}
+          <NavLink
+            to="/bangladesh"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            <MapPin size={15} />
+            <span>{t('nav.bangladesh')}</span>
+          </NavLink>
+
+          {/* 5. Taxonomy */}
+          <NavLink
+            to="/taxonomy"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            <Layers size={15} />
+            <span>{t('nav.taxonomy')}</span>
+          </NavLink>
         </div>
 
-        {/* 7. IDENTIFICATION DROPDOWN */}
-        <div 
-          className="nav-dropdown"
-          onMouseEnter={() => handleMouseEnter('ident')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <button
-            ref={identTriggerRef}
-            onClick={(e) => handleToggle('ident', e)}
-            className={`nav-dropdown-btn ${isIdentActive ? 'active' : ''}`}
-            aria-expanded={openDropdown === 'ident'}
-            aria-haspopup="true"
+        {/* Grouped Navigation Modules (Accordions) */}
+        <div className="nav-section nav-section-grouped">
+          {/* 6. CORE ZOOLOGY DROPDOWN */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => handleMouseEnter('zoology')}
+            onMouseLeave={handleMouseLeave}
           >
-            <KeyRound size={15} className={isIdentActive ? 'text-accent' : ''} />
-            <span>{t('nav.identification')}</span>
-            <ChevronDown 
-              size={13} 
-              className={`nav-dropdown-chevron ${openDropdown === 'ident' ? 'open' : ''}`} 
-            />
-          </button>
+            <button
+              ref={zoologyTriggerRef}
+              onClick={(e) => handleToggle('zoology', e)}
+              className={`nav-dropdown-btn ${isZoologyActive ? 'active' : ''}`}
+              aria-expanded={openDropdown === 'zoology'}
+              aria-haspopup="true"
+            >
+              <span className="nav-dropdown-btn-content">
+                <Sparkles size={15} className={isZoologyActive ? 'text-accent' : ''} />
+                <span>{t('nav.coreZoology')}</span>
+              </span>
+              <ChevronDown 
+                size={13} 
+                className={`nav-dropdown-chevron ${openDropdown === 'zoology' ? 'open' : ''}`} 
+              />
+            </button>
 
-          {/* Mobile In-flow Submenu */}
-          {isMobile && openDropdown === 'ident' && (
-            <div className="nav-dropdown-menu" role="menu" aria-label="Identification submenu">
-              {renderIdentSubmenu()}
-            </div>
-          )}
+            {/* Mobile In-flow Submenu */}
+            {isMobile && openDropdown === 'zoology' && (
+              <div className="nav-dropdown-menu" role="menu" aria-label="Core Zoology submenu">
+                {renderZoologySubmenu()}
+              </div>
+            )}
+          </div>
+
+          {/* 7. IDENTIFICATION DROPDOWN */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => handleMouseEnter('ident')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button
+              ref={identTriggerRef}
+              onClick={(e) => handleToggle('ident', e)}
+              className={`nav-dropdown-btn ${isIdentActive ? 'active' : ''}`}
+              aria-expanded={openDropdown === 'ident'}
+              aria-haspopup="true"
+            >
+              <span className="nav-dropdown-btn-content">
+                <KeyRound size={15} className={isIdentActive ? 'text-accent' : ''} />
+                <span>{t('nav.identification')}</span>
+              </span>
+              <ChevronDown 
+                size={13} 
+                className={`nav-dropdown-chevron ${openDropdown === 'ident' ? 'open' : ''}`} 
+              />
+            </button>
+
+            {/* Mobile In-flow Submenu */}
+            {isMobile && openDropdown === 'ident' && (
+              <div className="nav-dropdown-menu" role="menu" aria-label="Identification submenu">
+                {renderIdentSubmenu()}
+              </div>
+            )}
+          </div>
+
+          {/* 8. MORE DROPDOWN */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => handleMouseEnter('more')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button
+              ref={moreTriggerRef}
+              onClick={(e) => handleToggle('more', e)}
+              className={`nav-dropdown-btn ${isMoreActive ? 'active' : ''}`}
+              aria-expanded={openDropdown === 'more'}
+              aria-haspopup="true"
+            >
+              <span className="nav-dropdown-btn-content">
+                <MoreHorizontal size={15} className={isMoreActive ? 'text-accent' : ''} />
+                <span>{t('nav.more')}</span>
+              </span>
+              <ChevronDown 
+                size={13} 
+                className={`nav-dropdown-chevron ${openDropdown === 'more' ? 'open' : ''}`} 
+              />
+            </button>
+
+            {/* Mobile In-flow Submenu */}
+            {isMobile && openDropdown === 'more' && (
+              <div className="nav-dropdown-menu" role="menu" aria-label="More resources submenu">
+                {renderMoreSubmenu()}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* 8. MORE DROPDOWN */}
-        <div 
-          className="nav-dropdown"
-          onMouseEnter={() => handleMouseEnter('more')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <button
-            ref={moreTriggerRef}
-            onClick={(e) => handleToggle('more', e)}
-            className={`nav-dropdown-btn ${isMoreActive ? 'active' : ''}`}
-            aria-expanded={openDropdown === 'more'}
-            aria-haspopup="true"
+        {/* Utility / About Section */}
+        <div className="nav-section nav-section-about">
+          {/* 9. About */}
+          <NavLink
+            to="/about"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
           >
-            <MoreHorizontal size={15} className={isMoreActive ? 'text-accent' : ''} />
-            <span>{t('nav.more')}</span>
-            <ChevronDown 
-              size={13} 
-              className={`nav-dropdown-chevron ${openDropdown === 'more' ? 'open' : ''}`} 
-            />
-          </button>
-
-          {/* Mobile In-flow Submenu */}
-          {isMobile && openDropdown === 'more' && (
-            <div className="nav-dropdown-menu" role="menu" aria-label="More resources submenu">
-              {renderMoreSubmenu()}
-            </div>
-          )}
+            <Info size={15} />
+            <span>{t('nav.about')}</span>
+          </NavLink>
         </div>
-
-        {/* 9. About */}
-        <NavLink
-          to="/about"
-          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-        >
-          <Info size={15} />
-          <span>{t('nav.about')}</span>
-        </NavLink>
       </div>
 
       {/* Desktop Floating Dropdown Rendered via React Portal to document.body */}
