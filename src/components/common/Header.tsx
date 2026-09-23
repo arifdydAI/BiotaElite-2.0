@@ -1,12 +1,16 @@
-// BiotaElite 2.0 Scientific Header Component
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
-import { Search, ShieldCheck } from 'lucide-react';
+import { Search, ShieldCheck, Menu, X } from 'lucide-react';
 import { hasMinimumRole } from '../auth/RequireAuth';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  isNavOpen?: boolean;
+  onToggleNav?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ isNavOpen = false, onToggleNav }) => {
   const { language, setLanguage, t } = useLanguage();
   const { role, isAuthenticated } = useAuth();
   const [quickQuery, setQuickQuery] = useState('');
@@ -98,6 +102,18 @@ export const Header: React.FC = () => {
               <span>Admin ({role.replace('_', ' ')})</span>
             </Link>
           )}
+
+          {/* Mobile Hamburger Button (< 768px) */}
+          <button
+            type="button"
+            className="btn-hamburger mobile-only"
+            onClick={onToggleNav}
+            aria-label={isNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isNavOpen}
+            aria-controls="mobile-nav-panel"
+          >
+            {isNavOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </div>
     </header>

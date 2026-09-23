@@ -31,7 +31,12 @@ interface MenuPosition {
   minWidth: number;
 }
 
-export const Navigation: React.FC = () => {
+interface NavigationProps {
+  isNavOpen?: boolean;
+  onCloseNav?: () => void;
+}
+
+export const Navigation: React.FC<NavigationProps> = ({ isNavOpen = false, onCloseNav }) => {
   const { t } = useLanguage();
   const location = useLocation();
 
@@ -115,11 +120,23 @@ export const Navigation: React.FC = () => {
       if (moreTriggerRef.current && moreTriggerRef.current.contains(target)) return;
 
       setOpenDropdown(null);
+
+      // Outside click on mobile closes mobile nav
+      if (isNavOpen && navRef.current && !navRef.current.contains(target)) {
+        const targetEl = target instanceof Element ? target : (target as Node).parentElement;
+        const isHamburger = targetEl?.closest?.('.btn-hamburger');
+        if (!isHamburger) {
+          onCloseNav?.();
+        }
+      }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenDropdown(null);
+        if (isNavOpen) {
+          onCloseNav?.();
+        }
       }
     };
 
@@ -129,7 +146,7 @@ export const Navigation: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [isNavOpen, onCloseNav]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -191,7 +208,12 @@ export const Navigation: React.FC = () => {
       leaveTimeoutRef.current = null;
     }
     setOpenDropdown(null);
-  }, []);
+    onCloseNav?.();
+  }, [onCloseNav]);
+
+  const handleLinkClick = useCallback(() => {
+    onCloseNav?.();
+  }, [onCloseNav]);
 
   // Check active states
   const isZoologyActive = [
@@ -328,7 +350,12 @@ export const Navigation: React.FC = () => {
   );
 
   return (
-    <nav className="nav-container" ref={navRef} aria-label="Main Navigation">
+    <nav
+      id="mobile-nav-panel"
+      className={`nav-container ${isNavOpen ? 'mobile-open' : ''}`}
+      ref={navRef}
+      aria-label="Main Navigation"
+    >
       <div className="nav-links-scroll">
         {/* Primary Zoological Portals */}
         <div className="nav-section nav-section-primary">
@@ -336,6 +363,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/species"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <Grid size={15} />
             <span>{t('nav.species')}</span>
@@ -345,6 +373,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/fish"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <Fish size={15} />
             <span>{t('nav.fish')}</span>
@@ -354,6 +383,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/marine"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <Waves size={15} />
             <span>{t('nav.marine')}</span>
@@ -363,6 +393,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/bangladesh"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <MapPin size={15} />
             <span>{t('nav.bangladesh')}</span>
@@ -372,6 +403,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/taxonomy"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <Layers size={15} />
             <span>{t('nav.taxonomy')}</span>
@@ -480,6 +512,7 @@ export const Navigation: React.FC = () => {
           <NavLink
             to="/about"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <Info size={15} />
             <span>{t('nav.about')}</span>

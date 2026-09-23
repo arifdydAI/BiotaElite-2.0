@@ -73,7 +73,7 @@ async function run() {
     await send('DOM.enable');
 
     console.log('================================================================');
-    console.log('BIOTAELITE 2.0: MOBILE & DESKTOP RESPONSIVE VERIFICATION');
+    console.log('BIOTAELITE 2.0: MASTER-UI-POLISH-MOBILE-NAV-FOOTER-02 VERIFICATION');
     console.log('================================================================\n');
 
     const viewports = [
@@ -115,7 +115,7 @@ async function run() {
       const ov = overflowEval.result?.value;
       assert(!ov?.hasOverflow, `${vp.name}: No horizontal overflow (scrollWidth=${ov?.scrollWidth}, clientWidth=${ov?.clientWidth})`);
 
-      // 2. Check Raw Translation Keys in entire page
+      // 2. Check Raw Translation Keys & Admin Portal Hidden in public view
       const rawKeyEval = await send('Runtime.evaluate', {
         expression: `(() => {
           const bodyText = document.body.innerText;
@@ -132,17 +132,52 @@ async function run() {
       assert(!rk?.hasRawRights, `${vp.name}: Raw 'footer.rights' is NOT displayed`);
       assert(!rk?.hasAdminPortal, `${vp.name}: 'Admin Portal' is HIDDEN from unauthenticated public visitor`);
 
-      // 3. Mobile-specific navigation checks
+      // 3. Navigation Hamburger & Container Behavior
       if (vp.mobile) {
-        const navEval = await send('Runtime.evaluate', {
+        // Check hamburger button exists and is visible
+        const hamburgerEval = await send('Runtime.evaluate', {
           expression: `(() => {
+            const btn = document.querySelector('.btn-hamburger');
+            if (!btn) return { exists: false };
+            const r = btn.getBoundingClientRect();
+            const cs = window.getComputedStyle(btn);
+            const nav = document.querySelector('.nav-container');
+            const navCs = nav ? window.getComputedStyle(nav) : null;
+            return {
+              exists: true,
+              visible: cs.display !== 'none' && r.width >= 40 && r.height >= 40,
+              width: r.width,
+              height: r.height,
+              ariaExpanded: btn.getAttribute('aria-expanded'),
+              navDisplayClosed: navCs ? navCs.display : null
+            };
+          })()`,
+          returnByValue: true
+        });
+        const hb = hamburgerEval.result?.value;
+        assert(hb?.exists && hb?.visible, `${vp.name}: Hamburger button visible with touch target >= 40px (${hb?.width}x${hb?.height}px)`);
+        assert(hb?.ariaExpanded === 'false', `${vp.name}: Hamburger aria-expanded is initially 'false'`);
+        assert(hb?.navDisplayClosed === 'none', `${vp.name}: Mobile nav panel is initially hidden (display: none)`);
+
+        // Click hamburger to OPEN
+        await send('Runtime.evaluate', {
+          expression: `(() => {
+            const btn = document.querySelector('.btn-hamburger');
+            if (btn) btn.click();
+          })()`
+        });
+        await new Promise(r => setTimeout(r, 400));
+
+        const navOpenEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const btn = document.querySelector('.btn-hamburger');
+            const nav = document.querySelector('.nav-container');
+            const navCs = nav ? window.getComputedStyle(nav) : null;
             const primaryLinks = Array.from(document.querySelectorAll('.nav-section-primary .nav-link'));
             const rects = primaryLinks.map(el => {
               const r = el.getBoundingClientRect();
-              return { text: el.innerText.trim(), top: r.top, left: r.left, width: r.width, height: r.height };
+              return { top: r.top, height: r.height };
             });
-
-            // Check if tops are strictly increasing (single column)
             let isSingleColumn = true;
             for (let i = 1; i < rects.length; i++) {
               if (rects[i].top <= rects[i - 1].top) {
@@ -150,93 +185,192 @@ async function run() {
                 break;
               }
             }
-
-            // Check touch targets (height >= 38px)
             const minHeight = Math.min(...rects.map(r => r.height));
-
-            // Check accordion buttons
-            const accordions = Array.from(document.querySelectorAll('.nav-section-grouped .nav-dropdown-btn')).map(el => {
-              const r = el.getBoundingClientRect();
-              const contentSpan = el.querySelector('.nav-dropdown-btn-content');
-              const cr = contentSpan ? contentSpan.getBoundingClientRect() : null;
-              return { text: el.innerText.trim(), top: r.top, width: r.width, height: r.height, contentLeft: cr?.left };
-            });
-
-            // Check about link
-            const aboutLink = document.querySelector('.nav-section-about .nav-link');
-            const aboutRect = aboutLink ? aboutLink.getBoundingClientRect() : null;
-
             return {
-              primaryCount: rects.length,
+              ariaExpanded: btn ? btn.getAttribute('aria-expanded') : null,
+              hasMobileOpenClass: nav ? nav.classList.contains('mobile-open') : false,
+              navDisplayOpen: navCs ? navCs.display : null,
+              primaryCount: primaryLinks.length,
               isSingleColumn,
-              minHeight,
-              accordionsCount: accordions.length,
-              aboutTop: aboutRect?.top,
-              lastAccordionTop: accordions[accordions.length - 1]?.top
+              minTouchHeight: minHeight
             };
           })()`,
           returnByValue: true
         });
-        const nv = navEval.result?.value;
-        assert(nv?.primaryCount === 5, `${vp.name}: Found 5 primary portal links`);
-        assert(nv?.isSingleColumn, `${vp.name}: Primary portals arranged in a clean single-column layout`);
-        assert(nv?.minHeight >= 38, `${vp.name}: Touch targets are at least 38px high (actual: ${nv?.minHeight}px)`);
-        assert(nv?.accordionsCount === 3, `${vp.name}: Found 3 accordion buttons in grouped section`);
-        assert(nv?.aboutTop > nv?.lastAccordionTop, `${vp.name}: About & Methodology appears cleanly below accordions`);
+        const no = navOpenEval.result?.value;
+        assert(no?.ariaExpanded === 'true', `${vp.name}: Hamburger aria-expanded toggled to 'true'`);
+        assert(no?.hasMobileOpenClass && no?.navDisplayOpen !== 'none', `${vp.name}: Mobile nav panel opened with .mobile-open class`);
+        assert(no?.primaryCount === 5, `${vp.name}: All 5 primary portals accessible when menu open`);
+        assert(no?.isSingleColumn, `${vp.name}: Navigation links formatted in single column`);
+        assert(no?.minTouchHeight >= 38, `${vp.name}: Navigation links have touch target >= 38px (${no?.minTouchHeight}px)`);
 
-        // Test accordion toggle
-        await send('Runtime.evaluate', {
-          expression: `(() => {
-            const zoologyBtn = document.querySelector('.nav-section-grouped .nav-dropdown:first-child button');
-            if (zoologyBtn) zoologyBtn.click();
-          })()`
-        });
+        // Press Escape to CLOSE
+        await send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+        await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
         await new Promise(r => setTimeout(r, 400));
 
-        const menuOpenEval = await send('Runtime.evaluate', {
+        const navClosedEval = await send('Runtime.evaluate', {
           expression: `(() => {
-            const menu = document.querySelector('.nav-section-grouped .nav-dropdown:first-child .nav-dropdown-menu');
-            if (!menu) return { open: false };
-            const items = Array.from(menu.querySelectorAll('.nav-dropdown-item'));
+            const btn = document.querySelector('.btn-hamburger');
+            const nav = document.querySelector('.nav-container');
+            const navCs = nav ? window.getComputedStyle(nav) : null;
             return {
-              open: true,
-              itemCount: items.length
+              ariaExpanded: btn ? btn.getAttribute('aria-expanded') : null,
+              hasMobileOpenClass: nav ? nav.classList.contains('mobile-open') : false,
+              navDisplayClosed: navCs ? navCs.display : null
             };
           })()`,
           returnByValue: true
         });
-        const mo = menuOpenEval.result?.value;
-        assert(mo?.open && mo?.itemCount >= 6, `${vp.name}: Accordion opens inline with ${mo?.itemCount} items`);
+        const nc = navClosedEval.result?.value;
+        assert(nc?.ariaExpanded === 'false' && nc?.navDisplayClosed === 'none', `${vp.name}: Escape key closes mobile navigation panel`);
 
-        // Close accordion
-        await send('Runtime.evaluate', {
-          expression: `(() => {
-            const zoologyBtn = document.querySelector('.nav-section-grouped .nav-dropdown:first-child button');
-            if (zoologyBtn) zoologyBtn.click();
-          })()`
-        });
-        await new Promise(r => setTimeout(r, 300));
       } else {
-        // Desktop check: nav-links-scroll should be horizontal
+        // Desktop check: hamburger must be hidden, navigation always visible horizontally
         const desktopNavEval = await send('Runtime.evaluate', {
           expression: `(() => {
+            const btn = document.querySelector('.btn-hamburger');
+            const btnCs = btn ? window.getComputedStyle(btn) : null;
+            const nav = document.querySelector('.nav-container');
+            const navCs = nav ? window.getComputedStyle(nav) : null;
             const allLinks = Array.from(document.querySelectorAll('.nav-links-scroll .nav-link, .nav-links-scroll .nav-dropdown-btn'));
             const rects = allLinks.map(el => el.getBoundingClientRect());
-            // Most links should share approximately the same top
             const top0 = rects[0]?.top;
             const allSameTop = rects.every(r => Math.abs(r.top - top0) < 5);
             return {
-              count: rects.length,
+              btnHidden: !btn || btnCs.display === 'none',
+              navVisible: navCs && navCs.display !== 'none',
+              linksCount: allLinks.length,
               allSameTop
             };
           })()`,
           returnByValue: true
         });
         const dnv = desktopNavEval.result?.value;
+        assert(dnv?.btnHidden, `${vp.name}: Hamburger button is STRICTLY HIDDEN on desktop (display: none)`);
+        assert(dnv?.navVisible, `${vp.name}: Desktop navigation bar is ALWAYS visible`);
         assert(dnv?.allSameTop, `${vp.name}: Desktop navigation maintains unified single horizontal bar`);
       }
 
-      // Check Footer content constraint & height
+      // 4. Footer Accordion / Desktop Grid Behavior
+      if (vp.mobile) {
+        // Mobile Footer: Accordions collapsed by default
+        const footerMobileEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const triggers = Array.from(document.querySelectorAll('.footer-accordion-trigger'));
+            const bodies = Array.from(document.querySelectorAll('.footer-accordion-body'));
+            const chevrons = Array.from(document.querySelectorAll('.footer-accordion-chevron'));
+            const bodiesHidden = bodies.every(b => window.getComputedStyle(b).display === 'none');
+            const minTriggerHeight = Math.min(...triggers.map(t => t.getBoundingClientRect().height));
+            return {
+              triggerCount: triggers.length,
+              chevronCount: chevrons.length,
+              bodiesHidden,
+              minTriggerHeight
+            };
+          })()`,
+          returnByValue: true
+        });
+        const fm = footerMobileEval.result?.value;
+        assert(fm?.triggerCount === 3, `${vp.name}: 3 accordion triggers in mobile footer`);
+        assert(fm?.bodiesHidden, `${vp.name}: All accordion bodies are COLLAPSED by default on mobile`);
+        assert(fm?.minTriggerHeight >= 40, `${vp.name}: Accordion trigger touch targets >= 40px (${fm?.minTriggerHeight}px)`);
+
+        // Click Section 1 (Portals) to EXPAND
+        await send('Runtime.evaluate', {
+          expression: `(() => {
+            const trigger = document.querySelectorAll('.footer-accordion-trigger')[0];
+            if (trigger) trigger.click();
+          })()`
+        });
+        await new Promise(r => setTimeout(r, 400));
+
+        const portalsOpenEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const bodies = Array.from(document.querySelectorAll('.footer-accordion-body'));
+            const b1 = window.getComputedStyle(bodies[0]).display;
+            const b2 = window.getComputedStyle(bodies[1]).display;
+            const b3 = window.getComputedStyle(bodies[2]).display;
+            return {
+              portalsOpen: b1 !== 'none',
+              toolsClosed: b2 === 'none',
+              authoritiesClosed: b3 === 'none'
+            };
+          })()`,
+          returnByValue: true
+        });
+        const po = portalsOpenEval.result?.value;
+        assert(po?.portalsOpen && po?.toolsClosed && po?.authoritiesClosed, `${vp.name}: Portals accordion expands while others remain collapsed`);
+
+        // Click Section 2 (Systematics & Tools) to EXPAND (should close Portals)
+        await send('Runtime.evaluate', {
+          expression: `(() => {
+            const trigger = document.querySelectorAll('.footer-accordion-trigger')[1];
+            if (trigger) trigger.click();
+          })()`
+        });
+        await new Promise(r => setTimeout(r, 400));
+
+        const toolsOpenEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const bodies = Array.from(document.querySelectorAll('.footer-accordion-body'));
+            const b1 = window.getComputedStyle(bodies[0]).display;
+            const b2 = window.getComputedStyle(bodies[1]).display;
+            const b3 = window.getComputedStyle(bodies[2]).display;
+            return {
+              portalsClosed: b1 === 'none',
+              toolsOpen: b2 !== 'none',
+              authoritiesClosed: b3 === 'none'
+            };
+          })()`,
+          returnByValue: true
+        });
+        const to = toolsOpenEval.result?.value;
+        assert(to?.toolsOpen && to?.portalsClosed && to?.authoritiesClosed, `${vp.name}: Opening Tools automatically closes Portals (single open section rule)`);
+
+        // Click Section 2 again to COLLAPSE
+        await send('Runtime.evaluate', {
+          expression: `(() => {
+            const trigger = document.querySelectorAll('.footer-accordion-trigger')[1];
+            if (trigger) trigger.click();
+          })()`
+        });
+        await new Promise(r => setTimeout(r, 300));
+
+        const allClosedEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const bodies = Array.from(document.querySelectorAll('.footer-accordion-body'));
+            return bodies.every(b => window.getComputedStyle(b).display === 'none');
+          })()`,
+          returnByValue: true
+        });
+        assert(allClosedEval.result?.value, `${vp.name}: Clicking open section again collapses it (all closed)`);
+
+      } else {
+        // Desktop Footer: Accordion bodies must ALL be visible, chevrons hidden, pointer-events none
+        const footerDesktopEval = await send('Runtime.evaluate', {
+          expression: `(() => {
+            const triggers = Array.from(document.querySelectorAll('.footer-accordion-trigger'));
+            const bodies = Array.from(document.querySelectorAll('.footer-accordion-body'));
+            const chevrons = Array.from(document.querySelectorAll('.footer-accordion-chevron'));
+            const allBodiesVisible = bodies.every(b => window.getComputedStyle(b).display !== 'none');
+            const chevronsHidden = chevrons.every(c => window.getComputedStyle(c).display === 'none');
+            const triggersDisabled = triggers.every(t => window.getComputedStyle(t).pointerEvents === 'none');
+            return {
+              allBodiesVisible,
+              chevronsHidden,
+              triggersDisabled
+            };
+          })()`,
+          returnByValue: true
+        });
+        const fd = footerDesktopEval.result?.value;
+        assert(fd?.allBodiesVisible, `${vp.name}: Desktop footer columns are ALL statically displayed side-by-side`);
+        assert(fd?.chevronsHidden, `${vp.name}: Desktop footer accordion chevrons are HIDDEN (display: none)`);
+        assert(fd?.triggersDisabled, `${vp.name}: Desktop footer headings have pointer-events: none (static layout preserved)`);
+      }
+
+      // Check Footer content constraint & Authoritative Sources
       const footerEval = await send('Runtime.evaluate', {
         expression: `(() => {
           const footer = document.querySelector('.site-footer');
@@ -284,19 +418,15 @@ async function run() {
       expression: `(() => {
         const bodyText = document.body.innerText;
         return {
-          hasSpeciesBn: bodyText.includes('প্রজাতি ক্যাটালগ'),
-          hasFishBn: bodyText.includes('মৎস্যসম্পদ'),
-          hasMarineBn: bodyText.includes('সামুদ্রিক জীববৈচিত্র্য'),
-          hasAuthoritiesBn: bodyText.includes('স্বীকৃত তথ্যসূত্র')
+          hasAuthoritiesBn: bodyText.includes('স্বীকৃত তথ্যসূত্র'),
+          hasPortalsBn: bodyText.includes('পোর্টালসমূহ')
         };
       })()`,
       returnByValue: true
     });
     const bnv = bnEval.result?.value;
-    assert(bnv?.hasSpeciesBn, 'Bengali: প্রজাতি ক্যাটালগ visible');
-    assert(bnv?.hasFishBn, 'Bengali: মৎস্যসম্পদ visible');
-    assert(bnv?.hasMarineBn, 'Bengali: সামুদ্রিক জীববৈচিত্র্য visible');
-    assert(bnv?.hasAuthoritiesBn, 'Bengali: স্বীকৃত তথ্যসূত্র visible');
+    assert(bnv?.hasPortalsBn, 'Bengali: পোর্টালসমূহ visible in accordion header');
+    assert(bnv?.hasAuthoritiesBn, 'Bengali: স্বীকৃত তথ্যসূত্র visible in accordion header');
 
     const bnShot = await send('Page.captureScreenshot', {});
     const bnShotPath = path.join(artifactDir, 'screenshot_375px_bengali.png');

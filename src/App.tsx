@@ -4,8 +4,8 @@
 // All /admin routes are protected by RequireAuth.
 // Unauthenticated users are redirected to /login.
 // Insufficient-role users are redirected to /access-denied.
-import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { BiodiversityProvider } from './context/BiodiversityContext';
@@ -83,10 +83,26 @@ const RouteLoadingFallback: React.FC = () => (
 
 // Public Layout Wrapper
 const PublicLayout: React.FC = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const location = useLocation();
+
+  const handleToggleNav = React.useCallback(() => {
+    setIsNavOpen(prev => !prev);
+  }, []);
+
+  const handleCloseNav = React.useCallback(() => {
+    setIsNavOpen(false);
+  }, []);
+
+  // Close mobile nav on route change
+  useEffect(() => {
+    setIsNavOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className="app-container">
-      <Header />
-      <Navigation />
+      <Header isNavOpen={isNavOpen} onToggleNav={handleToggleNav} />
+      <Navigation isNavOpen={isNavOpen} onCloseNav={handleCloseNav} />
       <main className="main-content">
         <ErrorBoundary>
           <React.Suspense fallback={<RouteLoadingFallback />}>
