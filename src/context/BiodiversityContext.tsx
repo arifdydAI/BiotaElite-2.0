@@ -26,6 +26,7 @@ import { SEED_IDENTIFICATION_KEYS } from '../data/seedIdentKeys';
 import { SEED_TAXON_KNOWLEDGE } from '../data/seedTaxonKnowledge';
 import { SEED_USERS } from '../data/seedUsers';
 import { useAuth } from './AuthContext';
+import { db, isLiveFirebaseConfigured } from '../config/firebase';
 
 export interface FilterState {
   searchQuery: string;
@@ -415,6 +416,17 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
       newState
     };
     setAuditLogs(prev => [newEntry, ...prev]);
+
+    // Asynchronously write to Firestore auditLogs collection in production mode
+    const firestore = db;
+    if (isLiveFirebaseConfigured && firestore && currentUser) {
+      const activeDb = firestore;
+      import('firebase/firestore').then(({ doc, setDoc }) => {
+        setDoc(doc(activeDb, 'auditLogs', newEntry.id), newEntry).catch(err => {
+          console.warn('[Firestore Audit Error]', err);
+        });
+      }).catch(() => {});
+    }
   };
 
   const resetFilters = () => setFilters(DEFAULT_FILTERS);
@@ -858,6 +870,14 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
     setUsers(prev => [newUser, ...prev]);
     logAudit('create', 'user', uid, newUser.displayName, `Staff account created with role: ${newUser.role}`);
+
+    const firestore = db;
+    if (isLiveFirebaseConfigured && firestore) {
+      const activeDb = firestore;
+      import('firebase/firestore').then(({ doc, setDoc }) => {
+        setDoc(doc(activeDb, 'users', uid), newUser).catch(err => console.warn('[Firestore Add User Error]', err));
+      }).catch(() => {});
+    }
   };
 
   const updateUserRole = (uid: string, newRole: UserRole) => {
@@ -866,6 +886,17 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     setUsers(prev => prev.map(u => (u.uid === uid ? { ...u, role: newRole } : u)));
     logAudit('update', 'user', uid, existing.displayName, `Role changed from ${existing.role} to ${newRole}`);
+
+    const firestore = db;
+    if (isLiveFirebaseConfigured && firestore) {
+      const activeDb = firestore;
+      import('firebase/firestore').then(({ doc, updateDoc }) => {
+        updateDoc(doc(activeDb, 'users', uid), {
+          role: newRole,
+          updatedAt: new Date().toISOString()
+        }).catch(err => console.warn('[Firestore Update Role Error]', err));
+      }).catch(() => {});
+    }
   };
 
   const toggleUserActive = (uid: string) => {
@@ -875,6 +906,17 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const newActive = !existing.isActive;
     setUsers(prev => prev.map(u => (u.uid === uid ? { ...u, isActive: newActive } : u)));
     logAudit('update', 'user', uid, existing.displayName, `Account ${newActive ? 'activated' : 'deactivated'}`);
+
+    const firestore = db;
+    if (isLiveFirebaseConfigured && firestore) {
+      const activeDb = firestore;
+      import('firebase/firestore').then(({ doc, updateDoc }) => {
+        updateDoc(doc(activeDb, 'users', uid), {
+          isActive: newActive,
+          updatedAt: new Date().toISOString()
+        }).catch(err => console.warn('[Firestore Toggle Active Error]', err));
+      }).catch(() => {});
+    }
   };
 
   // Data Health Engine Diagnostic Scanner

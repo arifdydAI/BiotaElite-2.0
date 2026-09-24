@@ -2,7 +2,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions for Role-Based Access Control
+    // =========================================================================
+    // Role-Based Access Control Helper Functions
+    // =========================================================================
+
     function isSignedIn() {
       return request.auth != null;
     }
@@ -31,44 +34,62 @@ service cloud.firestore {
       return isAnyRole(['super_admin', 'admin']);
     }
 
-    // Public Collections: Published and verified content can be read by anyone
+    // =========================================================================
+    // Core Biodiversity Collections
+    // =========================================================================
+
+    // Species Catalog: Public reads published records; Staff reads all drafts/reviews
     match /species/{speciesId} {
       allow read: if resource.data.isPublished == true || isStaff();
       allow create: if isAnyRole(['super_admin', 'admin', 'editor', 'data_manager']);
       allow update: if isStaff() && (
-        // Only verifiers can change status to verified or published
+        // Only verifiers (super_admin, admin, reviewer) can change status to verified or published
         (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['isVerified', 'isPublished', 'lifecycleStatus']))
         || isVerifier()
       );
       allow delete: if isAdmin();
     }
 
+    // Species Drafts: Working workspace for curated species submissions
+    match /speciesDrafts/{draftId} {
+      allow read, write: if isStaff();
+    }
+
+    // Taxonomy Tree: Public read; Staff write
     match /taxa/{taxonId} {
       allow read: if true;
       allow write: if isAnyRole(['super_admin', 'admin', 'data_manager', 'editor']);
     }
 
+    // Scientific Names & Synonyms: Public read; Staff write
     match /scientificNames/{nameId} {
       allow read: if true;
       allow write: if isAnyRole(['super_admin', 'admin', 'data_manager', 'editor']);
     }
 
+    // Literature References & Monographs: Public read; Staff write
     match /references/{refId} {
       allow read: if true;
       allow write: if isStaff();
     }
 
+    // Dichotomous Identification Keys: Public read; Staff write
     match /identificationKeys/{keyId} {
       allow read: if true;
       allow write: if isStaff();
     }
 
+    // Media Provenance Metadata: Public read; Staff write
     match /media/{mediaId} {
       allow read: if true;
       allow write: if isStaff();
     }
 
-    // Editorial reviews and verification submissions
+    // =========================================================================
+    // Editorial Review & Governance Workflows
+    // =========================================================================
+
+    // Peer Reviews: Staff read/create; Verifiers update; Admins delete
     match /reviews/{reviewId} {
       allow read: if isStaff();
       allow create: if isStaff();
@@ -76,26 +97,66 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // Audit logs: Append-only for staff only, readable only by admins.
-    // SECURITY: Requires isStaff() (not just isSignedIn) to create audit events.
-    // Public users cannot write fake audit events.
-    // update/delete is always false — immutable audit trail (client-side enforced).
-    // NOTE: True append-only immutability for delete requires Cloud Functions/Admin SDK.
-    // The current architecture cannot prevent admin-SDK or console deletion.
-    match /auditLogs/{logId} {
-      allow read: if isAdmin();
-      allow create: if isStaff(); // HARDENED: was isSignedIn() — now requires staff role
-      allow update, delete: if false; // Immutable audit trail (client-side enforcement)
+    // Batch Ingestion Records
+    match /importBatches/{batchId} {
+      allow read: if isStaff();
+      allow write: if isAnyRole(['super_admin', 'admin', 'data_manager']);
     }
 
-    // Users & Roles: Restricted to admins and owner
+    // Conflict Resolution Records
+    match /conflicts/{conflictId} {
+      allow read: if isStaff();
+      allow write: if isAnyRole(['super_admin', 'admin', 'data_manager']);
+    }
+
+    // =========================================================================
+    // Audit Logging (Append-Only Immutable Trail)
+    // =========================================================================
+
+    match /auditLogs/{logId} {
+      // Readable exclusively by administrators
+      allow read: if isAdmin();
+      // Appended by authenticated staff members recording their own actions
+      allow create: if isStaff() && request.resource.data.actorId == request.auth.uid;
+      // Strictly immutable: historical audit records can never be modified or deleted
+      allow update, delete: if false;
+    }
+
+    // =========================================================================
+    // User Management & Security Governance
+    // =========================================================================
+
     match /users/{userId} {
+      // User can read their own profile; Admins can read all profiles
       allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
-      allow create: if isSignedIn();
-      allow update: if isAdmin() || (request.auth.uid == userId && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'permissions']));
+
+      // Safe creation: newly signed-in users can create their own profile with default role 'public_user'
+      // Self-promotion to staff/admin roles on document creation is strictly rejected
+      allow create: if isSignedIn() && request.auth.uid == userId && (
+        !('role' in request.resource.data) || request.resource.data.role == 'public_user'
+      );
+
+      // Controlled updates:
+      // 1. Super admin can update any profile and assign any role
+      // 2. Admin can update users, but cannot touch super_admin accounts or assign super_admin
+      // 3. Normal users can update non-sensitive profile fields, but NEVER change role, permissions, or isActive
+      allow update: if (
+        hasRole('super_admin') ||
+        (hasRole('admin') && resource.data.role != 'super_admin' && request.resource.data.role != 'super_admin') ||
+        (request.auth.uid == userId && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'permissions', 'isActive']))
+      );
+
+      // Deletion is restricted to Super Admin only
       allow delete: if hasRole('super_admin');
     }
 
+    // System Settings & Configuration (Super Admin Only)
+    match /adminSettings/{settingId} {
+      allow read: if isAdmin();
+      allow write: if hasRole('super_admin');
+    }
+
+    // Role Definitions & System Content
     match /roles/{roleId} {
       allow read: if isSignedIn();
       allow write: if hasRole('super_admin');
@@ -104,6 +165,13 @@ service cloud.firestore {
     match /siteContent/{contentId} {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // Default Fallback: Explicit Deny
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

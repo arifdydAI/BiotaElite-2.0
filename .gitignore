@@ -17,6 +17,9 @@ dist-ssr
 *.local
 *.bak
 *.tmp
+service-account*.json
+*credentials*.json
+firebase-adminsdk*.json
 
 # Editor directories and files
 .vscode/*
