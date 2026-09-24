@@ -127,13 +127,16 @@ export interface SpeciesRecord {
   morphology: {
     diagnosticFeatures: string[];
     diagnosticFeaturesBn?: string[];
+    diagnostic_features_bn?: string[];
     description: string;
     descriptionBn?: string;
+    description_bn?: string;
     maxStandardLengthCm?: number;
     dorsalSpinesRays?: string;
     analSpinesRays?: string;
     coloration?: string;
     colorationBn?: string;
+    coloration_bn?: string;
   };
 
   habitat: {
@@ -142,12 +145,18 @@ export interface SpeciesRecord {
     depthRangeMeters?: { min: number; max: number };
     temperatureRangeC?: { min: number; max: number };
     elevationMeters?: { min: number; max: number };
+    description?: string;
+    descriptionBn?: string;
+    habitat_bn?: string;
+    habitatBn?: string;
+    notesBn?: string;
   };
 
   bangladeshOccurrence: {
     present: boolean;
     regions: string[];
     regionsBn?: string[];
+    regions_bn?: string[];
     habitatTypes: string[];
     habitatTypesBn?: string[];
     residencyStatus: BangladeshResidency;
@@ -159,8 +168,12 @@ export interface SpeciesRecord {
     localNamesBn?: string[];
     seasonalNotes?: string;
     seasonalNotesBn?: string;
+    seasonal_notes_bn?: string;
     notes?: string;
     notesBn?: string;
+    notes_bn?: string;
+    distribution_bn?: string;
+    distributionBn?: string;
   };
 
   ecology: {
@@ -168,12 +181,16 @@ export interface SpeciesRecord {
     dietCategoryBn?: string;
     dietSummary?: string;
     dietSummaryBn?: string;
+    diet_summary_bn?: string;
     behavior?: string;
     behaviorBn?: string;
+    behavior_bn?: string;
     reproduction?: string;
     reproductionBn?: string;
+    reproduction_bn?: string;
     ecologicalRole?: string;
     ecologicalRoleBn?: string;
+    ecological_role_bn?: string;
   };
 
   conservation: {
@@ -186,10 +203,37 @@ export interface SpeciesRecord {
     nationalAssessmentYear?: number;
     nationalStatusSource?: string;
     iucnCriteria?: string;
+    description?: string;
+    descriptionBn?: string;
+    conservation_bn?: string;
     threats: string[];
     threatsBn?: string[];
+    threats_bn?: string[];
     citesAppendix?: 'I' | 'II' | 'III' | 'None';
   };
+
+  // Optional root-level flexible monograph extensions
+  morphology_bn?: string;
+  description_bn?: string;
+  descriptionBn?: string;
+  distribution_bn?: string;
+  distributionBn?: string;
+  habitat_bn?: string;
+  habitatBn?: string;
+  conservation_bn?: string;
+  conservationBn?: string;
+  reproduction_bn?: string;
+  reproductionBn?: string;
+  ecologicalRole_bn?: string;
+  ecologicalRoleBn?: string;
+  threats_bn?: string[] | string;
+  threatsBn?: string[] | string;
+  researchSignificance?: string;
+  researchSignificanceBn?: string;
+  researchSignificance_bn?: string;
+  similarSpecies?: string[];
+  similarSpeciesBn?: string[];
+  similar_species_bn?: string[];
 
   lifecycleStatus: LifecycleStatus;
   isVerified: boolean;

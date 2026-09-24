@@ -394,7 +394,8 @@ assert(
   bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2m_global_taxonomic_depth_mf14_canonical_final'") ||
   bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2m_global_taxonomic_depth_mf14_annelida_visible_v3'") ||
   bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2n_global_ident_keys_expansion'") ||
-  bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2o_master_fix_15_17_expansion'"),
+  bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2o_master_fix_15_17_expansion'") ||
+  bioContextTsx.includes("CURRENT_SEED_VERSION = 'v2o_master_i18n_monograph_release_03'"),
   'BiodiversityContext has updated seed version to ensure fresh localStorage cache invalidation'
 );
 

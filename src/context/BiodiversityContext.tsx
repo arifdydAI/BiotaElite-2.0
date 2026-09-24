@@ -179,7 +179,7 @@ type BatchDispatchAction =
   | { type: 'RESOLVE_CONFLICT'; conflictId: string; resolution: string; resolutionNote: string; resolvedAt: string; resolvedBy: string };
 
 const SEED_VERSION_KEY = 'biota_seed_version';
-const CURRENT_SEED_VERSION = 'v2o_master_fix_15_17_expansion';
+const CURRENT_SEED_VERSION = 'v2o_master_i18n_monograph_release_03';
 
 // Storage safety utilities protecting against quota, disabled storage, or corrupted JSON
 function safeGetItem(key: string): string | null {
@@ -271,8 +271,50 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
   const parsedBatchesRes = safeParseJson<BatchImportRecord[]>(safeGetItem('biota_batches'), []);
   const parsedConflictsRes = safeParseJson<ConflictRecord[]>(safeGetItem('biota_conflicts'), []);
 
+  // Hydrate canonical species records with verified monograph content & Bengali fields from authoritative SEED_SPECIES
+  const seedSpeciesMap = new Map(SEED_SPECIES.map(s => [s.id, s]));
+  const hydratedSpecies = parsedSpeciesRes.value.map(sp => {
+    const seed = seedSpeciesMap.get(sp.id);
+    if (!seed) return sp;
+    return {
+      ...sp,
+      morphology: {
+        ...sp.morphology,
+        descriptionBn: sp.morphology?.descriptionBn || seed.morphology?.descriptionBn,
+        diagnosticFeaturesBn: (sp.morphology?.diagnosticFeaturesBn && sp.morphology.diagnosticFeaturesBn.length > 0)
+          ? sp.morphology.diagnosticFeaturesBn
+          : seed.morphology?.diagnosticFeaturesBn,
+        colorationBn: sp.morphology?.colorationBn || seed.morphology?.colorationBn,
+      },
+      bangladeshOccurrence: {
+        ...sp.bangladeshOccurrence,
+        notesBn: sp.bangladeshOccurrence?.notesBn || seed.bangladeshOccurrence?.notesBn,
+        regionsBn: (sp.bangladeshOccurrence?.regionsBn && sp.bangladeshOccurrence.regionsBn.length > 0)
+          ? sp.bangladeshOccurrence.regionsBn
+          : seed.bangladeshOccurrence?.regionsBn,
+        seasonalNotesBn: sp.bangladeshOccurrence?.seasonalNotesBn || seed.bangladeshOccurrence?.seasonalNotesBn,
+        localNamesBn: (sp.bangladeshOccurrence?.localNamesBn && sp.bangladeshOccurrence.localNamesBn.length > 0)
+          ? sp.bangladeshOccurrence.localNamesBn
+          : seed.bangladeshOccurrence?.localNamesBn,
+      },
+      ecology: {
+        ...sp.ecology,
+        dietSummaryBn: sp.ecology?.dietSummaryBn || seed.ecology?.dietSummaryBn,
+        behaviorBn: sp.ecology?.behaviorBn || seed.ecology?.behaviorBn,
+        reproductionBn: sp.ecology?.reproductionBn || seed.ecology?.reproductionBn,
+        ecologicalRoleBn: sp.ecology?.ecologicalRoleBn || seed.ecology?.ecologicalRoleBn,
+      },
+      conservation: {
+        ...sp.conservation,
+        threatsBn: (sp.conservation?.threatsBn && sp.conservation.threatsBn.length > 0)
+          ? sp.conservation.threatsBn
+          : seed.conservation?.threatsBn,
+      }
+    };
+  });
+
   return {
-    species: parsedSpeciesRes.value,
+    species: hydratedSpecies,
     taxa: parsedTaxaRes.value,
     taxonKnowledge: parsedKnowledgeRes.value,
     references: parsedRefsRes.value,

@@ -360,9 +360,16 @@ export const DichotomousKeyEngine: React.FC<Props> = ({ initialKeyId }) => {
                     {language === 'bn' ? 'শনাক্তকারী বৈশিষ্ট্য ও যুক্তি' : 'Diagnostic Key Determination'}
                   </div>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5', margin: 0 }}>
-                    {language === 'bn' && activeRationale.bn
-                      ? activeRationale.bn
-                      : activeRationale.en || determinedSpecies.morphology.diagnosticFeatures[0] || determinedSpecies.morphology.description}
+                    {language === 'bn'
+                      ? (activeRationale.bn ||
+                         determinedSpecies.morphology.diagnosticFeaturesBn?.[0] ||
+                         determinedSpecies.morphology.descriptionBn ||
+                         activeRationale.en ||
+                         determinedSpecies.morphology.diagnosticFeatures[0] ||
+                         determinedSpecies.morphology.description)
+                      : (activeRationale.en ||
+                         determinedSpecies.morphology.diagnosticFeatures[0] ||
+                         determinedSpecies.morphology.description)}
                   </p>
                 </div>
 

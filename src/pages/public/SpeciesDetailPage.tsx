@@ -21,6 +21,7 @@ import {
   Globe2,
   Flag
 } from 'lucide-react';
+import { getLocalizedSpeciesMonograph } from '../../utils/speciesLocalization';
 
 export const SpeciesDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,58 +76,7 @@ export const SpeciesDetailPage: React.FC = () => {
   const hasStatusDiscrepancy = globalStatus && nationalStatus && globalStatus !== nationalStatus;
 
   // Localized monograph content with controlled fallback
-  const morphologyDesc = (language === 'bn' && species.morphology.descriptionBn)
-    ? species.morphology.descriptionBn
-    : species.morphology.description;
-
-  const diagnosticFeatures = (language === 'bn' && species.morphology.diagnosticFeaturesBn && species.morphology.diagnosticFeaturesBn.length > 0)
-    ? species.morphology.diagnosticFeaturesBn
-    : species.morphology.diagnosticFeatures;
-
-  const coloration = (language === 'bn' && species.morphology.colorationBn)
-    ? species.morphology.colorationBn
-    : species.morphology.coloration;
-
-  const dietSummary = (language === 'bn' && species.ecology.dietSummaryBn)
-    ? species.ecology.dietSummaryBn
-    : species.ecology.dietSummary;
-
-  const behavior = (language === 'bn' && species.ecology.behaviorBn)
-    ? species.ecology.behaviorBn
-    : species.ecology.behavior;
-
-  const reproduction = (language === 'bn' && species.ecology.reproductionBn)
-    ? species.ecology.reproductionBn
-    : species.ecology.reproduction;
-
-  const ecologicalRole = (language === 'bn' && species.ecology.ecologicalRoleBn)
-    ? species.ecology.ecologicalRoleBn
-    : species.ecology.ecologicalRole;
-
-  const threats = (language === 'bn' && species.conservation.threatsBn && species.conservation.threatsBn.length > 0)
-    ? species.conservation.threatsBn
-    : species.conservation.threats;
-
-  const bdRegions = (language === 'bn' && species.bangladeshOccurrence.regionsBn && species.bangladeshOccurrence.regionsBn.length > 0)
-    ? species.bangladeshOccurrence.regionsBn
-    : species.bangladeshOccurrence.regions;
-
-  const bdSeasonalNotes = (language === 'bn' && species.bangladeshOccurrence.seasonalNotesBn)
-    ? species.bangladeshOccurrence.seasonalNotesBn
-    : species.bangladeshOccurrence.seasonalNotes;
-
-  const bdNotes = (language === 'bn' && species.bangladeshOccurrence.notesBn)
-    ? species.bangladeshOccurrence.notesBn
-    : species.bangladeshOccurrence.notes;
-
-  const DIET_CATEGORY_BN: Record<string, string> = {
-    carnivore: 'মাংসাশী (Carnivore)',
-    herbivore: 'তৃণভোজী (Herbivore)',
-    omnivore: 'সর্বভুক (Omnivore)',
-    planktivore: 'প্ল্যাঙ্কটনভোজী (Planktivore)',
-    detritivore: 'পচনভোজী / ডেট্রিটিভোর (Detritivore)',
-    filter_feeder: 'পরিশ্রাবণভোজী / ফিল্টার ফিডার (Filter Feeder)',
-  };
+  const monograph = getLocalizedSpeciesMonograph(species, language);
 
   const SYNONYM_STATUS_BN: Record<string, string> = {
     homotypic: 'হোমোটিপিক প্রতিশব্দ',
@@ -361,14 +311,14 @@ export const SpeciesDetailPage: React.FC = () => {
               <span>{t('detail.morphology')}</span>
             </h3>
 
-            {language === 'bn' && !species.morphology.descriptionBn && (
+            {language === 'bn' && !monograph.hasBengaliDescription && (
               <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontStyle: 'italic' }}>
                 * {t('detail.controlledEnglishFallback')}
               </div>
             )}
 
             <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-              {morphologyDesc}
+              {monograph.description}
             </p>
 
             <div style={{ marginBottom: '1.25rem' }}>
@@ -376,7 +326,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 {t('detail.diagnosticFeatures')}
               </h4>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {diagnosticFeatures.map((feat, idx) => (
+                {monograph.diagnosticFeatures.map((feat, idx) => (
                   <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                     <Check size={16} style={{ color: 'var(--accent-emerald)', flexShrink: 0, marginTop: '2px' }} />
                     <span>{feat}</span>
@@ -407,10 +357,10 @@ export const SpeciesDetailPage: React.FC = () => {
               )}
             </div>
 
-            {coloration && (
+            {monograph.coloration && (
               <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                 <strong style={{ color: 'var(--text-primary)' }}>{t('detail.coloration')}: </strong>
-                {coloration}
+                {monograph.coloration}
               </div>
             )}
           </section>
@@ -422,13 +372,49 @@ export const SpeciesDetailPage: React.FC = () => {
               <span>{t('detail.habitatEcology')}</span>
             </h3>
 
+            {/* Habitat Systems & Ecological Zones */}
+            {(monograph.localizedSystems.length > 0 || monograph.localizedZones.length > 0) && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.25rem', background: 'var(--bg-surface)', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
+                {monograph.localizedSystems.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.35rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{t('detail.systems')}</div>
+                    <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      {monograph.localizedSystems.map((sys, idx) => (
+                        <span key={idx} style={{ background: 'rgba(2, 132, 199, 0.15)', color: '#38bdf8', padding: '0.2rem 0.55rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem', fontWeight: 600 }}>
+                          {sys}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {monograph.localizedZones.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.35rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{t('detail.zones')}</div>
+                    <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      {monograph.localizedZones.map((zone, idx) => (
+                        <span key={idx} style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)', padding: '0.2rem 0.55rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem' }}>
+                          {zone}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {monograph.habitatNotes && (
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>{language === 'bn' ? 'আবাসস্থল বিবরণ: ' : 'Habitat Description: '}</strong>
+                {monograph.habitatNotes}
+              </p>
+            )}
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
               <div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('detail.diet')}</div>
                 <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--accent-emerald-light)', textTransform: 'capitalize' }}>
-                  {species.ecology.dietCategory
-                    ? (language === 'bn' ? (DIET_CATEGORY_BN[species.ecology.dietCategory] || species.ecology.dietCategory) : species.ecology.dietCategory)
-                    : (language === 'bn' ? 'মূল্যায়ন করা হয়নি' : 'Not evaluated')}
+                  {monograph.localizedDietCategory || (language === 'bn' ? 'মূল্যায়ন করা হয়নি' : 'Not evaluated')}
                 </div>
               </div>
 
@@ -440,27 +426,27 @@ export const SpeciesDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {dietSummary && (
+            {monograph.dietSummary && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.feedingStrategy')} </strong> {dietSummary}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.feedingStrategy')} </strong> {monograph.dietSummary}
               </p>
             )}
 
-            {behavior && (
+            {monograph.behavior && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.behavior')} </strong> {behavior}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.behavior')} </strong> {monograph.behavior}
               </p>
             )}
 
-            {reproduction && (
+            {monograph.reproduction && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.reproduction')} </strong> {reproduction}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.reproduction')} </strong> {monograph.reproduction}
               </p>
             )}
 
-            {ecologicalRole && (
+            {monograph.ecologicalRole && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.ecologicalRole')} </strong> {ecologicalRole}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.ecologicalRole')} </strong> {monograph.ecologicalRole}
               </p>
             )}
           </section>
@@ -544,7 +530,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 {t('detail.threats')}
               </div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                {threats.map((threat, idx) => (
+                {monograph.threats.map((threat, idx) => (
                   <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                     <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#f87171', marginTop: '7px', flexShrink: 0 }} />
                     <span>{threat}</span>
@@ -552,6 +538,13 @@ export const SpeciesDetailPage: React.FC = () => {
                 ))}
               </ul>
             </div>
+
+            {monograph.conservationExplanation && (
+              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: '0.75rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>{language === 'bn' ? 'সংরক্ষণ ব্যাখ্যা: ' : 'Conservation Context: '}</strong>
+                {monograph.conservationExplanation}
+              </p>
+            )}
           </section>
 
           {/* Regional Context: Bangladesh Occurrence & Ecological Distribution */}
@@ -600,7 +593,7 @@ export const SpeciesDetailPage: React.FC = () => {
                     {t('detail.basinRecords')}
                   </div>
                   <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    {bdRegions.map((reg, idx) => (
+                    {monograph.bdRegions.map((reg, idx) => (
                       <span key={idx} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '0.2rem 0.6rem', borderRadius: '4px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                         {reg}
                       </span>
@@ -608,17 +601,24 @@ export const SpeciesDetailPage: React.FC = () => {
                   </div>
                 </div>
 
-                {bdSeasonalNotes && (
+                {monograph.bdSeasonalNotes && (
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
                     <strong style={{ color: 'var(--text-primary)' }}>{t('detail.seasonalOccurrence')} </strong>
-                    {bdSeasonalNotes}
+                    {monograph.bdSeasonalNotes}
                   </p>
                 )}
 
-                {bdNotes && (
+                {monograph.bdNotes && (
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                     <strong style={{ color: 'var(--text-primary)' }}>{t('detail.localSignificance')} </strong>
-                    {bdNotes}
+                    {monograph.bdNotes}
+                  </p>
+                )}
+
+                {monograph.distribution && monograph.distribution !== monograph.bdNotes && (
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: '0.5rem' }}>
+                    <strong style={{ color: 'var(--text-primary)' }}>{language === 'bn' ? 'ভৌগোলিক বিস্তার: ' : 'Geographic Distribution: '}</strong>
+                    {monograph.distribution}
                   </p>
                 )}
               </div>
@@ -632,6 +632,37 @@ export const SpeciesDetailPage: React.FC = () => {
               </div>
             )}
           </section>
+
+          {/* Research Significance if available */}
+          {monograph.researchSignificance && (
+            <section id="research-significance" className="card">
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <BookOpen size={18} style={{ color: 'var(--accent-emerald)' }} />
+                <span>{language === 'bn' ? 'গবেষণাগত তাৎপর্য' : 'Research Significance'}</span>
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+                {monograph.researchSignificance}
+              </p>
+            </section>
+          )}
+
+          {/* Similar Species / Differential Diagnosis if available */}
+          {monograph.similarSpecies.length > 0 && (
+            <section id="similar-species" className="card">
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Layers size={18} style={{ color: 'var(--accent-marine-light)' }} />
+                <span>{language === 'bn' ? 'সাদৃশ্যপূর্ণ প্রজাতি ও শনাক্তকরণ পার্থক্য' : 'Similar Species & Differential Diagnosis'}</span>
+              </h3>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', margin: 0, padding: 0 }}>
+                {monograph.similarSpecies.map((sim, idx) => (
+                  <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    <Check size={16} style={{ color: 'var(--accent-emerald)', flexShrink: 0, marginTop: '2px' }} />
+                    <span>{sim}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
 
         {/* Right Column: Taxonomy, Synonyms & Verified References */}
