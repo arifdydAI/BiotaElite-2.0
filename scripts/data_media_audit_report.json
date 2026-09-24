@@ -1,0 +1,82 @@
+{
+  "totalSpecies": 238,
+  "speciesWithMedia": 236,
+  "speciesWithoutMedia": 2,
+  "totalMediaItems": 236,
+  "verifiedMediaItems": 236,
+  "pendingMediaItems": 0,
+  "byPhylum": {
+    "Annelida": 11,
+    "Mollusca": 22,
+    "Arthropoda": 35,
+    "Cnidaria": 12,
+    "Porifera": 9,
+    "Ctenophora": 4,
+    "Echinodermata": 12,
+    "Chordata": 133
+  },
+  "byClass": {
+    "Clitellata": 7,
+    "Polychaeta": 4,
+    "Cephalopoda": 6,
+    "Bivalvia": 7,
+    "Gastropoda": 8,
+    "Arachnida": 4,
+    "Branchiopoda": 1,
+    "Insecta": 19,
+    "Hydrozoa": 3,
+    "Anthozoa": 5,
+    "Calcarea": 2,
+    "Tentaculata": 3,
+    "Asteroidea": 4,
+    "Echinoidea": 4,
+    "Crinoidea": 1,
+    "Amphibia": 11,
+    "Reptilia": 19,
+    "Aves": 13,
+    "Mammalia": 22,
+    "Demospongiae": 5,
+    "Hexactinellida": 2,
+    "Scyphozoa": 3,
+    "Malacostraca": 9,
+    "Chondrichthyes": 12,
+    "Actinopterygii": 50,
+    "Cubozoa": 1,
+    "Nuda": 1,
+    "Polyplacophora": 1,
+    "Merostomata": 1,
+    "Chilopoda": 1,
+    "Ophiuroidea": 1,
+    "Holothuroidea": 2,
+    "Leptocardii": 1,
+    "Ascidiacea": 1,
+    "Sarcopterygii": 2,
+    "Petromyzonti": 1,
+    "Myxini": 1
+  },
+  "imageVerificationStatusCounts": {
+    "verified": 236,
+    "unavailable": 2
+  },
+  "speciesWithoutMediaList": [
+    {
+      "id": "sp-pangasius-pangasius",
+      "scientificName": "Pangasius pangasius",
+      "commonEn": "Yellowtail catfish",
+      "phylum": "Chordata",
+      "class": "Actinopterygii",
+      "bangladesh": true,
+      "imageVerificationStatus": "unavailable"
+    },
+    {
+      "id": "sp-eutropiichthys-vacha",
+      "scientificName": "Eutropiichthys vacha",
+      "commonEn": "Batchwa catfish",
+      "phylum": "Chordata",
+      "class": "Actinopterygii",
+      "bangladesh": true,
+      "imageVerificationStatus": "unavailable"
+    }
+  ],
+  "issues": []
+}
