@@ -74,6 +74,67 @@ export const SpeciesDetailPage: React.FC = () => {
   // Check if there is an explicit status discrepancy between Global and National
   const hasStatusDiscrepancy = globalStatus && nationalStatus && globalStatus !== nationalStatus;
 
+  // Localized monograph content with controlled fallback
+  const morphologyDesc = (language === 'bn' && species.morphology.descriptionBn)
+    ? species.morphology.descriptionBn
+    : species.morphology.description;
+
+  const diagnosticFeatures = (language === 'bn' && species.morphology.diagnosticFeaturesBn && species.morphology.diagnosticFeaturesBn.length > 0)
+    ? species.morphology.diagnosticFeaturesBn
+    : species.morphology.diagnosticFeatures;
+
+  const coloration = (language === 'bn' && species.morphology.colorationBn)
+    ? species.morphology.colorationBn
+    : species.morphology.coloration;
+
+  const dietSummary = (language === 'bn' && species.ecology.dietSummaryBn)
+    ? species.ecology.dietSummaryBn
+    : species.ecology.dietSummary;
+
+  const behavior = (language === 'bn' && species.ecology.behaviorBn)
+    ? species.ecology.behaviorBn
+    : species.ecology.behavior;
+
+  const reproduction = (language === 'bn' && species.ecology.reproductionBn)
+    ? species.ecology.reproductionBn
+    : species.ecology.reproduction;
+
+  const ecologicalRole = (language === 'bn' && species.ecology.ecologicalRoleBn)
+    ? species.ecology.ecologicalRoleBn
+    : species.ecology.ecologicalRole;
+
+  const threats = (language === 'bn' && species.conservation.threatsBn && species.conservation.threatsBn.length > 0)
+    ? species.conservation.threatsBn
+    : species.conservation.threats;
+
+  const bdRegions = (language === 'bn' && species.bangladeshOccurrence.regionsBn && species.bangladeshOccurrence.regionsBn.length > 0)
+    ? species.bangladeshOccurrence.regionsBn
+    : species.bangladeshOccurrence.regions;
+
+  const bdSeasonalNotes = (language === 'bn' && species.bangladeshOccurrence.seasonalNotesBn)
+    ? species.bangladeshOccurrence.seasonalNotesBn
+    : species.bangladeshOccurrence.seasonalNotes;
+
+  const bdNotes = (language === 'bn' && species.bangladeshOccurrence.notesBn)
+    ? species.bangladeshOccurrence.notesBn
+    : species.bangladeshOccurrence.notes;
+
+  const DIET_CATEGORY_BN: Record<string, string> = {
+    carnivore: 'মাংসাশী (Carnivore)',
+    herbivore: 'তৃণভোজী (Herbivore)',
+    omnivore: 'সর্বভুক (Omnivore)',
+    planktivore: 'প্ল্যাঙ্কটনভোজী (Planktivore)',
+    detritivore: 'পচনভোজী / ডেট্রিটিভোর (Detritivore)',
+    filter_feeder: 'পরিশ্রাবণভোজী / ফিল্টার ফিডার (Filter Feeder)',
+  };
+
+  const SYNONYM_STATUS_BN: Record<string, string> = {
+    homotypic: 'হোমোটিপিক প্রতিশব্দ',
+    heterotypic: 'হেটেরোটিপিক প্রতিশব্দ',
+    misapplied: 'ভুল প্রয়োগকৃত নাম',
+    provisional: 'সাময়িক নাম',
+  };
+
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
@@ -149,18 +210,38 @@ export const SpeciesDetailPage: React.FC = () => {
 
             {/* Common Names */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              {species.commonNames.en.length > 0 && (
-                <span style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                  {species.commonNames.en.join(', ')}
-                </span>
-              )}
-              {species.commonNames.bn.length > 0 && (
-                <span
-                  className="bangla-text"
-                  style={{ fontSize: '1.2rem', color: 'var(--accent-emerald-light)', fontWeight: 600 }}
-                >
-                  ({species.commonNames.bn.join(', ')})
-                </span>
+              {language === 'bn' ? (
+                <>
+                  {species.commonNames.bn.length > 0 && (
+                    <span
+                      className="bangla-text"
+                      style={{ fontSize: '1.25rem', color: 'var(--accent-emerald-light)', fontWeight: 700 }}
+                    >
+                      {species.commonNames.bn.join(', ')}
+                    </span>
+                  )}
+                  {species.commonNames.en.length > 0 && (
+                    <span style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                      ({species.commonNames.en.join(', ')})
+                    </span>
+                  )}
+                </>
+              ) : (
+                <>
+                  {species.commonNames.en.length > 0 && (
+                    <span style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                      {species.commonNames.en.join(', ')}
+                    </span>
+                  )}
+                  {species.commonNames.bn.length > 0 && (
+                    <span
+                      className="bangla-text"
+                      style={{ fontSize: '1.2rem', color: 'var(--accent-emerald-light)', fontWeight: 600 }}
+                    >
+                      ({species.commonNames.bn.join(', ')})
+                    </span>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -239,7 +320,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 </p>
                 {primaryMedia.photographer && (
                   <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                    {language === 'bn' ? 'স্বীকৃতি' : 'Attribution'}: {primaryMedia.photographer} • {primaryMedia.license}
+                    {t('detail.attribution')}: {primaryMedia.photographer} • {primaryMedia.license}
                   </p>
                 )}
               </div>
@@ -252,7 +333,7 @@ export const SpeciesDetailPage: React.FC = () => {
                   className="btn btn-secondary btn-sm"
                   style={{ fontSize: '0.75rem', gap: '0.3rem' }}
                 >
-                  <span>{language === 'bn' ? 'ছবির উৎস' : 'Image Source'}</span>
+                  <span>{t('detail.imageSource')}</span>
                   <ExternalLink size={12} />
                 </a>
               )}
@@ -280,8 +361,14 @@ export const SpeciesDetailPage: React.FC = () => {
               <span>{t('detail.morphology')}</span>
             </h3>
 
+            {language === 'bn' && !species.morphology.descriptionBn && (
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontStyle: 'italic' }}>
+                * {t('detail.controlledEnglishFallback')}
+              </div>
+            )}
+
             <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-              {species.morphology.description}
+              {morphologyDesc}
             </p>
 
             <div style={{ marginBottom: '1.25rem' }}>
@@ -289,7 +376,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 {t('detail.diagnosticFeatures')}
               </h4>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {species.morphology.diagnosticFeatures.map((feat, idx) => (
+                {diagnosticFeatures.map((feat, idx) => (
                   <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
                     <Check size={16} style={{ color: 'var(--accent-emerald)', flexShrink: 0, marginTop: '2px' }} />
                     <span>{feat}</span>
@@ -320,10 +407,10 @@ export const SpeciesDetailPage: React.FC = () => {
               )}
             </div>
 
-            {species.morphology.coloration && (
+            {coloration && (
               <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                 <strong style={{ color: 'var(--text-primary)' }}>{t('detail.coloration')}: </strong>
-                {species.morphology.coloration}
+                {coloration}
               </div>
             )}
           </section>
@@ -339,33 +426,41 @@ export const SpeciesDetailPage: React.FC = () => {
               <div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('detail.diet')}</div>
                 <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--accent-emerald-light)', textTransform: 'capitalize' }}>
-                  {species.ecology.dietCategory || (language === 'bn' ? 'মূল্যায়ন করা হয়নি' : 'Not evaluated')}
+                  {species.ecology.dietCategory
+                    ? (language === 'bn' ? (DIET_CATEGORY_BN[species.ecology.dietCategory] || species.ecology.dietCategory) : species.ecology.dietCategory)
+                    : (language === 'bn' ? 'মূল্যায়ন করা হয়নি' : 'Not evaluated')}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Depth Range</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('detail.depthRange')}</div>
                 <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
-                  {species.habitat.depthRangeMeters ? `${species.habitat.depthRangeMeters.min} – ${species.habitat.depthRangeMeters.max} m` : 'Unspecified'}
+                  {species.habitat.depthRangeMeters ? `${species.habitat.depthRangeMeters.min} – ${species.habitat.depthRangeMeters.max} m` : t('detail.unspecified')}
                 </div>
               </div>
             </div>
 
-            {species.ecology.dietSummary && (
+            {dietSummary && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>Feeding Strategy: </strong> {species.ecology.dietSummary}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.feedingStrategy')} </strong> {dietSummary}
               </p>
             )}
 
-            {species.ecology.behavior && (
+            {behavior && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.behavior')} </strong> {species.ecology.behavior}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.behavior')} </strong> {behavior}
               </p>
             )}
 
-            {species.ecology.reproduction && (
+            {reproduction && (
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.reproduction')} </strong> {reproduction}
+              </p>
+            )}
+
+            {ecologicalRole && (
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.reproduction')} </strong> {species.ecology.reproduction}
+                <strong style={{ color: 'var(--text-primary)' }}>{t('detail.ecologicalRole')} </strong> {ecologicalRole}
               </p>
             )}
           </section>
@@ -392,7 +487,7 @@ export const SpeciesDetailPage: React.FC = () => {
                   </span>
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                  <span style={{ color: 'var(--text-muted)' }}>Source: </span>
+                  <span style={{ color: 'var(--text-muted)' }}>{t('detail.sourceLabel')}</span>
                   {globalSource}
                 </div>
               </div>
@@ -407,14 +502,14 @@ export const SpeciesDetailPage: React.FC = () => {
                   {nationalStatus ? (
                     <ConservationBadge status={nationalStatus} />
                   ) : (
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Not Assessed</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{t('detail.notAssessed')}</span>
                   )}
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                     {t('detail.assessmentYear')} {nationalYear}
                   </span>
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                  <span style={{ color: 'var(--text-muted)' }}>Source: </span>
+                  <span style={{ color: 'var(--text-muted)' }}>{t('detail.sourceLabel')}</span>
                   {nationalSource}
                 </div>
               </div>
@@ -449,7 +544,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 {t('detail.threats')}
               </div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                {species.conservation.threats.map((threat, idx) => (
+                {threats.map((threat, idx) => (
                   <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                     <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#f87171', marginTop: '7px', flexShrink: 0 }} />
                     <span>{threat}</span>
@@ -467,7 +562,7 @@ export const SpeciesDetailPage: React.FC = () => {
                 <span>{t('detail.bdDistribution')}</span>
               </h3>
               <span style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--accent-marine-light)', textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(2, 132, 199, 0.15)', padding: '0.2rem 0.55rem', borderRadius: 'var(--radius-full)' }}>
-                {language === 'bn' ? 'আঞ্চলিক প্রেক্ষাপট' : 'Regional Context'}
+                {t('detail.regionalContext')}
               </span>
             </div>
 
@@ -475,7 +570,7 @@ export const SpeciesDetailPage: React.FC = () => {
               <div>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
                   <span style={{ background: 'rgba(2, 132, 199, 0.15)', color: '#38bdf8', padding: '0.25rem 0.65rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem', fontWeight: 600 }}>
-                    {t('detail.residency')} {species.bangladeshOccurrence.residencyStatus.toUpperCase()}
+                    {t('detail.residency')} {t(`residency.${species.bangladeshOccurrence.residencyStatus}` as any) || species.bangladeshOccurrence.residencyStatus.toUpperCase()}
                   </span>
                   {nationalStatus && (
                     <span style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', padding: '0.25rem 0.65rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem', fontWeight: 600 }}>
@@ -484,12 +579,28 @@ export const SpeciesDetailPage: React.FC = () => {
                   )}
                 </div>
 
+                {/* Local Vernacular Names in Bangladesh */}
+                {species.bangladeshOccurrence.localNamesBn && species.bangladeshOccurrence.localNamesBn.length > 0 && (
+                  <div style={{ marginBottom: '1rem' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
+                      {t('detail.localVernacularNames')}
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      {species.bangladeshOccurrence.localNamesBn.map((name, idx) => (
+                        <span key={idx} className="bangla-text" style={{ background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.2rem 0.6rem', borderRadius: '4px', fontSize: '0.85rem', color: 'var(--accent-emerald-light)', fontWeight: 600 }}>
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div style={{ marginBottom: '1rem' }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                     {t('detail.basinRecords')}
                   </div>
                   <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    {species.bangladeshOccurrence.regions.map((reg, idx) => (
+                    {bdRegions.map((reg, idx) => (
                       <span key={idx} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '0.2rem 0.6rem', borderRadius: '4px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                         {reg}
                       </span>
@@ -497,17 +608,17 @@ export const SpeciesDetailPage: React.FC = () => {
                   </div>
                 </div>
 
-                {species.bangladeshOccurrence.seasonalNotes && (
+                {bdSeasonalNotes && (
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
                     <strong style={{ color: 'var(--text-primary)' }}>{t('detail.seasonalOccurrence')} </strong>
-                    {species.bangladeshOccurrence.seasonalNotes}
+                    {bdSeasonalNotes}
                   </p>
                 )}
 
-                {species.bangladeshOccurrence.notes && (
+                {bdNotes && (
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                     <strong style={{ color: 'var(--text-primary)' }}>{t('detail.localSignificance')} </strong>
-                    {species.bangladeshOccurrence.notes}
+                    {bdNotes}
                   </p>
                 )}
               </div>
@@ -528,7 +639,7 @@ export const SpeciesDetailPage: React.FC = () => {
           {/* Taxonomic Hierarchy Table */}
           <div className="card">
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.85rem' }}>
-              {language === 'bn' ? 'শ্রেণীবিন্যাসীয় বিন্যাস' : 'Taxonomic Classification'}
+              {t('detail.taxonomicClassification')}
             </h4>
             <table style={{ width: '100%', fontSize: '0.85rem', borderCollapse: 'collapse' }}>
               <tbody>
@@ -559,7 +670,7 @@ export const SpeciesDetailPage: React.FC = () => {
                       {syn.name}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                      {syn.authorship} • {syn.status} {syn.isBasionym && <span style={{ color: 'var(--accent-emerald-light)', fontWeight: 700 }}>({t('detail.basionym')})</span>}
+                      {syn.authorship} • {language === 'bn' ? (SYNONYM_STATUS_BN[syn.status] || syn.status) : syn.status} {syn.isBasionym && <span style={{ color: 'var(--accent-emerald-light)', fontWeight: 700 }}>({t('detail.basionym')})</span>}
                     </div>
                   </li>
                 ))}
@@ -593,7 +704,7 @@ export const SpeciesDetailPage: React.FC = () => {
                       rel="noreferrer"
                       style={{ color: 'var(--accent-marine-light)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem' }}
                     >
-                      <span>{language === 'bn' ? 'উৎস রেকর্ড দেখুন' : 'View Source Record'}</span>
+                      <span>{t('detail.viewSourceRecord')}</span>
                       <ExternalLink size={11} />
                     </a>
                   )}

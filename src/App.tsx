@@ -61,6 +61,11 @@ const SettingsPage = React.lazy(() => import('./pages/admin/SettingsPage').then(
 const BatchImportPage = React.lazy(() => import('./pages/admin/BatchImportPage').then(m => ({ default: m.BatchImportPage })));
 const ImportBatchesPage = React.lazy(() => import('./pages/admin/ImportBatchesPage').then(m => ({ default: m.ImportBatchesPage })));
 const ConflictCenterPage = React.lazy(() => import('./pages/admin/ConflictCenterPage').then(m => ({ default: m.ConflictCenterPage })));
+const BangladeshAdminPage = React.lazy(() => import('./pages/admin/BangladeshAdminPage').then(m => ({ default: m.BangladeshAdminPage })));
+const IdentKeyManagerPage = React.lazy(() => import('./pages/admin/IdentKeyManagerPage').then(m => ({ default: m.IdentKeyManagerPage })));
+const MediaManagerPage = React.lazy(() => import('./pages/admin/MediaManagerPage').then(m => ({ default: m.MediaManagerPage })));
+const ScientificNamesManagerPage = React.lazy(() => import('./pages/admin/ScientificNamesManagerPage').then(m => ({ default: m.ScientificNamesManagerPage })));
+const DataHealthPage = React.lazy(() => import('./pages/admin/DataHealthPage').then(m => ({ default: m.DataHealthPage })));
 
 // Lightweight Route Transition Fallback
 const RouteLoadingFallback: React.FC = () => (
@@ -172,21 +177,28 @@ export const App: React.FC = () => {
               {/* ----------------------------------------------------------------
                 ADMINISTRATIVE GOVERNANCE SURFACE — PROTECTED.
                 RequireAuth enforces: authenticated session + minimum role.
+                Base staff access starts at "data_manager".
+                Sub-routes like users and settings require "super_admin".
                 Unauthenticated → redirect to /login
                 Insufficient role → redirect to /access-denied
                 All /admin sub-routes inherit this protection.
               ---------------------------------------------------------------- */}
-              <Route element={<RequireAuth minimumRole="admin" />}>
+              <Route element={<RequireAuth minimumRole="data_manager" />}>
                 <Route path="/admin" element={<React.Suspense fallback={<RouteLoadingFallback />}><AdminLayout /></React.Suspense>}>
                   <Route index element={<DashboardPage />} />
                   <Route path="species" element={<SpeciesManagerPage />} />
                   <Route path="taxonomy" element={<TaxonomyManagerPage />} />
+                  <Route path="bangladesh" element={<BangladeshAdminPage />} />
+                  <Route path="ident-keys" element={<IdentKeyManagerPage />} />
+                  <Route path="media" element={<MediaManagerPage />} />
+                  <Route path="scientific-names" element={<ScientificNamesManagerPage />} />
                   <Route path="reviews" element={<ReviewQueuePage />} />
                   <Route path="references" element={<ReferenceManagerPage />} />
                   <Route path="audit-logs" element={<AuditLogPage />} />
                   <Route path="batch-import" element={<BatchImportPage />} />
                   <Route path="import-batches" element={<ImportBatchesPage />} />
                   <Route path="conflicts" element={<ConflictCenterPage />} />
+                  <Route path="data-health" element={<DataHealthPage />} />
                   {/* Users & Settings: super_admin only */}
                   <Route element={<RequireAuth minimumRole="super_admin" />}>
                     <Route path="users" element={<UsersPage />} />

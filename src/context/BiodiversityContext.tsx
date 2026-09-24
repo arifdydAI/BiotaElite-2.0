@@ -10,16 +10,21 @@ import type {
   BangladeshResidency, 
   LifecycleStatus,
   TaxonomicRank,
-  TaxonKnowledgeRecord 
+  TaxonKnowledgeRecord,
+  MediaMetadata,
+  DataHealthReport,
+  DataHealthIssue
 } from '../types/biodiversity';
 import { compareSpeciesByPriority } from '../types/biodiversity';
 import type { AuditLogEntry, AuditAction } from '../types/audit';
 import type { BatchImportRecord, ConflictRecord } from '../types/provenance';
+import type { UserProfile, UserRole } from '../types/auth';
 import { SEED_SPECIES } from '../data/seedSpecies';
 import { SEED_TAXA } from '../data/seedTaxa';
 import { SEED_REFERENCES } from '../data/seedReferences';
 import { SEED_IDENTIFICATION_KEYS } from '../data/seedIdentKeys';
 import { SEED_TAXON_KNOWLEDGE } from '../data/seedTaxonKnowledge';
+import { SEED_USERS } from '../data/seedUsers';
 import { useAuth } from './AuthContext';
 
 export interface FilterState {
@@ -133,11 +138,33 @@ interface BiodiversityContextType {
   unpublishSpecies: (id: string) => void;
   archiveSpecies: (id: string) => void;
   deleteSpecies: (id: string) => void;
+  submitSpeciesForReview: (id: string) => void;
+  rejectSpeciesReview: (id: string, rejectionReason: string) => void;
 
   addTaxon: (taxonData: Omit<TaxonNode, 'id'>) => void;
   updateTaxon: (id: string, updates: Partial<TaxonNode>) => void;
   addReference: (refData: Omit<ReferenceSource, 'id'>) => void;
   updateReference: (id: string, updates: Partial<ReferenceSource>) => void;
+
+  // Identification Keys
+  addIdentKey: (keyData: Omit<IdentificationKey, 'id'>) => void;
+  updateIdentKey: (id: string, updates: Partial<IdentificationKey>) => void;
+  deleteIdentKey: (id: string) => void;
+
+  // Media Assets
+  getAllMedia: () => Array<MediaMetadata & { speciesId: string; speciesScientificName: string }>;
+  addMedia: (speciesId: string, mediaItem: Omit<MediaMetadata, 'id'>) => void;
+  updateMedia: (speciesId: string, mediaId: string, updates: Partial<MediaMetadata>) => void;
+  deleteMedia: (speciesId: string, mediaId: string) => void;
+
+  // User Management
+  users: UserProfile[];
+  addUser: (userData: Omit<UserProfile, 'uid' | 'createdAt' | 'lastLoginAt'>) => void;
+  updateUserRole: (uid: string, newRole: UserRole) => void;
+  toggleUserActive: (uid: string) => void;
+
+  // Data Health Engine
+  runDataHealthCheck: () => DataHealthReport;
 
   resetToInitialSeed: () => void;
 
@@ -199,6 +226,8 @@ interface AuditedBiodiversityState {
   taxa: TaxonNode[];
   taxonKnowledge: TaxonKnowledgeRecord[];
   references: ReferenceSource[];
+  identKeys: IdentificationKey[];
+  users: UserProfile[];
   auditLogs: AuditLogEntry[];
   batches: BatchImportRecord[];
   conflicts: ConflictRecord[];
@@ -216,11 +245,15 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
     safeRemoveItem('biota_taxa');
     safeRemoveItem('biota_taxon_knowledge');
     safeRemoveItem('biota_references');
+    safeRemoveItem('biota_ident_keys');
+    safeRemoveItem('biota_users');
     return {
       species: SEED_SPECIES,
       taxa: SEED_TAXA,
       taxonKnowledge: SEED_TAXON_KNOWLEDGE,
       references: SEED_REFERENCES,
+      identKeys: SEED_IDENTIFICATION_KEYS,
+      users: SEED_USERS,
       auditLogs: INITIAL_AUDIT_LOGS,
       batches: [],
       conflicts: []
@@ -232,6 +265,8 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
   const parsedTaxaRes = safeParseJson<TaxonNode[]>(safeGetItem('biota_taxa'), SEED_TAXA);
   const parsedKnowledgeRes = safeParseJson<TaxonKnowledgeRecord[]>(safeGetItem('biota_taxon_knowledge'), SEED_TAXON_KNOWLEDGE);
   const parsedRefsRes = safeParseJson<ReferenceSource[]>(safeGetItem('biota_references'), SEED_REFERENCES);
+  const parsedIdentKeysRes = safeParseJson<IdentificationKey[]>(safeGetItem('biota_ident_keys'), SEED_IDENTIFICATION_KEYS);
+  const parsedUsersRes = safeParseJson<UserProfile[]>(safeGetItem('biota_users'), SEED_USERS);
   const parsedLogsRes = safeParseJson<AuditLogEntry[]>(safeGetItem('biota_audit_logs'), INITIAL_AUDIT_LOGS);
   const parsedBatchesRes = safeParseJson<BatchImportRecord[]>(safeGetItem('biota_batches'), []);
   const parsedConflictsRes = safeParseJson<ConflictRecord[]>(safeGetItem('biota_conflicts'), []);
@@ -241,6 +276,8 @@ function loadAuditedBiodiversityData(): AuditedBiodiversityState {
     taxa: parsedTaxaRes.value,
     taxonKnowledge: parsedKnowledgeRes.value,
     references: parsedRefsRes.value,
+    identKeys: parsedIdentKeysRes.value,
+    users: parsedUsersRes.value,
     auditLogs: parsedLogsRes.value,
     batches: parsedBatchesRes.value,
     conflicts: parsedConflictsRes.value
@@ -260,7 +297,8 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [taxa, setTaxa] = useState<TaxonNode[]>(initialData.taxa);
   const [taxonKnowledge, setTaxonKnowledge] = useState<TaxonKnowledgeRecord[]>(initialData.taxonKnowledge);
   const [references, setReferences] = useState<ReferenceSource[]>(initialData.references);
-  const [identKeys] = useState<IdentificationKey[]>(SEED_IDENTIFICATION_KEYS);
+  const [identKeys, setIdentKeys] = useState<IdentificationKey[]>(initialData.identKeys);
+  const [users, setUsers] = useState<UserProfile[]>(initialData.users);
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>(initialData.auditLogs);
   const [batches, setBatches] = useState<BatchImportRecord[]>(initialData.batches);
   const [conflicts, setConflicts] = useState<ConflictRecord[]>(initialData.conflicts);
@@ -295,6 +333,17 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }, 3500);
     return () => clearTimeout(timer);
   }, [references]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      safeSetItem('biota_ident_keys', JSON.stringify(identKeys));
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [identKeys]);
+
+  useEffect(() => {
+    safeSetItem('biota_users', JSON.stringify(users));
+  }, [users]);
 
   useEffect(() => {
     safeSetItem('biota_audit_logs', JSON.stringify(auditLogs));
@@ -583,6 +632,45 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     logAudit('delete', 'species', id, existing.scientificName, 'Species permanently removed.');
   };
 
+  const submitSpeciesForReview = (id: string) => {
+    const existing = species.find(s => s.id === id);
+    if (!existing) return;
+
+    const now = new Date().toISOString();
+    setSpecies(prev => prev.map(s => {
+      if (s.id === id) {
+        return {
+          ...s,
+          lifecycleStatus: 'under_review',
+          updatedAt: now,
+        };
+      }
+      return s;
+    }));
+
+    logAudit('update', 'species', id, existing.scientificName, 'Species submitted for expert peer review.');
+  };
+
+  const rejectSpeciesReview = (id: string, rejectionReason: string) => {
+    const existing = species.find(s => s.id === id);
+    if (!existing) return;
+
+    const now = new Date().toISOString();
+    setSpecies(prev => prev.map(s => {
+      if (s.id === id) {
+        return {
+          ...s,
+          lifecycleStatus: 'draft',
+          isVerified: false,
+          updatedAt: now,
+        };
+      }
+      return s;
+    }));
+
+    logAudit('update', 'species', id, existing.scientificName, `Species review returned to draft: ${rejectionReason}`);
+  };
+
   // Taxa Actions
   const addTaxon = (taxonData: Omit<TaxonNode, 'id'>) => {
     const id = 'taxon-' + taxonData.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
@@ -615,11 +703,273 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     logAudit('update', 'reference', id, existing.title, 'Reference record modified.');
   };
 
+  // Identification Keys Actions
+  const addIdentKey = (keyData: Omit<IdentificationKey, 'id'>) => {
+    const id = 'key-' + Date.now();
+    const newKey: IdentificationKey = { ...keyData, id };
+    setIdentKeys(prev => [...prev, newKey]);
+    logAudit('create', 'species', id, newKey.title, `New identification key created for ${newKey.taxonScope}`);
+  };
+
+  const updateIdentKey = (id: string, updates: Partial<IdentificationKey>) => {
+    const existing = identKeys.find(k => k.id === id);
+    if (!existing) return;
+
+    setIdentKeys(prev => prev.map(k => (k.id === id ? { ...k, ...updates } : k)));
+    logAudit('update', 'species', id, existing.title, 'Identification key updated.');
+  };
+
+  const deleteIdentKey = (id: string) => {
+    const existing = identKeys.find(k => k.id === id);
+    if (!existing) return;
+
+    setIdentKeys(prev => prev.filter(k => k.id !== id));
+    logAudit('delete', 'species', id, existing.title, 'Identification key permanently deleted.');
+  };
+
+  // Media Actions
+  const getAllMedia = (): Array<MediaMetadata & { speciesId: string; speciesScientificName: string }> => {
+    const list: Array<MediaMetadata & { speciesId: string; speciesScientificName: string }> = [];
+    for (const sp of species) {
+      if (sp.media && Array.isArray(sp.media)) {
+        for (const m of sp.media) {
+          list.push({
+            ...m,
+            speciesId: sp.id,
+            speciesScientificName: sp.scientificName,
+          });
+        }
+      }
+    }
+    return list;
+  };
+
+  const addMedia = (speciesId: string, mediaItem: Omit<MediaMetadata, 'id'>) => {
+    const existing = species.find(s => s.id === speciesId);
+    if (!existing) return;
+
+    const id = 'med-' + Date.now();
+    const newMedia: MediaMetadata = { ...mediaItem, id };
+    const now = new Date().toISOString();
+
+    setSpecies(prev => prev.map(s => {
+      if (s.id === speciesId) {
+        return {
+          ...s,
+          media: [...(s.media || []), newMedia],
+          updatedAt: now,
+        };
+      }
+      return s;
+    }));
+
+    logAudit('update', 'species', speciesId, existing.scientificName, `Added media asset: ${newMedia.caption || newMedia.url}`);
+  };
+
+  const updateMedia = (speciesId: string, mediaId: string, updates: Partial<MediaMetadata>) => {
+    const existing = species.find(s => s.id === speciesId);
+    if (!existing) return;
+
+    const now = new Date().toISOString();
+    setSpecies(prev => prev.map(s => {
+      if (s.id === speciesId) {
+        return {
+          ...s,
+          media: (s.media || []).map(m => (m.id === mediaId ? { ...m, ...updates } : m)),
+          updatedAt: now,
+        };
+      }
+      return s;
+    }));
+
+    logAudit('update', 'species', speciesId, existing.scientificName, `Updated media asset ${mediaId}`);
+  };
+
+  const deleteMedia = (speciesId: string, mediaId: string) => {
+    const existing = species.find(s => s.id === speciesId);
+    if (!existing) return;
+
+    const now = new Date().toISOString();
+    setSpecies(prev => prev.map(s => {
+      if (s.id === speciesId) {
+        return {
+          ...s,
+          media: (s.media || []).filter(m => m.id !== mediaId),
+          updatedAt: now,
+        };
+      }
+      return s;
+    }));
+
+    logAudit('update', 'species', speciesId, existing.scientificName, `Deleted media asset ${mediaId}`);
+  };
+
+  // User Management Actions
+  const addUser = (userData: Omit<UserProfile, 'uid' | 'createdAt' | 'lastLoginAt'>) => {
+    const uid = 'usr-' + Date.now().toString(36);
+    const now = new Date().toISOString();
+    const newUser: UserProfile = {
+      ...userData,
+      uid,
+      createdAt: now,
+      lastLoginAt: 'Never',
+    };
+    setUsers(prev => [newUser, ...prev]);
+    logAudit('create', 'user', uid, newUser.displayName, `Staff account created with role: ${newUser.role}`);
+  };
+
+  const updateUserRole = (uid: string, newRole: UserRole) => {
+    const existing = users.find(u => u.uid === uid);
+    if (!existing) return;
+
+    setUsers(prev => prev.map(u => (u.uid === uid ? { ...u, role: newRole } : u)));
+    logAudit('update', 'user', uid, existing.displayName, `Role changed from ${existing.role} to ${newRole}`);
+  };
+
+  const toggleUserActive = (uid: string) => {
+    const existing = users.find(u => u.uid === uid);
+    if (!existing) return;
+
+    const newActive = !existing.isActive;
+    setUsers(prev => prev.map(u => (u.uid === uid ? { ...u, isActive: newActive } : u)));
+    logAudit('update', 'user', uid, existing.displayName, `Account ${newActive ? 'activated' : 'deactivated'}`);
+  };
+
+  // Data Health Engine Diagnostic Scanner
+  const runDataHealthCheck = (): DataHealthReport => {
+    const issues: DataHealthIssue[] = [];
+    let totalChecks = 0;
+
+    // Check 1: Duplicate species scientific names
+    totalChecks++;
+    const nameMap = new Map<string, string[]>();
+    for (const sp of species) {
+      const norm = sp.scientificName.trim().toLowerCase();
+      if (!nameMap.has(norm)) {
+        nameMap.set(norm, []);
+      }
+      nameMap.get(norm)!.push(sp.id);
+    }
+    for (const [name, ids] of nameMap.entries()) {
+      if (ids.length > 1) {
+        issues.push({
+          id: `dup-${name}`,
+          type: 'error',
+          entity: 'species',
+          entityId: ids[0],
+          entityName: name,
+          message: `Duplicate scientific name found across ${ids.length} records: ${ids.join(', ')}`,
+        });
+      }
+    }
+
+    // Check 2: Orphan taxonomy nodes (parent not found)
+    totalChecks++;
+    const taxonIds = new Set(taxa.map(t => t.id));
+    for (const t of taxa) {
+      const pId = t.parentTaxonId ?? t.parentId;
+      if (pId && !taxonIds.has(pId)) {
+        issues.push({
+          id: `orphan-${t.id}`,
+          type: 'warning',
+          entity: 'taxon',
+          entityId: t.id,
+          entityName: t.scientificName || t.name,
+          message: `Taxon references parent '${pId}' which does not exist in taxa dataset`,
+        });
+      }
+    }
+
+    // Check 3: Broken reference citations
+    totalChecks++;
+    const refIds = new Set(references.map(r => r.id));
+    for (const sp of species) {
+      if (sp.referenceIds && Array.isArray(sp.referenceIds)) {
+        for (const rid of sp.referenceIds) {
+          if (!refIds.has(rid)) {
+            issues.push({
+              id: `ref-${sp.id}-${rid}`,
+              type: 'warning',
+              entity: 'reference',
+              entityId: sp.id,
+              entityName: sp.scientificName,
+              message: `Species references citation ID '${rid}' not found in master references catalog`,
+            });
+          }
+        }
+      }
+    }
+
+    // Check 4: Unverified species published to public view
+    totalChecks++;
+    for (const sp of species) {
+      if (sp.isPublished && !sp.isVerified) {
+        issues.push({
+          id: `unverified-pub-${sp.id}`,
+          type: 'error',
+          entity: 'species',
+          entityId: sp.id,
+          entityName: sp.scientificName,
+          message: `Record is published to public catalog without scientific verification sign-off`,
+        });
+      }
+    }
+
+    // Check 5: Identification keys validity
+    totalChecks++;
+    for (const key of identKeys) {
+      if (!key.steps || key.steps.length === 0) {
+        issues.push({
+          id: `empty-key-${key.id}`,
+          type: 'warning',
+          entity: 'key',
+          entityId: key.id,
+          entityName: key.title,
+          message: `Identification key has no diagnostic steps defined`,
+        });
+      }
+    }
+
+    // Check 6: Media integrity
+    totalChecks++;
+    for (const sp of species) {
+      if (sp.media && Array.isArray(sp.media)) {
+        for (const m of sp.media) {
+          if (!m.sourceUrl || !m.license) {
+            issues.push({
+              id: `media-lic-${m.id}`,
+              type: 'info',
+              entity: 'media',
+              entityId: m.id,
+              entityName: `${sp.scientificName} photo`,
+              message: `Media item is missing canonical license or sourceUrl specification`,
+            });
+          }
+        }
+      }
+    }
+
+    const errorsCount = issues.filter(i => i.type === 'error').length;
+    const warningsCount = issues.filter(i => i.type === 'warning').length;
+    const healthScore = Math.max(0, Math.min(100, Math.round(100 - (errorsCount * 5 + warningsCount * 1))));
+
+    return {
+      timestamp: new Date().toISOString(),
+      totalChecks,
+      errorsCount,
+      warningsCount,
+      healthScore,
+      issues,
+    };
+  };
+
   const resetToInitialSeed = () => {
     setSpecies(SEED_SPECIES);
     setTaxa(SEED_TAXA);
     setReferences(SEED_REFERENCES);
     setTaxonKnowledge(SEED_TAXON_KNOWLEDGE);
+    setIdentKeys(SEED_IDENTIFICATION_KEYS);
+    setUsers(SEED_USERS);
     setAuditLogs(INITIAL_AUDIT_LOGS);
     setBatches([]);
     setConflicts([]);
@@ -628,6 +978,8 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
     safeSetItem('biota_taxa', JSON.stringify(SEED_TAXA));
     safeSetItem('biota_references', JSON.stringify(SEED_REFERENCES));
     safeSetItem('biota_taxon_knowledge', JSON.stringify(SEED_TAXON_KNOWLEDGE));
+    safeSetItem('biota_ident_keys', JSON.stringify(SEED_IDENTIFICATION_KEYS));
+    safeSetItem('biota_users', JSON.stringify(SEED_USERS));
     safeRemoveItem('biota_audit_logs');
     safeRemoveItem('biota_batches');
     safeRemoveItem('biota_conflicts');
@@ -865,10 +1217,24 @@ export const BiodiversityProvider: React.FC<{ children: React.ReactNode }> = ({ 
         unpublishSpecies,
         archiveSpecies,
         deleteSpecies,
+        submitSpeciesForReview,
+        rejectSpeciesReview,
         addTaxon,
         updateTaxon,
         addReference,
         updateReference,
+        addIdentKey,
+        updateIdentKey,
+        deleteIdentKey,
+        getAllMedia,
+        addMedia,
+        updateMedia,
+        deleteMedia,
+        users,
+        addUser,
+        updateUserRole,
+        toggleUserActive,
+        runDataHealthCheck,
         resetToInitialSeed,
         dispatch,
       }}

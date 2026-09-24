@@ -31,6 +31,8 @@ export interface PermissionMatrix {
   canManageReferences: boolean;
   canManageUsers: boolean;
   canViewAuditLogs: boolean;
+  canManageKeys: boolean;
+  canManageMedia: boolean;
 }
 
 export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
@@ -45,6 +47,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
     canManageReferences: true,
     canManageUsers: true,
     canViewAuditLogs: true,
+    canManageKeys: true,
+    canManageMedia: true,
   },
   admin: {
     canCreateSpecies: true,
@@ -57,18 +61,22 @@ export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
     canManageReferences: true,
     canManageUsers: false,
     canViewAuditLogs: true,
+    canManageKeys: true,
+    canManageMedia: true,
   },
   reviewer: {
     canCreateSpecies: false,
     canEditSpecies: true,
     canVerifySpecies: true,
-    canPublishSpecies: true,
+    canPublishSpecies: false,
     canArchiveSpecies: false,
     canDeleteSpecies: false,
     canManageTaxonomy: false,
     canManageReferences: true,
     canManageUsers: false,
     canViewAuditLogs: true,
+    canManageKeys: true,
+    canManageMedia: true,
   },
   editor: {
     canCreateSpecies: true,
@@ -81,6 +89,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
     canManageReferences: true,
     canManageUsers: false,
     canViewAuditLogs: false,
+    canManageKeys: true,
+    canManageMedia: true,
   },
   data_manager: {
     canCreateSpecies: true,
@@ -93,6 +103,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
     canManageReferences: true,
     canManageUsers: false,
     canViewAuditLogs: true,
+    canManageKeys: true,
+    canManageMedia: true,
   },
   public_user: {
     canCreateSpecies: false,
@@ -105,5 +117,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, PermissionMatrix> = {
     canManageReferences: false,
     canManageUsers: false,
     canViewAuditLogs: false,
+    canManageKeys: false,
+    canManageMedia: false,
   },
 };

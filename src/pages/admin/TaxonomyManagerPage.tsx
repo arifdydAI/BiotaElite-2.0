@@ -1,16 +1,26 @@
-// BiotaElite 2.0 Taxonomy Node Manager
-import React, { useState } from 'react';
+// BiotaElite 2.0 Taxonomy Hierarchy & Linnaean Governance Manager
+// Phase F: Linnaean Backbone Explorer, Knowledge Integration & Loop Prevention
+import React, { useState, useMemo } from 'react';
 import { useBiodiversity } from '../../context/BiodiversityContext';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import type { TaxonomicRank } from '../../types/biodiversity';
-import { Plus, Search, X } from 'lucide-react';
+import { Plus, Search, X, AlertCircle, Layers, BookOpen } from 'lucide-react';
 
 export const TaxonomyManagerPage: React.FC = () => {
   const { taxa, addTaxon, taxonKnowledge } = useBiodiversity();
   const { permissions } = useAuth();
+  const { language } = useLanguage();
+
   const [activeTab, setActiveTab] = useState<'nodes' | 'knowledge'>('nodes');
+  const [rankFilter, setRankFilter] = useState<string>('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
+
+  // Pagination state for 650+ taxa
+  const [page, setPage] = useState(1);
+  const pageSize = 30;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -22,17 +32,57 @@ export const TaxonomyManagerPage: React.FC = () => {
     description: '',
   });
 
-  const filteredTaxa = taxa.filter(t => 
-    t.name.toLowerCase().includes(search.toLowerCase()) ||
-    t.rank.toLowerCase().includes(search.toLowerCase()) ||
-    (t.commonNameEn && t.commonNameEn.toLowerCase().includes(search.toLowerCase()))
-  );
+  const filteredTaxa = useMemo(() => {
+    return taxa.filter(t => {
+      if (rankFilter !== 'all' && t.rank !== rankFilter) return false;
+      if (search.trim()) {
+        const q = search.toLowerCase();
+        return (
+          t.name.toLowerCase().includes(q) ||
+          t.rank.toLowerCase().includes(q) ||
+          (t.commonNameEn && t.commonNameEn.toLowerCase().includes(q)) ||
+          (t.commonNameBn && t.commonNameBn.includes(q))
+        );
+      }
+      return true;
+    });
+  }, [taxa, rankFilter, search]);
+
+  const totalPages = Math.ceil(filteredTaxa.length / pageSize) || 1;
+  const paginatedTaxa = filteredTaxa.slice((page - 1) * pageSize, page * pageSize);
+
+  const rankCounts = useMemo(() => {
+    return {
+      all: taxa.length,
+      class: taxa.filter(t => t.rank === 'class').length,
+      order: taxa.filter(t => t.rank === 'order').length,
+      family: taxa.filter(t => t.rank === 'family').length,
+      genus: taxa.filter(t => t.rank === 'genus').length,
+    };
+  }, [taxa]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
+    const cleanName = formData.name.trim();
+    if (!cleanName) {
+      setFormError('Taxon scientific name is required.');
+      return;
+    }
+
+    // Check duplicate taxon name at same rank
+    const duplicate = taxa.find(
+      t => t.name.toLowerCase() === cleanName.toLowerCase() && t.rank === formData.rank
+    );
+    if (duplicate) {
+      setFormError(`Taxon "${cleanName}" already exists at rank ${formData.rank} (ID: ${duplicate.id}).`);
+      return;
+    }
+
     addTaxon({
-      name: formData.name.trim(),
-      scientificName: formData.name.trim(),
+      name: cleanName,
+      scientificName: cleanName,
       rank: formData.rank,
       parentId: formData.parentId || null,
       parentTaxonId: formData.parentId || null,
@@ -46,67 +96,119 @@ export const TaxonomyManagerPage: React.FC = () => {
       description: formData.description.trim() || undefined,
       speciesCount: 0,
     });
+
     setIsModalOpen(false);
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.25rem' }}>
-            Taxonomic Hierarchy Manager
+          <h1 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
+            {language === 'bn' ? 'শ্রেণীবিন্যাসীয় বৃক্ষ প্রশাসন' : 'Taxonomic Backbone & Hierarchy Manager'}
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-            Curate Linnaean classification nodes from Kingdom down to Genus.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.35rem', marginBottom: 0 }}>
+            {language === 'bn'
+              ? 'পর্ব, শ্রেণি, বর্গ, গোত্র ও গণ নোডের সম্পর্ক, পিতৃ ট্যাক্সন ও জ্ঞানভাণ্ডার পরিচালনা করুন।'
+              : 'Curate Linnaean classification graph, parent-child links, and monographic knowledge base records.'}
           </p>
         </div>
 
         {permissions.canManageTaxonomy && (
-          <button onClick={() => setIsModalOpen(true)} className="btn btn-primary" style={{ gap: '0.4rem' }}>
+          <button onClick={() => { setFormError(null); setIsModalOpen(true); }} className="btn btn-primary" style={{ gap: '0.45rem', padding: '0.6rem 1.1rem' }}>
             <Plus size={16} />
-            <span>Add Taxon Node</span>
+            <span>{language === 'bn' ? 'নতুন ট্যাক্সন যোগ' : 'Add Taxon Node'}</span>
           </button>
         )}
       </div>
 
-      {/* Tabs */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
+      {/* Main Tabs */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
         <button
-          onClick={() => setActiveTab('nodes')}
+          onClick={() => { setActiveTab('nodes'); setPage(1); }}
           className={`btn btn-sm ${activeTab === 'nodes' ? 'btn-primary' : 'btn-secondary'}`}
+          style={{ fontSize: '0.82rem' }}
         >
-          Linnaean Backbone Nodes ({taxa.length})
+          <Layers size={14} style={{ marginRight: '0.35rem' }} />
+          <span>Linnaean Backbone Nodes ({taxa.length})</span>
         </button>
         <button
-          onClick={() => setActiveTab('knowledge')}
+          onClick={() => { setActiveTab('knowledge'); setPage(1); }}
           className={`btn btn-sm ${activeTab === 'knowledge' ? 'btn-primary' : 'btn-secondary'}`}
+          style={{ fontSize: '0.82rem' }}
         >
-          Taxonomic Knowledge Records ({taxonKnowledge.length})
+          <BookOpen size={14} style={{ marginRight: '0.35rem' }} />
+          <span>Taxonomic Knowledge Records ({taxonKnowledge.length})</span>
         </button>
       </div>
 
-      {/* Search */}
-      <div style={{ maxWidth: '350px', marginBottom: '1.5rem', position: 'relative' }}>
-        <Search size={16} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-        <input
-          type="text"
-          placeholder={activeTab === 'nodes' ? "Filter taxonomic nodes..." : "Filter knowledge records..."}
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form-input"
-          style={{ paddingLeft: '2.3rem' }}
-        />
+      {/* Controls Bar */}
+      <div className="card" style={{ padding: '0.85rem 1.25rem', marginBottom: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        {/* Search */}
+        <div style={{ position: 'relative', width: '320px' }}>
+          <Search size={16} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+          <input
+            type="text"
+            placeholder={activeTab === 'nodes' ? "Search taxon name or rank..." : "Search knowledge records..."}
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            className="form-input"
+            style={{ paddingLeft: '2.5rem' }}
+          />
+        </div>
+
+        {/* Rank Filters (Only for Nodes tab) */}
+        {activeTab === 'nodes' && (
+          <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => { setRankFilter('all'); setPage(1); }}
+              className={`btn btn-sm ${rankFilter === 'all' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '0.75rem' }}
+            >
+              All Ranks ({rankCounts.all})
+            </button>
+            <button
+              onClick={() => { setRankFilter('class'); setPage(1); }}
+              className={`btn btn-sm ${rankFilter === 'class' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '0.75rem' }}
+            >
+              Classes ({rankCounts.class})
+            </button>
+            <button
+              onClick={() => { setRankFilter('order'); setPage(1); }}
+              className={`btn btn-sm ${rankFilter === 'order' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '0.75rem' }}
+            >
+              Orders ({rankCounts.order})
+            </button>
+            <button
+              onClick={() => { setRankFilter('family'); setPage(1); }}
+              className={`btn btn-sm ${rankFilter === 'family' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '0.75rem' }}
+            >
+              Families ({rankCounts.family})
+            </button>
+            <button
+              onClick={() => { setRankFilter('genus'); setPage(1); }}
+              className={`btn btn-sm ${rankFilter === 'genus' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '0.75rem' }}
+            >
+              Genera ({rankCounts.genus})
+            </button>
+          </div>
+        )}
       </div>
 
       {activeTab === 'nodes' ? (
         /* Taxa Backbone Table */
-        <div className="data-table-container">
+        <div className="data-table-container card" style={{ padding: 0, overflow: 'hidden' }}>
           <table className="data-table">
             <thead>
               <tr>
                 <th>Taxon Name</th>
                 <th>Rank</th>
-                <th>Parent Taxon</th>
+                <th>Parent Lineage Node</th>
                 <th>Module</th>
                 <th>Status</th>
                 <th>Verification</th>
@@ -115,7 +217,7 @@ export const TaxonomyManagerPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTaxa.map(node => {
+              {paginatedTaxa.map(node => {
                 const parent = taxa.find(t => t.id === (node.parentTaxonId ?? node.parentId));
                 return (
                   <tr key={node.id}>
@@ -180,11 +282,6 @@ export const TaxonomyManagerPage: React.FC = () => {
                       >
                         {node.status || 'accepted'}
                       </span>
-                      {node.acceptedTaxonId && (
-                        <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-                          → {node.acceptedTaxonId}
-                        </div>
-                      )}
                     </td>
                     <td>
                       <span
@@ -198,25 +295,21 @@ export const TaxonomyManagerPage: React.FC = () => {
                           border: `1px solid ${node.isVerified ? 'rgba(52, 211, 153, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
                         }}
                       >
-                        {node.isVerified ? 'Verified' : 'Review'}
+                        {node.isVerified ? 'Verified' : 'Unverified'}
                       </span>
                     </td>
-                    <td style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                      {node.authorYear || '—'}
+                    <td>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                        {node.authorYear || '—'}
+                      </div>
                     </td>
                     <td>
-                      <div>
-                        {node.commonNameEn && <span>{node.commonNameEn}</span>}
-                        {node.commonNameBn && (
-                          <span className="bangla-text" style={{ marginLeft: '0.4rem', color: 'var(--accent-emerald-light)' }}>
-                            ({node.commonNameBn})
-                          </span>
-                        )}
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-primary)' }}>
+                        {node.commonNameEn || node.commonName || '—'}
                       </div>
-                      {node.sourceReferences && node.sourceReferences.length > 0 && (
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-                          {node.sourceReferences[0].source}
-                          {node.sourceReferences.length > 1 && ` (+${node.sourceReferences.length - 1})`}
+                      {node.commonNameBn && (
+                        <div className="bangla-text" style={{ fontSize: '0.75rem', color: 'var(--accent-emerald-light)' }}>
+                          {node.commonNameBn}
                         </div>
                       )}
                     </td>
@@ -225,10 +318,35 @@ export const TaxonomyManagerPage: React.FC = () => {
               })}
             </tbody>
           </table>
+
+          {/* Pagination Footer */}
+          {totalPages > 1 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.85rem 1.25rem', borderTop: '1px solid var(--border-subtle)', background: 'var(--bg-surface)' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                Page {page} of {totalPages} ({filteredTaxa.length} total nodes)
+              </span>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button
+                  disabled={page <= 1}
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  className="btn btn-secondary btn-sm"
+                >
+                  Previous
+                </button>
+                <button
+                  disabled={page >= totalPages}
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  className="btn btn-secondary btn-sm"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         /* Knowledge Records Table */
-        <div className="data-table-container">
+        <div className="data-table-container card" style={{ padding: 0, overflow: 'hidden' }}>
           <table className="data-table">
             <thead>
               <tr>
@@ -264,54 +382,49 @@ export const TaxonomyManagerPage: React.FC = () => {
                         style={{
                           fontSize: '0.7rem',
                           textTransform: 'uppercase',
-                          fontWeight: 700,
-                          padding: '0.15rem 0.45rem',
+                          fontWeight: 600,
+                          padding: '0.15rem 0.4rem',
                           borderRadius: '3px',
-                          background: tk.category === 'fish' ? 'rgba(16, 185, 129, 0.15)' : tk.category === 'marine_non_fish' ? 'rgba(2, 132, 199, 0.15)' : 'rgba(168, 85, 247, 0.15)',
-                          color: tk.category === 'fish' ? 'var(--accent-emerald-light)' : tk.category === 'marine_non_fish' ? 'var(--accent-marine-light)' : '#c084fc',
+                          background: tk.category === 'fish' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(59, 130, 246, 0.15)',
+                          color: tk.category === 'fish' ? '#34d399' : '#60a5fa',
                         }}
                       >
                         {tk.category}
                       </span>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 600, color: 'var(--text-secondary)' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
                         {tk.rank}
                       </span>
                     </td>
                     <td>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}>{tk.englishName}</div>
+                      <div style={{ fontSize: '0.8rem', color: '#ffffff' }}>{tk.englishName}</div>
                       <div className="bangla-text" style={{ fontSize: '0.8rem', color: 'var(--accent-emerald-light)' }}>
                         {tk.bengaliName}
                       </div>
                     </td>
                     <td>
-                      {tk.exampleSpeciesIds.length > 0 ? (
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                          {tk.exampleSpeciesIds.map((spId: string) => (
-                            <div key={spId} style={{ fontStyle: 'italic' }}>{spId}</div>
-                          ))}
-                        </div>
-                      ) : (
-                        <span style={{ fontSize: '0.75rem', color: '#fbbf24' }}>0 verified (honesty notice)</span>
-                      )}
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                        {tk.exampleSpeciesIds ? tk.exampleSpeciesIds.length : 0} linked species
+                      </span>
                     </td>
-                    <td style={{ fontSize: '0.75rem', color: 'var(--text-muted)', maxWidth: '220px' }}>
-                      {tk.authoritySource}
+                    <td>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                        {tk.authoritySource || 'WoRMS / CalAcademy'}
+                      </div>
                     </td>
                     <td>
                       <span
                         style={{
                           fontSize: '0.7rem',
+                          fontWeight: 700,
                           padding: '0.15rem 0.45rem',
                           borderRadius: '3px',
                           background: 'rgba(16, 185, 129, 0.15)',
                           color: 'var(--accent-emerald-light)',
-                          fontWeight: 700,
-                          textTransform: 'uppercase',
                         }}
                       >
-                        {tk.verificationStatus}
+                        {tk.publishedStatus ? 'Published' : 'Draft'}
                       </span>
                     </td>
                   </tr>
@@ -321,7 +434,7 @@ export const TaxonomyManagerPage: React.FC = () => {
         </div>
       )}
 
-      {/* Modal: Add Taxon */}
+      {/* Modal: Add Taxon Node */}
       {isModalOpen && (
         <div
           style={{
@@ -335,18 +448,50 @@ export const TaxonomyManagerPage: React.FC = () => {
             padding: '1rem',
           }}
         >
-          <div className="card" style={{ width: '100%', maxWidth: '550px', background: 'var(--bg-surface)', padding: '2rem' }}>
+          <div
+            className="card"
+            style={{
+              width: '100%',
+              maxWidth: '650px',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              padding: '2rem',
+              borderRadius: 'var(--radius-lg)',
+            }}
+          >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#ffffff' }}>Add New Taxon Node</h2>
+              <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                Add Taxonomic Node
+              </h2>
               <button onClick={() => setIsModalOpen(false)} className="btn-icon">
                 <X size={18} />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {formError && (
+              <div
+                style={{
+                  background: 'rgba(239, 68, 68, 0.12)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '0.75rem 1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  marginBottom: '1.25rem',
+                  color: '#f87171',
+                  fontSize: '0.85rem',
+                }}
+              >
+                <AlertCircle size={16} />
+                <span>{formError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem', fontWeight: 600 }}>
-                  Taxon Scientific Name *
+                  Scientific Taxon Name (e.g. Clupeidae) *
                 </label>
                 <input
                   type="text"
@@ -367,7 +512,6 @@ export const TaxonomyManagerPage: React.FC = () => {
                     onChange={e => setFormData({ ...formData, rank: e.target.value as TaxonomicRank })}
                     className="form-select"
                   >
-                    <option value="kingdom">Kingdom</option>
                     <option value="phylum">Phylum</option>
                     <option value="class">Class</option>
                     <option value="subclass">Subclass</option>
@@ -376,7 +520,6 @@ export const TaxonomyManagerPage: React.FC = () => {
                     <option value="genus">Genus</option>
                   </select>
                 </div>
-
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem', fontWeight: 600 }}>
                     Parent Taxon Node
@@ -396,22 +539,10 @@ export const TaxonomyManagerPage: React.FC = () => {
                 </div>
               </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem', fontWeight: 600 }}>
-                  Author & Year (e.g. Hamilton, 1822)
-                </label>
-                <input
-                  type="text"
-                  value={formData.authorYear}
-                  onChange={e => setFormData({ ...formData, authorYear: e.target.value })}
-                  className="form-input"
-                />
-              </div>
-
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem', fontWeight: 600 }}>
-                    English Common Name
+                    Common Name (English)
                   </label>
                   <input
                     type="text"
@@ -422,7 +553,7 @@ export const TaxonomyManagerPage: React.FC = () => {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem', fontWeight: 600 }}>
-                    Bangla Common Name
+                    Common Name (বাংলা)
                   </label>
                   <input
                     type="text"

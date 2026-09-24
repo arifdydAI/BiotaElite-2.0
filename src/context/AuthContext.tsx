@@ -46,6 +46,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [authStatus, setAuthStatus] = useState<AuthStatus>('unauthenticated');
 
+  // In development fallback mode, session cache allows browser navigation/reload without session loss.
+  React.useEffect(() => {
+    if (IS_LOCAL_FALLBACK && typeof window !== 'undefined') {
+      try {
+        const cached = window.sessionStorage.getItem('biota_dev_session');
+        if (cached) {
+          const user = JSON.parse(cached);
+          setCurrentUser(user);
+          setAuthStatus('authenticated');
+        }
+      } catch (e) {}
+    }
+  }, []);
+
   // Role/permissions derived from currentUser. If null → public_user → zero privileges.
   const role: UserRole = currentUser ? currentUser.role : 'public_user';
   const permissions: PermissionMatrix = ROLE_PERMISSIONS[role];
@@ -73,6 +87,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         lastLoginAt: new Date().toISOString(),
         isActive: true,
       };
+      if (typeof window !== 'undefined') {
+        window.sessionStorage.setItem('biota_dev_session', JSON.stringify(mockUser));
+      }
       setCurrentUser(mockUser);
       setAuthStatus('authenticated');
     } else {
@@ -86,6 +103,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem('biota_dev_session');
+    }
     setCurrentUser(null);
     setAuthStatus('unauthenticated');
   };
@@ -99,6 +119,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const devOnlySetRole: ((newRole: UserRole) => void) | undefined = import.meta.env.DEV
     ? (newRole: UserRole) => {
         if (newRole === 'public_user') {
+          if (typeof window !== 'undefined') {
+            window.sessionStorage.removeItem('biota_dev_session');
+          }
           setCurrentUser(null);
           setAuthStatus('unauthenticated');
         } else {
@@ -113,6 +136,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             lastLoginAt: new Date().toISOString(),
             isActive: true,
           };
+          if (typeof window !== 'undefined') {
+            window.sessionStorage.setItem('biota_dev_session', JSON.stringify(emulatedUser));
+          }
           setCurrentUser(emulatedUser);
           setAuthStatus('authenticated');
         }

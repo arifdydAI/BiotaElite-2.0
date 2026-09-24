@@ -126,11 +126,14 @@ export interface SpeciesRecord {
 
   morphology: {
     diagnosticFeatures: string[];
+    diagnosticFeaturesBn?: string[];
     description: string;
+    descriptionBn?: string;
     maxStandardLengthCm?: number;
     dorsalSpinesRays?: string;
     analSpinesRays?: string;
     coloration?: string;
+    colorationBn?: string;
   };
 
   habitat: {
@@ -144,7 +147,9 @@ export interface SpeciesRecord {
   bangladeshOccurrence: {
     present: boolean;
     regions: string[];
+    regionsBn?: string[];
     habitatTypes: string[];
+    habitatTypesBn?: string[];
     residencyStatus: BangladeshResidency;
     residency?: string;
     threatCategoryNational?: IUCNStatus;
@@ -153,15 +158,22 @@ export interface SpeciesRecord {
     nationalStatusSource?: string;
     localNamesBn?: string[];
     seasonalNotes?: string;
+    seasonalNotesBn?: string;
     notes?: string;
+    notesBn?: string;
   };
 
   ecology: {
     dietCategory?: 'carnivore' | 'herbivore' | 'omnivore' | 'planktivore' | 'detritivore' | 'filter_feeder';
+    dietCategoryBn?: string;
     dietSummary?: string;
+    dietSummaryBn?: string;
     behavior?: string;
+    behaviorBn?: string;
     reproduction?: string;
+    reproductionBn?: string;
     ecologicalRole?: string;
+    ecologicalRoleBn?: string;
   };
 
   conservation: {
@@ -175,6 +187,7 @@ export interface SpeciesRecord {
     nationalStatusSource?: string;
     iucnCriteria?: string;
     threats: string[];
+    threatsBn?: string[];
     citesAppendix?: 'I' | 'II' | 'III' | 'None';
   };
 
@@ -409,3 +422,22 @@ export function compareSpeciesByPriority(a: SpeciesRecord, b: SpeciesRecord): nu
   if (pA !== pB) return pA - pB;
   return a.scientificName.localeCompare(b.scientificName);
 }
+
+export interface DataHealthIssue {
+  id: string;
+  type: 'error' | 'warning' | 'info';
+  entity: 'species' | 'taxon' | 'key' | 'reference' | 'media';
+  entityId: string;
+  entityName: string;
+  message: string;
+}
+
+export interface DataHealthReport {
+  timestamp: string;
+  totalChecks: number;
+  errorsCount: number;
+  warningsCount: number;
+  healthScore: number;
+  issues: DataHealthIssue[];
+}
+

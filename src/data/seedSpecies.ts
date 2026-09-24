@@ -49,7 +49,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Eisenia fetida is the world-renowned tiger worm or red wiggler, universally studied in school biology for annelid metamerism and widely cultured in vermicomposting.",
       "maxStandardLengthCm": 13,
-      "coloration": "Deep maroon-red to reddish-purple with pale yellowish or cream intersegmental rings."
+      "coloration": "Deep maroon-red to reddish-purple with pale yellowish or cream intersegmental rings.",
+      "descriptionBn": "আইসেনিয়া ফেটিডা (Eisenia fetida) বিশ্বব্যাপী 'টাইগার ওয়ার্ম' বা 'রেড উইগলার' নামে সমাদৃত। অ্যানেলিডা পর্বের মেটামেরিজম বা প্রকৃত খণ্ডকায়নের আদর্শ নিদর্শন হিসেবে এটি জীববিজ্ঞান পাঠ্যক্রমে বিশ্বজনীনভাবে পঠিত এবং টেকসই কৃষিতে ভার্মিকম্পোস্ট সার উৎপাদনে প্রধান প্রজাতি হিসেবে ব্যবহৃত হয়।",
+      "diagnosticFeaturesBn": [
+        "দেহে পর্যায়ক্রমিক লালচে-বাদামি ও হালকা হলুদাভ আন্তঃখণ্ডীয় ডোরাকাটা বন্ধনী, যা বাঘের মতো সুস্পষ্ট ডোরা তৈরি করে।",
+        "দৈর্ঘ্য সাধারণত ৩.৫ থেকে ১৩ সেন্টিমিটার এবং দেহ ৮০ থেকে ১২০টি নলাকার খণ্ডকে বিভক্ত।",
+        "২৪-২৬ থেকে ৩১-৩২ নম্বর খণ্ডক জুড়ে বিস্তৃত জিন-সদৃশ গ্রন্থিময় ক্লাইটেলাম বিদ্যমান।",
+        "যান্ত্রিকভাবে আঘাতপ্রাপ্ত হলে আত্মরক্ষার্থে ঝাঁঝালো গন্ধযুক্ত হলুদাভ সিলোমিক তরল নিঃসরণ করে।"
+      ],
+      "colorationBn": "গাঢ় মেরুন-লাল থেকে লালচে-বেগুনি বর্ণের সাথে ফ্যাকাশে হলুদাভ বা ক্রিম রঙের আন্তঃখণ্ডীয় বলয়।"
     },
     "habitat": {
       "systems": [
@@ -79,13 +87,23 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "organic gardens"
       ],
       "residencyStatus": "introduced",
-      "notes": "Introduced and widely utilized across Bangladesh in sustainable agriculture, vermicompost production, and university zoology education."
+      "notes": "Introduced and widely utilized across Bangladesh in sustainable agriculture, vermicompost production, and university zoology education.",
+      "notesBn": "টেকসই কৃষি, ভার্মিকম্পোস্ট সার উৎপাদন এবং বিশ্ববিদ্যালয়গুলোর প্রাণিবিজ্ঞান শিক্ষায় বাংলাদেশে ব্যাপকভাবে ব্যবহৃত ও চাষকৃত।",
+      "regionsBn": [
+        "ঢাকা বিভাগ",
+        "চট্টগ্রাম",
+        "রাজশাহী",
+        "জাতীয় কৃষি গবেষণা কেন্দ্রসমূহ"
+      ]
     },
     "ecology": {
       "dietCategory": "detritivore",
       "dietSummary": "Epigeic detritivore rapidly consuming decaying organic vegetation, manure, and microorganism-rich compost.",
       "reproduction": "Simultaneous hermaphrodite; mutual copulation exchanging sperm; secretes a tough chitinous cocoon containing fertilized ova.",
-      "ecologicalRole": "Crucial bio-converter accelerating soil nutrient mineralization and producing rich organic vermicast."
+      "ecologicalRole": "Crucial bio-converter accelerating soil nutrient mineralization and producing rich organic vermicast.",
+      "dietSummaryBn": "এপিজেইক ডেট্রিটিভোর; পচনশীল জৈব উদ্ভিদ, পশুর বিষ্ঠা এবং অণুজীবসমৃদ্ধ কম্পোস্ট দ্রুত ভক্ষণ করে।",
+      "reproductionBn": "উভলিঙ্গিক প্রজনন; পারস্পরিক শুক্রাণু বিনিময়ের মাধ্যমে সঙ্গম সম্পন্ন হয়; পরবর্তীতে নিষিক্ত ডিম্বাণু সম্বলিত শক্ত কাইটিনযুক্ত কোকুন তৈরি করে।",
+      "ecologicalRoleBn": "মাটির খনিজ পুষ্টি উপাদান দ্রুত অবমুক্তকারী অত্যাবশ্যকীয় রূপান্তরক এবং অত্যন্ত উর্বর জৈব ভার্মিকাস্ট উৎপাদনকারী।"
     },
     "conservation": {
       "iucnGlobalStatus": "NE",
@@ -93,6 +111,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Industrial chemical applications",
         "Habitat desiccative drought"
+      ],
+      "threatsBn": [
+        "শিল্প ও কৃষিতে ব্যবহৃত রাসায়নিক কীটনাশকের নির্বিচার প্রয়োগ",
+        "মাটি শুকিয়ে যাওয়ার তীব্র খরা ও আর্দ্রতার অভাব"
       ]
     },
     "lifecycleStatus": "published",
@@ -180,7 +202,14 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Sabella spallanzanii is the archetypal sedentary marine polychaete studied in marine biology to illustrate filter feeding and tubiculous annelid specialization.",
       "maxStandardLengthCm": 40,
-      "coloration": "Branchial plume banded in concentric rings of orange-brown, violet, and cream; tube muddy greyish-brown."
+      "coloration": "Branchial plume banded in concentric rings of orange-brown, violet, and cream; tube muddy greyish-brown.",
+      "descriptionBn": "সাবেলা স্প্যালানজানি (Sabella spallanzanii) বা ভূমধ্যসাগরীয় ফ্যানওয়ার্ম পলিকিটা শ্রেণির একটি দর্শনীয় নলাকার কৃমি, যার রঙিন পালকসদৃশ স্পাইরাল ব্রাঙ্কিয়াল ক্রাউন পানির নিচে নান্দনিক রূপ ধারণ করে।",
+      "diagnosticFeaturesBn": [
+        "নলাকার নরম স্লিভ-সদৃশ শ্লেষ্মা ও পলির সমন্বয়ে দীর্ঘ শক্ত নল তৈরি করে যার ভেতর কৃমিটি সম্পূর্ণ সুরক্ষিত থাকে।",
+        "মস্তকে দুটি বিশাল সর্পিল ব্রাঙ্কিয়াল ফ্যান ক্রাউন থাকে যা পানিতে খাদ্য পরিশ্রাবণ ও গ্যাসীয় বিনিময়ে ব্যবহৃত হয়।",
+        "সামান্য ছায়া বা যান্ত্রিক কম্পন অনুভূত হলেই ক্রাউনটি নিমেষের মধ্যে নলের ভেতর গুটিয়ে নেয়।"
+      ],
+      "colorationBn": "সাদা, বাদামি, বেগুনি ও কমলার মিশ্রণে মনোমুগ্ধকর চক্রাকার ব্যান্ডযুক্ত ব্রাঙ্কিয়াল ক্রাউন।"
     },
     "habitat": {
       "systems": [
@@ -204,13 +233,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "subtidal marine hard substrata"
       ],
       "residencyStatus": "not_recorded",
-      "notes": "Global marine species native to the Mediterranean and north-east Atlantic; global representative of Order Sabellida."
+      "notes": "Global marine species native to the Mediterranean and north-east Atlantic; global representative of Order Sabellida.",
+      "notesBn": "ভূমধ্যসাগর ও আটলান্টিক মহাসাগরের স্থানীয় সামুদ্রিক পলিকিট; প্রামাণ্য বৈশ্বিক নমুনা।"
     },
     "ecology": {
       "dietCategory": "filter_feeder",
       "dietSummary": "Ciliary suspension filter-feeder trapping phytoplankton, microzooplankton, and suspended organic particulates.",
       "reproduction": "Dioecious broadcast spawner; releases millions of gametes into the water column developing through swimming trochophore larvae.",
-      "ecologicalRole": "Major benthic bio-filter structuring hard-bottom communities and clarifying water columns."
+      "ecologicalRole": "Major benthic bio-filter structuring hard-bottom communities and clarifying water columns.",
+      "dietSummaryBn": "ভাসমান পরিশ্রাবক; পালকসদৃশ রেডিওলের সিলিয়ার সাহায্যে জলে ভাসমান ফাইটোপ্ল্যাঙ্কটন ও জৈব কণা সংগ্রহ করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -218,6 +249,9 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Harbor dredging",
         "Antifouling coatings"
+      ],
+      "threatsBn": [
+        "উপকূলীয় বন্দর দূষণ ও সামুদ্রিক বাস্তুসংস্থান পরিবর্তন"
       ]
     },
     "lifecycleStatus": "published",
@@ -892,7 +926,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Daphnia pulex is the premier model organism of aquatic ecology and ecotoxicology, universally observed under microscopes in school biology classrooms.",
       "maxStandardLengthCm": 0.35,
-      "coloration": "Translucent amber, reddish-pink (when synthesizing hemoglobin in hypoxic water), or transparent green."
+      "coloration": "Translucent amber, reddish-pink (when synthesizing hemoglobin in hypoxic water), or transparent green.",
+      "descriptionBn": "ডাফনিয়া পিউলেক্স (Daphnia pulex) জলজ বাস্তুসংস্থান ও ইকোটক্সিকোলজির অন্যতম প্রধান মডেল জীব, যা স্কুল-কলেজের জীববিজ্ঞান শ্রেণিকক্ষে অণুবীক্ষণ যন্ত্রের নিচে প্লাঙ্কটনের রূপ হিসেবে ব্যাপকভাবে পর্যবেক্ষণ করা হয়।",
+      "diagnosticFeaturesBn": [
+        "দ্বিকপাটযুক্ত স্বচ্ছ অ-ক্যালসিফাইড ক্যারাপেস যা মস্তক ব্যতীত বক্ষ ও উদরকে সম্পূর্ণ আবৃত রাখে।",
+        "একটিমাত্র সুগঠিত সংযুক্ত চক্রাকার জটিল পুঞ্জাক্ষি যা দ্রুত ঘূর্ণনে সক্ষম।",
+        "বিশাল শাখান্বিত দ্বিতীয় অ্যান্টেনা যা শক্তিশালী দাঁড় বা বৈঠার মতো কাজ করে ঝাঁকুনিযুক্ত সন্তরণ তৈরি করে।",
+        "পাঁচ জোড়া পাতার মতো বক্ষীয় ফিলোলেগ অ্যাপেন্ডেজ যা পরিশ্রাবণ পদ্ধতিতে খাদ্যগ্রহণ ও গ্যাসীয় বিনিময়ে সার্বক্ষণিক জলপ্রবাহ সৃষ্টি করে।"
+      ],
+      "colorationBn": "স্বচ্ছ অম্বর বা হলুদ-বাদামি, জলে অক্সিজেনের ঘাটতিতে হিমোগ্লোবিন সংশ্লেষণের কারণে লালচে-গোলাপি অথবা সবুজ।"
     },
     "habitat": {
       "systems": [
@@ -924,13 +966,22 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "paddy fields"
       ],
       "residencyStatus": "native",
-      "notes": "Abundant native zooplankton across Bangladesh freshwater bodies; vital natural live food for freshwater fry and fingerlings."
+      "notes": "Abundant native zooplankton across Bangladesh freshwater bodies; vital natural live food for freshwater fry and fingerlings.",
+      "notesBn": "বাংলাদেশের মিঠাপানির জলাশয়ে প্রচুর পরিমাণে বিদ্যমান দেশীয় জুপ্ল্যাঙ্কটন; মৎস্য পোনার অত্যন্ত পুষ্টিকর প্রাকৃতিক খাদ্য।",
+      "regionsBn": [
+        "সমগ্র বাংলাদেশের পুকুর ও জলাভূমি",
+        "ঢাকা",
+        "ময়মনসিংহ",
+        "সিলেটের হাওরাঞ্চল"
+      ]
     },
     "ecology": {
       "dietCategory": "filter_feeder",
       "dietSummary": "Suspension herbivore filter-feeding on unicellular green algae, bacteria, and organic detritus.",
       "reproduction": "Cyclical parthenogenesis: produces diploid asexual female broods during favorable conditions; produces sexual resting eggs (ephippia) prior to drought or winter.",
-      "ecologicalRole": "Primary trophic link between photosynthetic phytoplankton and planktivorous juvenile fishes."
+      "ecologicalRole": "Primary trophic link between photosynthetic phytoplankton and planktivorous juvenile fishes.",
+      "dietSummaryBn": "ভাসমান তৃণভোজী পরিশ্রাবক; এককোষী সবুজ শৈবাল, ব্যাকটেরিয়া এবং ক্ষুদ্র জৈব কণা ছেঁকে গ্রহণ করে।",
+      "reproductionBn": "চক্রীয় পার্থেনোজেনেসিস (অযৌন ও যৌন জননের সমন্বয়); অনুকূল পরিবেশে ডিপ্লয়েড স্ত্রী সন্তান তৈরি করে এবং প্রতিকূল পরিবেশে বিশ্রামী ডিম্বাণু (এফিফিয়া) সৃষ্টি করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -938,6 +989,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Agricultural pesticide runoff",
         "Water acidification"
+      ],
+      "threatsBn": [
+        "কৃষিজ কীটনাশকের প্রবাহ ও রাসায়নিক জলদূষণ",
+        "জলাশয়ের অতিমাত্রায় অম্লতাকরণ"
       ]
     },
     "lifecycleStatus": "published",
@@ -1026,7 +1081,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Periplaneta americana is the standard animal model for insect anatomy, nervous system physiology, and digestive tract dissection in secondary and university education worldwide.",
       "maxStandardLengthCm": 5,
-      "coloration": "Shining reddish-brown with pale yellow border around the thoracic pronotum."
+      "coloration": "Shining reddish-brown with pale yellow border around the thoracic pronotum.",
+      "descriptionBn": "আমেরিকান তেলাপোকা (Periplaneta americana) বিশ্বের অন্যতম সুপরিচিত সাধারণ গৃহস্থালি পতঙ্গ এবং কলেজ ও বিশ্ববিদ্যালয়ের প্রাণিবিজ্ঞান ক্লাসে রূপতাত্ত্বিক ব্যবচ্ছেদের আদর্শ মডেল জীব।",
+      "diagnosticFeaturesBn": [
+        "বৃহৎ আকৃতির পোকা, দৈর্ঘ্য ৩৫-৪০ মিমি; ডোরসো-ভেন্ট্রালি চ্যাপ্টা দেহ যা সরু ফাঁকফোকরে সহজে প্রবেশ করতে পারে।",
+        "মস্তক হাইপোগ্নাথাস ধরনের (মুখোপাঙ্গ নিচের দিকে নির্দেশিত), চর্বন উপযোগী মুখোপাঙ্গ।",
+        "প্রোথোরাক্স একটি বৃহৎ শিল্ড বা প্রোনোটাম দ্বারা আবৃত যার প্রান্তদেশ হালকা হলুদাভ বলয়যুক্ত।",
+        "দুটি সুগঠিত ডানা যা পেছনের উদরকে ছাড়িয়ে বিস্তৃত; একজোড়া বহু-খণ্ডযুক্ত সংবেদী সার্সি বিদ্যমান।"
+      ],
+      "colorationBn": "চকচকে লালচে-বাদামি থেকে বাদামি; প্রোনোটামের কিনারায় হলুদ বলয়।"
     },
     "habitat": {
       "systems": [
@@ -1060,19 +1123,24 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "commercial warehouses"
       ],
       "residencyStatus": "introduced",
-      "notes": "Ubiquitous synanthropic species throughout Bangladesh; standard dissection subject in Higher Secondary and University zoology practical courses."
+      "notes": "Ubiquitous synanthropic species throughout Bangladesh; standard dissection subject in Higher Secondary and University zoology practical courses.",
+      "notesBn": "বাংলাদেশের সর্বত্র ঘরবাড়ি, নর্দমা ও গুদামে অত্যন্ত সাধারণ সিনানথ্রপিক পতঙ্গ।"
     },
     "ecology": {
       "dietCategory": "omnivore",
       "dietSummary": "Generalist omnivore and scavenger feeding on starch, decaying organic matter, animal waste, and paper.",
       "reproduction": "Hemimetabolous; female deposits dark bean-shaped oothecae containing 14–16 embryos glued into sheltered crevices.",
-      "ecologicalRole": "Efficient decomposer and scavenger in ecosystems; urban mechanical vector of pathogenic microorganisms."
+      "ecologicalRole": "Efficient decomposer and scavenger in ecosystems; urban mechanical vector of pathogenic microorganisms.",
+      "dietSummaryBn": "সর্বভুক ও স্ক্যাভেঞ্জার; শর্করা, চর্বি, কাগজ, আঠা এবং যেকোনো জৈব বর্জ্য ভক্ষণ করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
       "iucnAssessmentYear": 2024,
       "threats": [
         "Pest control operations"
+      ],
+      "threatsBn": [
+        "কোনো সংরক্ষণ হুমকি নেই; অত্যন্ত সফল সিনানথ্রপিক পেস্ট।"
       ]
     },
     "lifecycleStatus": "published",
@@ -1401,7 +1469,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Hydra vulgaris is the world's most famous textbook cnidarian, universally taught across high school and university biology for tissue-grade organization, asexual budding, and biological immortality.",
       "maxStandardLengthCm": 1.5,
-      "coloration": "Translucent whitish-brown, pale tan, or pinkish."
+      "coloration": "Translucent whitish-brown, pale tan, or pinkish.",
+      "descriptionBn": "হাইড্রা ভুলগারিস (Hydra vulgaris) নিডারিয়া পর্বের একটি ক্লাসিক্যাল জীববৈচিত্র্য মডেল, যা প্রাণিবিজ্ঞানের অমরত্ব, পুনরুৎপত্তি (রিজেনারেশন) এবং দ্বিস্তরী কলা সংগঠন পাঠে সার্বজনীনভাবে ব্যবহৃত হয়।",
+      "diagnosticFeaturesBn": [
+        "নলাকার একক পলিপ দেহকাঠামো, কোনো মেডুসা দশা নেই; মুখের চারদিকে ৬-১০টি সরু ফাঁপা কর্ষিকা (টেন্টাকল) বিদ্যমান।",
+        "দেহের কর্ষিকায় বিপুল পরিমাণ নিডোসাইট কোষ ও নেমাটোসিস্ট কাঁটা থাকে যা শিকারকে অবশ করে।",
+        "দেহের ভিত্তি বা প্যাডেল ডিস্কের মাধ্যমে জলজ উদ্ভিদে আটকে থাকে এবং ডিগবাজি বা গ্লাইডিংয়ের মাধ্যমে চলাচল করে।",
+        "অসাধারণ টিস্যু রিজেনারেশন ক্ষমতা—দেহের ক্ষুদ্রতম অংশ থেকেও সম্পূর্ণ নতুন হাইড্রা পুনর্গঠিত হতে পারে।"
+      ],
+      "colorationBn": "স্বচ্ছ জলপাই-বাদামি থেকে হালকা হলুদ বা স্বচ্ছ সাদাটে।"
     },
     "habitat": {
       "systems": [
@@ -1430,19 +1506,25 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "macrophyte vegetation"
       ],
       "residencyStatus": "native",
-      "notes": "Widely distributed native polyp across clean ponds and waterways in Bangladesh; standard textbook study organism in Higher Secondary Biology curriculum."
+      "notes": "Widely distributed native polyp across clean ponds and waterways in Bangladesh; standard textbook study organism in Higher Secondary Biology curriculum.",
+      "notesBn": "বাংলাদেশের পরিষ্কার মিঠাপানির পুকুর ও বিলে কচুরিপানার মূলে এবং নিমজ্জিত জলজ উদ্ভিদের পাতায় প্রচুর পাওয়া যায়।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Micro-carnivore paralyzing water fleas (Daphnia), copepods (Cyclops), and small annelid worms with nematocysts before swallowing.",
       "reproduction": "Asexual budding under abundant food; sexual reproduction forming temporary epidermal gonads (testes and ovaries) under cooling or crowding.",
-      "ecologicalRole": "Freshwater littoral micro-predator exhibiting stem-cell mediated absence of biological senescence."
+      "ecologicalRole": "Freshwater littoral micro-predator exhibiting stem-cell mediated absence of biological senescence.",
+      "dietSummaryBn": "মাংসাশী শিকারী; টেন্টাকলের নেমাটোসিস্ট দিয়ে ডাফনিয়া, সাইক্লপস ও ক্ষুদ্র জলজ লার্ভা অবশ করে গিলে ফেলে।",
+      "reproductionBn": "অনুকূল পরিবেশে মুকুলোদগমের (বাডিং) মাধ্যমে অযৌন বংশবৃদ্ধি; শরৎকালে শুক্রাশয় ও ডিম্বাশয় গঠনের মাধ্যমে যৌন জনন।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
       "iucnAssessmentYear": 2024,
       "threats": [
         "Water eutrophication and chemical pollution"
+      ],
+      "threatsBn": [
+        "জলাশয়ের রাসায়নিক দূষণ ও শৈবালের অতিরিক্ত বৃদ্ধি"
       ]
     },
     "lifecycleStatus": "published",
@@ -1655,7 +1737,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Leucosolenia botryoides is THE universal textbook example of the asconoid canal system, taught in all introductory biology courses as the simplest living metazoan architecture.",
       "maxStandardLengthCm": 3,
-      "coloration": "Creamy white, chalky ivory, or pale grey."
+      "coloration": "Creamy white, chalky ivory, or pale grey.",
+      "descriptionBn": "লিউকোসোলেনিয়া বোট্রিওয়েডিস (Leucosolenia botryoides) সরলতম অ্যাসকোনয়েড নালী তন্ত্রের আন্তর্জাতিক ক্লাসিক পাঠ্যপুস্তক উদাহরণ। সমস্ত প্রাথমিক প্রাণিবিজ্ঞান কোর্সে বহুকোষী প্রাণীর আদিতম গাঠনিক পরিকল্পনা হিসেবে এটি অবশ্যপাঠ্য।",
+      "diagnosticFeaturesBn": [
+        "আদর্শ অ্যাসকোনয়েড অ্যানাটমি: পাতলা প্রাচীরবিশিষ্ট সহজ নলাকার গঠন যার কেন্দ্রীয় স্পঞ্জোসিল সরাসরি কোনো ভাঁজ ছাড়াই কোয়ানোসাইট কোষ দ্বারা আবৃত।",
+        "শাখাবিশিষ্ট সূক্ষ্ম নলাকার উপনিবেশ গঠন করে যার প্রতিটি নলের শীর্ষে একক গোল অস্কুলাম উন্মুক্ত থাকে।",
+        "অন্তঃকঙ্কাল সম্পূর্ণভাবে চুনজাতীয় ক্যালসিয়াম কার্বনেট (ক্যালসাইট) দ্বারা গঠিত ত্রি-রশ্মিযুক্ত ও দ্বি-রশ্মিযুক্ত স্পিকিউল দ্বারা নির্মিত।",
+        "সাইকোনয়েড বা লিউকোনয়েড কোনো জটিল ভাঁজ নেই, যা মেটাজোয়ার পূর্বপুরুষীয় দেহকাঠামোকে নির্দেশ করে।"
+      ],
+      "colorationBn": "ক্রিম সাদা, চকচকে হাতির দাঁতের বর্ণ বা হালকা ধূসর।"
     },
     "habitat": {
       "systems": [
@@ -1678,19 +1768,25 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "subtidal marine hard substrata"
       ],
       "residencyStatus": "not_recorded",
-      "notes": "Global marine species of the northeastern Atlantic; canonical global representative of Class Calcarea."
+      "notes": "Global marine species of the northeastern Atlantic; canonical global representative of Class Calcarea.",
+      "notesBn": "উত্তর-পূর্ব আটলান্টিক মহাসাগরের সামুদ্রিক প্রজাতি; ক্যালকারিয়া শ্রেণির প্রতিনিধিত্বকারী আদি স্পঞ্জ (বহির্দেশীয়)।"
     },
     "ecology": {
       "dietCategory": "filter_feeder",
       "dietSummary": "Suspension filter feeder; flagellated choanocytes generate inward water currents through microscopic ostia trapping picoplankton and bacteria.",
       "reproduction": "Sexual broadcast spawning yielding flagellated amphiblastula larvae; asexual reproduction by budding and stoloniferous creeping.",
-      "ecologicalRole": "Cryptic hard-bottom suspension feeder clarifying littoral micro-currents."
+      "ecologicalRole": "Cryptic hard-bottom suspension feeder clarifying littoral micro-currents.",
+      "dietSummaryBn": "ভাসমান পরিশ্রাবক খাদ্যগ্রহণকারী; ফ্লাজেলাযুক্ত কোয়ানোসাইট কোষগুলো অণুপ্রবাহ সৃষ্টি করে অস্টিয়া দিয়ে পানি টেনে ব্যাকটেরিয়া ও জৈব কণা ভক্ষণ করে।",
+      "reproductionBn": "যৌন জননে ফ্লাজেলাযুক্ত অ্যাম্ফিব্লাস্টুলা লার্ভা উৎপন্ন হয়; এছাড়াও মুকুলোদগম (বাডিং) এবং স্টোলোনের মাধ্যমে অযৌন বংশবৃদ্ধি ঘটে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
       "iucnAssessmentYear": 2024,
       "threats": [
         "Coastal pollution"
+      ],
+      "threatsBn": [
+        "উপকূলীয় রাসায়নিক দূষণ ও অতিরিক্ত পলি জমা"
       ]
     },
     "lifecycleStatus": "published",
@@ -2636,7 +2732,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Gavialis gangeticus is the critically endangered fish-eating crocodile native to the northern rivers of the Indian subcontinent (including the Padma and Jamuna in Bangladesh).",
       "maxStandardLengthCm": 600,
-      "coloration": "Olive-green or dark tan in adults; juveniles pale olive with dark cross-bands."
+      "coloration": "Olive-green or dark tan in adults; juveniles pale olive with dark cross-bands.",
+      "descriptionBn": "ঘড়িয়াল (Gavialis gangeticus) ভারতীয় উপমহাদেশের নদীজ বাস্তুতন্ত্রের চরম বিপন্ন এক অনন্য জলজ সরীসৃপ। এর অতি দীর্ঘ ও সরু মুখ কেবল মাছ শিকারের জন্য বিশেষভাবে অভিযোজিত।",
+      "diagnosticFeaturesBn": [
+        "অত্যন্ত দীর্ঘ, সরু ও চোঙাকৃতি মুখ যাতে ১১০টিরও বেশি আন্তঃসংযুক্ত ধারালো ইন্টারলকিং দাঁত বিদ্যমান।",
+        "প্রাপ্তবয়স্ক পুরুষ ঘড়িয়ালের নাকের ডগায় মাটির কলসির মতো গোলাকার ফাঁপা মাংসল পিণ্ড (ঘড়া) থাকে, যার কারণে এর নাম ঘড়িয়াল।",
+        "দেহের পিঠের অংশে অত্যন্ত পুরু ও শক্ত অস্থিময় স্কুট বা বর্ম বিদ্যমান।",
+        "পা তুলনামূলকভাবে দুর্বল ও চ্যাপ্টা সাঁতার কাটার উপযোগী; এরা ডাঙায় স্বাভাবিকভাবে হাঁটতে পারে না।"
+      ],
+      "colorationBn": "পিঠের দিক জলপাই-বাদামি বা কালচে-ধূসর, পেটের অংশ ফ্যাকাশে হলুদাভ-সাদা।"
     },
     "habitat": {
       "systems": [
@@ -2672,13 +2776,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "localNamesBn": [
         "ঘড়িয়াল"
       ],
-      "notes": "Critically Endangered in Bangladesh with few breeding individuals remaining in the Padma and Jamuna river systems; national conservation recovery priority."
+      "notes": "Critically Endangered in Bangladesh with few breeding individuals remaining in the Padma and Jamuna river systems; national conservation recovery priority.",
+      "notesBn": "পদ্মা ও যমুনা নদীতে অতীতে প্রচুর দেখা যেত; বর্তমানে বাংলাদেশে প্রজননক্ষম বুনো সংখ্যা অত্যন্ত আশঙ্কাজনক পর্যায়ে।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Obligate piscivore sweeping its hydrodynamic needle-toothed snout sideways through the water to snatch river fishes.",
       "reproduction": "Mating in winter; females dig deep flask-shaped nest holes on high sandbanks; lays the largest eggs of any living crocodilian.",
-      "ecologicalRole": "Keystone riverine top predator maintaining healthy wild river fish stocks."
+      "ecologicalRole": "Keystone riverine top predator maintaining healthy wild river fish stocks.",
+      "dietSummaryBn": "একান্ত মৎস্যভোজী (পিস্কিভোর); পাশপাশি মাথা দ্রুত নাড়িয়ে জলের মধ্যে মাছ আটকে ফেলে।"
     },
     "conservation": {
       "iucnGlobalStatus": "CR",
@@ -2688,7 +2794,12 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Gill net drowning",
         "Sand mining on nesting banks"
       ],
-      "citesAppendix": "I"
+      "citesAppendix": "I",
+      "threatsBn": [
+        "নদীতে বাঁধ ও ব্যারাজ নির্মাণে বাসস্থান সংকোচন",
+        "ডিম পাড়ার বালুচর ধ্বংস ও বালু উত্তোলন",
+        "মাছ ধরার জালে আটকে শ্বাসরোধ হয়ে মৃত্যু"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -2776,7 +2887,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Naja naja is the iconic Indian spectacled cobra, globally recognized across school biology textbooks as the classic representative of proteroglyphous venomous snakes.",
       "maxStandardLengthCm": 220,
-      "coloration": "Tan, yellowish-brown, dark brown, or black with characteristic spectacle hood mark."
+      "coloration": "Tan, yellowish-brown, dark brown, or black with characteristic spectacle hood mark.",
+      "descriptionBn": "খৈয়া গোখরা (Naja naja) বা ভারতীয় গোখরা এলাপিডি পরিবারের অত্যন্ত বিষধর ও বিখ্যাত ফণাধারী সাপ। এটি উপমহাদেশীয় চিকিৎসা বিজ্ঞানের 'বিগ ফোর' বিষধর সাপের অন্যতম।",
+      "diagnosticFeaturesBn": [
+        "হুমকি বা উত্তেজনার মুখে ঘাড়ের পেশি ও দীর্ঘ গ্রীবা প্রসারিত করে প্রশস্ত ফণা মেলে ধরে।",
+        "ফণার পেছনের অংশে স্পষ্ট চশমা বা খইয়ের মতো দ্বিনেত্রাকার (O-O) সাদা-কালো দাগ থাকে।",
+        "সম্মুখ চোয়ালে প্রোটিরোগ্লাইফা ধরনের শক্ত ফিক্সড ফাঁপা বিষদাঁত বিদ্যমান।",
+        "শক্তিশালী পোস্ট-সিন্যাপটিক নিউরোটক্সিন বিষ নিঃসরণ করে যা শিকারের স্নায়ুতন্ত্রকে তাৎক্ষণিক অবশ করে ফেলে।"
+      ],
+      "colorationBn": "ধূসর, হলুদাভ-বাদামি থেকে কুচকুচে কালো; পেটের দিক সাদাটে বা হালকা হলুদ।"
     },
     "habitat": {
       "systems": [
@@ -2819,13 +2938,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "খৈয়া গোখরা",
         "গোখরা"
       ],
-      "notes": "Native resident snake of immense medical importance in Bangladesh; one of the \"Big Four\" venomous snakes responsible for human snakebites."
+      "notes": "Native resident snake of immense medical importance in Bangladesh; one of the \"Big Four\" venomous snakes responsible for human snakebites.",
+      "notesBn": "বাংলাদেশের প্রতিটি বিভাগে অত্যন্ত সাধারণ ও প্রধান বিষধর সাপ; কৃষি ক্ষেতে ক্ষতিকর ইঁদুর দমনে গুরুত্বপূর্ণ অবদান রাখে।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Active hunter consuming rodents (rats and mice), frogs, toads, bird eggs, and other snakes.",
       "reproduction": "Oviparous; female deposits 10 to 30 eggs in rodent burrows or termite mounds and guards the clutch until hatching.",
-      "ecologicalRole": "Major biological control agent regulating agricultural rodent populations."
+      "ecologicalRole": "Major biological control agent regulating agricultural rodent populations.",
+      "dietSummaryBn": "মাংসাশী শিকারী; প্রধানত ইঁদুর, ব্যাঙ, টিকটিকি, ছোট পাখি ও ছোট সাপ শিকার করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -2834,7 +2955,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Persecution killing",
         "Road mortality"
       ],
-      "citesAppendix": "II"
+      "citesAppendix": "II",
+      "threatsBn": [
+        "মানুষের দ্বারা নির্বিচার নিধন ও কুসংস্কার",
+        "প্রাকৃতিক আবাসস্থল ধ্বংস"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -4189,7 +4314,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Elephas maximus is the critically iconic Asian elephant, an umbrella keystone megaherbivore native to Bangladesh forests and prominent in global mammalogy textbooks.",
       "maxStandardLengthCm": 600,
-      "coloration": "Dark grey to brownish-grey with pinkish depigmented patches on forehead, ears, and trunk."
+      "coloration": "Dark grey to brownish-grey with pinkish depigmented patches on forehead, ears, and trunk.",
+      "descriptionBn": "এশীয় হাতি (Elephas maximus) এশিয়ার বৃহত্তম জীবিত স্থলচর স্তন্যপায়ী এবং বনাঞ্চলের চূড়ান্ত কিস্টোন মেগাহার্বিভোর প্রজাতি।",
+      "diagnosticFeaturesBn": [
+        "বিশাল দেহাবয়ব, ওজন ৫ টন পর্যন্ত হতে পারে; আফ্রিকা হাতির চেয়ে কান তুলনামূলকভাবে ছোট।",
+        "কপালে দুটি সুস্পষ্ট গোলাকার গম্বুজ বা কুঁজ বিদ্যমান; পিঠ ধনুকের মতো উত্তল বা সমতল।",
+        "দীর্ঘ মাংসল শুঁড়ের ডগায় একটিমাত্র প্রিহেনসাইল আঙুলসদৃশ প্রবৃদ্ধি থাকে।",
+        "পুরুষ হাতির উপরের ইনসাইজর দাঁত দীর্ঘ দাঁতে (টাস্ক) রূপান্তরিত হয়।"
+      ],
+      "colorationBn": "ধূসর থেকে গাঢ় ধূসর, কান ও শুঁড়ের গোড়ায় হালকা গোলাপি বা সাদাটে ছোপ ছোপ দাগ।"
     },
     "habitat": {
       "systems": [
@@ -4227,13 +4360,16 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "এশীয় হাতি",
         "হাতি"
       ],
-      "notes": "Critically Endangered native resident in Bangladesh with ~250 resident individuals and ~100 transboundary migratory elephants; protected under national wildlife acts."
+      "notes": "Critically Endangered native resident in Bangladesh with ~250 resident individuals and ~100 transboundary migratory elephants; protected under national wildlife acts.",
+      "notesBn": "বাংলাদেশের পার্বত্য চট্টগ্রাম, কক্সবাজার ও ময়মনসিংহের সীমান্তবর্তী বনে প্রায় ২০০-২৫০টি বুনো হাতি বাস করে; চরম বিপন্ন।"
     },
     "ecology": {
       "dietCategory": "herbivore",
       "dietSummary": "Megaherbivore consuming 150 kg daily of grasses, bamboo shoots, tree bark, leaves, and wild bananas.",
       "reproduction": "Gestation of 18–22 months yielding a single calf nurtured in matriarchal social family herds.",
-      "ecologicalRole": "Ecosystem engineer dispersing large seeds, creating forest clearings, and digging dry-season waterholes."
+      "ecologicalRole": "Ecosystem engineer dispersing large seeds, creating forest clearings, and digging dry-season waterholes.",
+      "dietSummaryBn": "মেগা-তৃণভোজী; প্রতিদিন ১৫০-২০০ কেজি ঘাস, বাঁশের কঞ্চি, গাছের বাকল, পাতা ও কলাগাছ ভক্ষণ করে।",
+      "ecologicalRoleBn": "বনের বাস্তুতন্ত্রের শীর্ষ প্রকৌশলী; বীজ বিস্তার, বনের ঘন ঝোপ পরিষ্কার ও জলকূপ খনন করে অসংখ্য বন্যপ্রাণীর জীবন বাঁচায়।"
     },
     "conservation": {
       "iucnGlobalStatus": "EN",
@@ -4243,7 +4379,12 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Human-elephant conflict",
         "Electrocution"
       ],
-      "citesAppendix": "I"
+      "citesAppendix": "I",
+      "threatsBn": [
+        "হাতি চলাচলের ঐতিহ্যবাহী করিডোর দখল ও খণ্ডায়ন",
+        "মানুষ-হাতি সংঘাত ও বৈদ্যুতিক তারের ফাঁদ",
+        "চোরাচালান ও দাঁতের জন্য শিকার"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -5447,7 +5588,14 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Tubifex tubifex is the universal freshwater sludge worm capable of surviving in near-anoxic organically polluted sediments, widely cultured as live aquarium food.",
       "maxStandardLengthCm": 8,
-      "coloration": "Bright blood-red to pinkish-translucent."
+      "coloration": "Bright blood-red to pinkish-translucent.",
+      "descriptionBn": "টিউবিফেক্স (Tubifex tubifex) বা স্লাজ ওয়ার্ম মিঠাপানির তলদেশে কাদার মধ্যে বসবাসকারী লাল রঙের ক্ষুদ্র অ্যানেলিড, যা জলজ দূষণের জৈব নির্দেশক হিসেবে বিশ্বজুড়ে পরিচিত।",
+      "diagnosticFeaturesBn": [
+        "অত্যন্ত সরু, লালচে সুতার মতো দেহ, দৈর্ঘ্য ২০-৮৫ মিমি।",
+        "রক্তে প্রচুর হিমোগ্লোবিন থাকার কারণে উজ্জ্বল লাল বর্ণ ধারণ করে, যা চরম অক্সিজেনহীন কাদার মধ্যে বেঁচে থাকতে সহায়তা করে।",
+        "কাদার মধ্যে উলম্ব নলের ভেতর বাস করে; দেহের পেছনের অংশ বাইরে বের করে একটানা দুলিয়ে অক্সিজেন শোষণ করে।"
+      ],
+      "colorationBn": "উজ্জ্বল রক্তিম লাল থেকে হালকা লালচে-গোলাপি।"
     },
     "habitat": {
       "systems": [
@@ -5479,13 +5627,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "টিউবিফেক্স",
         "লাল কেঁচো"
       ],
-      "notes": "Ubiquitous in organically polluted benthic canals across Bangladesh and universally utilized by commercial ornamental aquarists."
+      "notes": "Ubiquitous in organically polluted benthic canals across Bangladesh and universally utilized by commercial ornamental aquarists.",
+      "notesBn": "অ্যাকোয়ারিয়াম মাছ ও কৃত্রিম মৎস্য হ্যাচারিতে জীবন্ত পুষ্টিকর খাদ্য হিসেবে ব্যাপকভাবে সংগ্রহ ও ব্যবহৃত হয়।"
     },
     "ecology": {
       "dietCategory": "detritivore",
       "dietSummary": "Ingests deep organic mud, feeding on decomposing organic debris and associated bacteria.",
       "behavior": "Lives head-down in mud tubes; colonial colonies form dense waving red carpets on river bottoms.",
-      "reproduction": "Simultaneous hermaphrodites reproducing via copulation and cocoon deposition."
+      "reproduction": "Simultaneous hermaphrodites reproducing via copulation and cocoon deposition.",
+      "dietSummaryBn": "তলদেশীয় ডেট্রিটিভোর; কাদার ভেতর থেকে জৈব বর্জ্য ও ব্যাকটেরিয়া ভক্ষণ করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -5494,6 +5644,9 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "globalStatusSource": "Catalogue of Life (2024)",
       "threats": [
         "None; widespread and hyper-tolerant biological indicator of organic pollution."
+      ],
+      "threatsBn": [
+        "তীব্র বিষাক্ত ভারী ধাতব রাসায়নিক দূষণ"
       ]
     },
     "lifecycleStatus": "published",
@@ -9850,7 +10003,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Hirudo medicinalis is the legendary medicinal leech used in historical and modern microsurgical medicine. Freshwater ectoparasite of vertebrates.",
       "maxStandardLengthCm": 15,
-      "coloration": "Olive green with distinctive longitudinal red-orange stripes bordered with black speckles."
+      "coloration": "Olive green with distinctive longitudinal red-orange stripes bordered with black speckles.",
+      "descriptionBn": "ইউরোপীয় ভেষজ জোঁক (Hirudo medicinalis) চিকিৎসা বিজ্ঞানে ঐতিহাসিকভাবে ব্যবহৃত বিশ্বখ্যাত পরজীবী অ্যানেলিড। প্লাস্টিক ও পুনর্গঠনমূলক সার্জারিতে রক্ত সঞ্চালন পুনঃপ্রতিষ্ঠায় এটি এখনো অমূল্য ভূমিকা পালন করে।",
+      "diagnosticFeaturesBn": [
+        "দেহ চ্যাপ্টা বেলনাকার, প্রাপ্তবয়স্ক অবস্থায় দৈর্ঘ্য ২০ সেন্টিমিটার পর্যন্ত প্রসারিত হতে পারে।",
+        "পৃষ্ঠদেশে সুনির্দিষ্ট লালচে-বাদামি ও হলুদাভ জালিকাকার নকশা বিদ্যমান।",
+        "সম্মুখ ও পশ্চাৎ চোষক বিদ্যমান; তিন দাঁতযুক্ত চোয়ালের মাধ্যমে ত্বকে নিখুঁত ক্ষত সৃষ্টি করে রক্ত চোষণ করে।",
+        "লালারসে শক্তিশালী জমাট-রোধক হিরুডিন এবং লোকাল অ্যানেস্থেটিক পদার্থ থাকে।"
+      ],
+      "colorationBn": "গাঢ় জলপাই-সবুজ বা বাদামি রঙের ওপর ছয়টি লালচে বা কমলা অনুদৈর্ঘ্য ডোরা।"
     },
     "habitat": {
       "systems": [
@@ -9872,14 +10033,16 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "habitatTypes": [],
       "residencyStatus": "not_recorded",
       "residency": "not_recorded",
-      "notes": "Extralimital Palearctic leech. Native to European vegetated ponds; wild Bangladesh freshwater leeches belong primarily to different genera (e.g., Hirudinaria manillensis)."
+      "notes": "Extralimital Palearctic leech. Native to European vegetated ponds; wild Bangladesh freshwater leeches belong primarily to different genera (e.g., Hirudinaria manillensis).",
+      "notesBn": "ইউরোপের স্থানীয় ভেষজ প্রজাতি; বাংলাদেশে অ-নথিবদ্ধ (বহির্দেশীয় শিক্ষণীয় প্রজাতি)।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Sanguinivorous hematophage feeding on blood of warm-blooded mammals, amphibians, and fishes; can ingest up to 5-10 times its body weight in blood stored in crop caeca.",
       "behavior": "Graceful undulating swimmer in open water; uses sensory chemoreceptors and thermo-receptors to detect nearby host movement and body heat.",
       "reproduction": "Simultaneous hermaphrodite; cross-fertilization produces cocoons deposited on damp mud banks above the water line.",
-      "ecologicalRole": "Specialized ectoparasitic predator and historical/contemporary biomedical model in reconstructive and plastic microsurgery."
+      "ecologicalRole": "Specialized ectoparasitic predator and historical/contemporary biomedical model in reconstructive and plastic microsurgery.",
+      "dietSummaryBn": "রক্তভোজী; স্তন্যপায়ী প্রাণী, উভচর ও মাছের রক্ত চুষে পরিপাকনালীর ক্রপ অংশে দীর্ঘ কয়েক মাস সংরক্ষণ করে রাখে।"
     },
     "conservation": {
       "iucnGlobalStatus": "NT",
@@ -9889,7 +10052,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Destruction of eutrophic wetland and farm pond habitats",
         "Historical over-harvesting for commercial phlebotomy"
       ],
-      "iucnAssessmentYear": 2021
+      "iucnAssessmentYear": 2021,
+      "threatsBn": [
+        "ঐতিহাসিক অতিরিক্ত আহরণ এবং ইউরোপীয় প্রাকৃতিক জলাভূমি ধ্বংস"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -10688,7 +10854,16 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Apis mellifera is the primary domesticated and wild honey bee species worldwide. Eusocial insect with sophisticated division of labor and communication.",
       "maxStandardLengthCm": 1.5,
-      "coloration": "Golden brown and amber bands alternating with dark brown and black abdominal rings."
+      "coloration": "Golden brown and amber bands alternating with dark brown and black abdominal rings.",
+      "descriptionBn": "এপিস মেলিফেরা (Apis mellifera) বিশ্বব্যাপী প্রধান পোষা ও বুনো মৌমাছি প্রজাতি। এটি উচ্চ সামাজিক সংগঠন, সুনির্দিষ্ট শ্রমবণ্টন ও জটিল যোগাযোগ ব্যবস্থার অধিকারী এক আদর্শ সামাজিক পতঙ্গ।",
+      "diagnosticFeaturesBn": [
+        "মাঝারি আকারের সামাজিক হাইমেনোপ্টেরান, শ্রমিক ১২-১৫ মিমি এবং রানী ২০ মিমি পর্যন্ত দীর্ঘ।",
+        "পরাগরেণু আটকে রাখার জন্য দেহজুড়ে শাখান্বিত লোম বা রোমাবরণ বিদ্যমান।",
+        "শ্রমিক মৌমাছির পেছনের পায়ের টিবিয়া শক্ত লোম দ্বারা পরিবেষ্টিত মসৃণ পরাগ ঝুড়িতে (করবিকুলা) রূপান্তরিত।",
+        "লোমশ জটিল পুঞ্জাক্ষি; ওড়ার সময় সামনের ও পেছনের ডানা অণুবীক্ষণিক হ্যামুলি হুক দ্বারা পরস্পরের সাথে আবদ্ধ থাকে।",
+        "শ্রমিক মৌমাছির ওভিপোজিটর কাঁটাযুক্ত দংশন অঙ্গে রূপান্তরিত, যার সাথে অ্যালার্ম ফেরোমোন গ্রন্থি যুক্ত।"
+      ],
+      "colorationBn": "সোনালি-বাদামি ও অম্বর রঙের ডোরাকাটা বলয় যা গাঢ় বাদামি ও কালো উদরীয় খণ্ডকের সাথে পর্যায়ক্রমে সজ্জিত।"
     },
     "habitat": {
       "systems": [
@@ -10717,14 +10892,23 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "residencyStatus": "not_recorded",
       "residency": "introduced",
-      "notes": "Introduced managed apicultural species in Bangladesh, widely farmed alongside native Asian honey bees (Apis cerana, Apis dorsata) for commercial honey and crop pollination."
+      "notes": "Introduced managed apicultural species in Bangladesh, widely farmed alongside native Asian honey bees (Apis cerana, Apis dorsata) for commercial honey and crop pollination.",
+      "notesBn": "বাংলাদেশে বাণিজ্যিকভাবে চাষকৃত বহিরাগত ইউরোপীয় মৌমাছি; দেশীয় মৌমাছির (Apis cerana, Apis dorsata) পাশাপাশি প্রচুর মধু উৎপাদন ও ফসল পরাগায়নে নিয়োজিত।",
+      "regionsBn": [
+        "সকল প্রশাসনিক বিভাগ",
+        "সুন্দরবন সংলগ্ন এলাকা",
+        "সরিষা ও লিচু আবাদি অঞ্চল"
+      ]
     },
     "ecology": {
       "dietCategory": "herbivore",
       "dietSummary": "Strict vegetarian; feeds on floral nectar (carbohydrate energy) and collected pollen (protein, lipids, and vitamins) processed into honey and royal jelly.",
       "behavior": "Complex eusociality with queen, sterile female workers, and male drones; famous waggle dance communication encoding distance and angle to nectar sources.",
       "reproduction": "Single reproductive queen mates on nuptial flights; fertilizes diploid female eggs and lays unfertilized haploid eggs yielding male drones (haplodiploidy).",
-      "ecologicalRole": "Single most economically and ecologically important insect pollinator of crops, wild fruits, and angiosperms globally."
+      "ecologicalRole": "Single most economically and ecologically important insect pollinator of crops, wild fruits, and angiosperms globally.",
+      "dietSummaryBn": "একান্ত নিরামিষাশী; ফুলের মিষ্টি নেকটার (শর্করা) এবং সংগৃহীত পরাগরেণু (প্রোটিন, লিপিড ও ভিটামিন) ভক্ষণ করে এবং মধু ও রাজকীয় জেলি প্রস্তুত করে।",
+      "behaviorBn": "রানী, বন্ধ্যা স্ত্রী শ্রমিক এবং পুরুষ ড্রোন সমন্বিত জটিল সামাজিক জীবন; নেকটার উৎসের দূরত্ব ও কোণ প্রকাশে ওয়াগল নৃত্যের মাধ্যমে তথ্য আদান-প্রদান করে।",
+      "reproductionBn": "একটিমাত্র উর্বর রানী বৈবাহিক উড্ডয়নে সঙ্গম করে; ডিম্বনালীতে সংরক্ষিত শুক্রাণু দ্বারা নিষিক্ত ডিম থেকে স্ত্রী মৌমাছি এবং অনিষিক্ত ডিম থেকে হ্যাপ্লয়েড পুরুষ মৌমাছি জন্ম নেয়।"
     },
     "conservation": {
       "iucnGlobalStatus": "DD",
@@ -10735,7 +10919,12 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Varroa destructor parasitic mite infestations",
         "Neonicotinoid pesticide exposure"
       ],
-      "iucnAssessmentYear": 2024
+      "iucnAssessmentYear": 2024,
+      "threatsBn": [
+        "কলোনি পতন ব্যাধি (CCD)",
+        "ভারোয়া ডেস্ট্রাকটর পরজীবী মাইটের আক্রমণ",
+        "কৃষিতে ব্যবহৃত ক্ষতিকর নিওনিকোটিনয়েড কীটনাশকের ক্ষতিকর প্রভাব"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -13576,7 +13765,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Hoplobatrachus tigerinus is Bangladesh's largest native frog. Ubiquitous across floodplains, haors, and paddy fields, it plays an indispensable ecological role by consuming huge volumes of agricultural insect pests.",
       "maxStandardLengthCm": 17,
-      "coloration": "Olive green to greyish-brown with dark spots outside breeding; breeding males turn vivid lemon-yellow with electric-blue vocal sacs."
+      "coloration": "Olive green to greyish-brown with dark spots outside breeding; breeding males turn vivid lemon-yellow with electric-blue vocal sacs.",
+      "descriptionBn": "সোনা ব্যাঙ বা কোলা ব্যাঙ (Hoplobatrachus tigerinus) ভারতীয় উপমহাদেশের বৃহত্তম দেশীয় উভচর প্রজাতি। কৃষি ফসলের ক্ষতিকর পোকা দমনে এটি কৃষকের পরম বন্ধু হিসেবে পরিচিত।",
+      "diagnosticFeaturesBn": [
+        "বিশাল আকৃতির শক্তিশালী ব্যাঙ, নাসারন্ধ্র থেকে পায়ু পর্যন্ত দৈর্ঘ্য ১৭ সেন্টিমিটার পর্যন্ত হতে পারে।",
+        "ত্বকের ওপর অনুদৈর্ঘ্য গ্রন্থিময় ভাঁজ বা রিজের সারি স্পষ্ট বিদ্যমান।",
+        "পেছনের পা অত্যন্ত সুগঠিত ও সম্পূর্ণ লিপ্তপদী (ওয়েবড), যা দ্রুত সন্তরণ ও দীর্ঘ লম্ফনে অত্যন্ত উপযোগী।",
+        "প্রজনন ঋতুতে পুরুষ ব্যাঙের বর্ণ উজ্জ্বল লেবু-হলুদ ধারণ করে এবং গলার উভয় পাশে উজ্জ্বল নীল রঙের দুটি স্বরথলি (ভোকাল স্যাক) ফোলায়।"
+      ],
+      "colorationBn": "সাধারণ সময়ে জলপাই-সবুজ বা বাদামি রঙের ওপর গাঢ় ছোপ; প্রজননকালে পুরুষ ব্যাঙ উজ্জ্বল হলুদ ও নীল স্বরথলিযুক্ত হয়।"
     },
     "habitat": {
       "systems": [
@@ -13607,14 +13804,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "residencyStatus": "resident",
       "residency": "resident",
-      "notes": "Widespread and common throughout all administrative divisions of Bangladesh in wetlands, agricultural rice paddies, and village ponds."
+      "notes": "Widespread and common throughout all administrative divisions of Bangladesh in wetlands, agricultural rice paddies, and village ponds.",
+      "notesBn": "বাংলাদেশ বন্যপ্রাণী সংরক্ষণ আইনে সংরক্ষিত; দেশের সকল জেলায় ধানক্ষেত ও জলাভূমিতে প্রচুর পরিমাণে পাওয়া যায়।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Voracious apex wetland amphibian preying on beetles, crabs, crickets, juvenile rodents, and small snakes.",
       "behavior": "Solitary nocturnal predator resting partially submerged in water or buried in moist mud margins during hot sunny hours.",
       "reproduction": "Explosive breeder during monsoon rains; females deposit up to 10,000 eggs in temporary rain pools and rice fields.",
-      "ecologicalRole": "Keystone natural biocontrol agent suppressing agricultural insect pests and supporting rural ecosystem balance."
+      "ecologicalRole": "Keystone natural biocontrol agent suppressing agricultural insect pests and supporting rural ecosystem balance.",
+      "dietSummaryBn": "মাংসাশী শিকারী; বিভিন্ন ক্ষতিকর পোকা, কেঁচো, ছোট ব্যাঙ ও ছোট মেরুদণ্ডী প্রাণী শিকার করে।",
+      "reproductionBn": "বর্ষার প্রথম বৃষ্টিতে প্রজনন সম্পন্ন করে; স্ত্রী ব্যাঙ স্থির পানিতে হাজার হাজার ডিম ছড়ায় যা কয়েকদিনে ব্যাঙাচিতে রূপান্তরিত হয়।",
+      "ecologicalRoleBn": "কৃষি ফসলের মারাত্মক ক্ষতিকর পোকা ও মশার লার্ভা দমনকারী কিস্টোন উভচর।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -13624,7 +13825,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Historical commercial harvesting for frog legs (now legally banned)",
         "Pesticide overuse in agricultural paddies"
       ],
-      "iucnAssessmentYear": 2024
+      "iucnAssessmentYear": 2024,
+      "threatsBn": [
+        "অতীতের নির্বিচার পা রপ্তানি (বর্তমানে নিষিদ্ধ)",
+        "জমিতে মাত্রাতিরিক্ত রাসায়নিক কীটনাশক প্রয়োগ"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -14521,7 +14726,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Aptenodytes forsteri is the supreme avian survivor of the Antarctic continent. Breeds during the bitter Antarctic winter on sea ice in temperatures plummeting below -40 °C with winds exceeding 200 km/h.",
       "maxStandardLengthCm": 122,
-      "coloration": "Glossy black head and back, snowy white belly, and brilliant golden-yellow ear patches extending onto upper breast."
+      "coloration": "Glossy black head and back, snowy white belly, and brilliant golden-yellow ear patches extending onto upper breast.",
+      "descriptionBn": "অ্যাপ্টিনোডাইটিস ফর্স্টেরি (Aptenodytes forsteri) বা এম্পেরর পেঙ্গুইন অ্যান্টার্কটিকা মহাদেশের চরম প্রতিকূল পরিবেশের অবিসংবাদিত পক্ষীকুল বেঁচে থাকার প্রতীক। এরা অ্যান্টার্কটিকার তীব্র শীতে -৪০ ডিগ্রি সেলসিয়াসের নিচে তাপমাত্রায় ও ২০০ কিমি/ঘণ্টা বেগের ঝড়ে সমুদ্রের বরফের ওপর প্রজনন সম্পন্ন করে।",
+      "diagnosticFeaturesBn": [
+        "সমস্ত জীবিত পেঙ্গুইনের মধ্যে দীর্ঘতম ও সবচেয়ে ভারী, উচ্চতা ১১৫ সেন্টিমিটারের বেশি এবং ওজন ৪০ কেজি পর্যন্ত পৌঁছায়।",
+        "হাইড্রোডাইনামিক টর্পেডো-আকৃতির দেহ, যার ডানাগুলো পানির নিচে ওড়ার জন্য শক্ত, চ্যাপ্টা বৈঠাসদৃশ ফ্লিপারে রূপান্তরিত।",
+        "অসাধারণ গভীর ডুবুরি অভিযোজন: ২০ মিনিটেরও বেশি সময় ধরে ৫৩০ মিটারের অধিক গভীরে ডুব দিতে সক্ষম।",
+        "আইঁশ-সদৃশ ঘন পালকের চারটি স্তর এবং চামড়ার নিচে পুরু ব্ল্যাবার চর্বির স্তর চরম ঠান্ডা থেকে তাপীয় সুরক্ষা দেয়।"
+      ],
+      "colorationBn": "চকচকে কালো মাথা ও পিঠ, তুষারশুভ্র পেট এবং কানের অংশে উজ্জ্বল সোনালি-হলুদ দাগ যা উপরের বুকে বিস্তৃত।"
     },
     "habitat": {
       "systems": [
@@ -14543,14 +14756,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "habitatTypes": [],
       "residencyStatus": "not_recorded",
       "residency": "not_recorded",
-      "notes": "Extralimital polar species strictly endemic to the Antarctic sea-ice zone; completely absent from tropical Asia."
+      "notes": "Extralimital polar species strictly endemic to the Antarctic sea-ice zone; completely absent from tropical Asia.",
+      "notesBn": "অ্যান্টার্কটিকার সামুদ্রিক বরফ বলয়ের স্থানীয় প্রজাতি; ক্রান্তীয় এশিয়ায় সম্পূর্ণ অনুপস্থিত (বহির্দেশীয় ট্যাক্সন)।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Pelagic pursuit diver feeding on Antarctic silverfish (Pleuragramma antarctica), Antarctic krill, and glacial squids.",
       "behavior": "Forms dense huddles of thousands of individuals rotating continuously so each bird shares the warmth of the center.",
       "reproduction": "Male incubates a single egg balanced on top of its feet under a feathered brood patch for 65 days of dark winter without feeding.",
-      "ecologicalRole": "Major top-tier avian predator in the Southern Ocean marine food web."
+      "ecologicalRole": "Major top-tier avian predator in the Southern Ocean marine food web.",
+      "dietSummaryBn": "পেলাজিক শিকারী ডুবুরি; অ্যান্টার্কটিক সিলভারফিশ (Pleuragramma antarctica), অ্যান্টার্কটিক ক্রিল এবং হিমবাহের স্কুইড শিকার করে।",
+      "behaviorBn": "হাজার হাজার পাখির সমন্বয়ে ঘন কুন্ডলী (হুডল) তৈরি করে যাতে পাখিরা পর্যায়ক্রমে অবস্থান পরিবর্তন করে কেন্দ্রের উষ্ণতা ভাগাভাগি করতে পারে।",
+      "reproductionBn": "স্ত্রী পেঙ্গুইন ডিম পাড়ার পর পুরুষ পেঙ্গুইন টানা ৬৫ দিন চরম অন্ধকার শীতে অভুক্ত অবস্থায় পায়ের পাতার ওপর বিশেষ পালকাবৃত ব্রুড পাউচে রেখে তা দেয়।"
     },
     "conservation": {
       "iucnGlobalStatus": "NT",
@@ -14559,7 +14776,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Antarctic climate warming reducing stable winter fast-ice platforms required for breeding"
       ],
-      "iucnAssessmentYear": 2024
+      "iucnAssessmentYear": 2024,
+      "threatsBn": [
+        "অ্যান্টার্কটিকার জলবায়ু উষ্ণায়ন যার ফলে প্রজননের জন্য প্রয়োজনীয় সমুদ্রের বরফের স্থিতিশীলতা হ্রাস পাচ্ছে।"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -14893,7 +15113,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Copsychus saularis is the beloved National Bird of Bangladesh (দোয়েল). Familiar to all across rural and urban landscapes, its melodious song announces dawn and its image graces national currency and monuments.",
       "maxStandardLengthCm": 19,
-      "coloration": "Glossy blue-black upperparts, throat, and chest in males with pure white underparts and wing stripes; females are charcoal-grey."
+      "coloration": "Glossy blue-black upperparts, throat, and chest in males with pure white underparts and wing stripes; females are charcoal-grey.",
+      "descriptionBn": "দোয়েল (Copsychus saularis) বাংলাদেশের সুপরিচিত জাতীয় পাখি। এদের সুমধুর গান এবং লেজ উঁচিয়ে নাচানোর ভঙ্গি গ্রামীণ ও নগর জীবনের অতি পরিচিত ও প্রিয় রূপ।",
+      "diagnosticFeaturesBn": [
+        "পুরুষ পাখি চকচকে নীলাভ-কালো মাথা, পিঠ ও গলা এবং ধবধবে সাদা পেট ও ডানায় চওড়া সাদা পট্টি দ্বারা সুস্পষ্টভাবে চিহ্নিত।",
+        "স্ত্রী পাখি পুরুষ পাখির অনুরূপ নকশাযুক্ত হলেও কালো রঙের পরিবর্তে কালচে-ধূসর বা ছাই রঙের হয়ে থাকে।",
+        "লম্বা লেজ যা প্রায়ই ৯০ ডিগ্রি খাড়া করে রাখা হয় এবং নিয়মিত ওঠানামা করায়।",
+        "সোজা ধারালো কালো চঞ্চু যা মাটি থেকে কীট-পতঙ্গ শিকারের জন্য আদর্শ।"
+      ],
+      "colorationBn": "পুরুষের পিঠ ও গলা চকচকে কুচকুচে কালো, পেট শুভ্র সাদা; ডানায় লম্বাটে সাদা ডোরা।"
     },
     "habitat": {
       "systems": [
@@ -14923,14 +15151,19 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "residencyStatus": "resident",
       "residency": "resident",
-      "notes": "National Bird of Bangladesh; abundant breeding resident across every village, city, park, and garden in all 64 districts."
+      "notes": "National Bird of Bangladesh; abundant breeding resident across every village, city, park, and garden in all 64 districts.",
+      "notesBn": "বাংলাদেশের জাতীয় পাখি; দেশের প্রতিটি জেলা ও অঞ্চলে সর্বত্র ব্যাপকভাবে বিস্তৃত আবাসিক পাখি।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Insectivore foraging on the ground for grasshoppers, ants, caterpillars, earthworms, termites, and small geckos.",
       "behavior": "Confident and inquisitive garden companion; fiercely defends breeding territories with loud whistling songs.",
       "reproduction": "Nests in tree hollows, wall crevices, eaves of village huts, and nest boxes; lays 4–5 pale greenish-blue speckled eggs.",
-      "ecologicalRole": "Essential biocontrol predator consuming agricultural insect pests in village orchards and garden ecosystems."
+      "ecologicalRole": "Essential biocontrol predator consuming agricultural insect pests in village orchards and garden ecosystems.",
+      "dietSummaryBn": "কীটভোজী; প্রধানত পিঁপড়া, উইপোকা, শুঁয়োপোকা, ঘাসফড়িং এবং ছোট কৃমি শিকার করে।",
+      "behaviorBn": "ভোরবেলা ও গোধূলিতে গাছের মগডালে বসে মধুর সুরে গান গায়; অত্যন্ত এলাকা-সচেতন পাখি।",
+      "reproductionBn": "গাছের কোটর বা বাড়ির ফাঁকফোকরে বাসা বানায়; ৪-৫টি ফ্যাকাশে নীলাভ-সবুজ ডিম পাড়ে।",
+      "ecologicalRoleBn": "কৃষি ও উদ্যানের ক্ষতিকর কীটপতঙ্গ নিয়ন্ত্রণকারী উপকারী আবাসিক পাখি।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -14940,7 +15173,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Local trapping for the illegal caged songbird pet trade",
         "Excessive domestic garden pesticide use"
       ],
-      "iucnAssessmentYear": 2024
+      "iucnAssessmentYear": 2024,
+      "threatsBn": [
+        "পুরোনো গাছের কোটর ধ্বংস ও অপরিকল্পিত বৃক্ষনিধন",
+        "কীটনাশকের নির্বিচার ব্যবহার যা খাদ্য সংকট তৈরি করে"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -15628,7 +15865,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Panthera tigris is the National Animal of Bangladesh and the sovereign apex predator of the Sundarbans mangrove forest. Sundarbans tigers represent the only mangrove-dwelling tiger population on Earth, famed for their unmatched swimming prowess across broad tidal rivers.",
       "maxStandardLengthCm": 310,
-      "coloration": "Rich reddish-orange background coat with distinctive dark brown or black vertical stripes, white underbelly, throat, and cheek ruffs."
+      "coloration": "Rich reddish-orange background coat with distinctive dark brown or black vertical stripes, white underbelly, throat, and cheek ruffs.",
+      "descriptionBn": "রয়্যাল বেঙ্গল টাইগার (Panthera tigris) বাংলাদেশের জাতীয় পশু এবং সুন্দরবন ম্যানগ্রোভ বনের অবিসংবাদিত শীর্ষ শিকারী। সুন্দরবনের বাঘ পৃথিবীর একমাত্র ম্যানগ্রোভ বনবাসী বাঘের জনগোষ্ঠী, যারা নদী সাঁতরে পাড়ি দেওয়ার অনন্য দক্ষতায় খ্যাত।",
+      "diagnosticFeaturesBn": [
+        "জীবিত ফেলিড পরিবারের বৃহত্তম সদস্য, দেহের দৈর্ঘ্য ৩.১ মিটার এবং ওজন ২৬০ কেজির বেশি হতে পারে।",
+        "উজ্জ্বল লালচে-কমলা পশমের ওপর উলম্ব কালো বা গাঢ় বাদামি ডোরাকাটা বন্ধনী, যা প্রতিটি বাঘের ক্ষেত্রে আঙুলের ছাপের মতো অনন্য।",
+        "শক্তিশালী ক্যানাইন দাঁত যা ৭.৫ সেন্টিমিটার পর্যন্ত লম্বা এবং চোয়ালের কামড়শক্তি অত্যন্ত প্রবল।",
+        "পেশিবহুল কাঁধ, সংকোচনশীল ধারালো নখর এবং নরম প্যাডযুক্ত থাবা যা কাদা ও শ্বাসমূলের মধ্যে নিঃশব্দে চলাচলে সাহায্য করে।"
+      ],
+      "colorationBn": "উজ্জ্বল লালচে-কমলা ব্যাকগ্রাউন্ডের সাথে গাঢ় বাদামি বা কালো উল্লম্ব ডোরা, পেটের নিচে ও গলায় ধবধবে সাদা পশম।"
     },
     "habitat": {
       "systems": [
@@ -15658,14 +15903,24 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "residencyStatus": "resident",
       "residency": "resident",
-      "notes": "National Animal of Bangladesh; strictly resident in the Sundarbans mangrove forest (Bagerhat, Khulna, and Satkhira districts) with approximately 114–120 individuals; strictly protected under Schedule I of the Bangladesh Wildlife Act."
+      "notes": "National Animal of Bangladesh; strictly resident in the Sundarbans mangrove forest (Bagerhat, Khulna, and Satkhira districts) with approximately 114–120 individuals; strictly protected under Schedule I of the Bangladesh Wildlife Act.",
+      "notesBn": "বাংলাদেশের জাতীয় পশু; বাগেরহাট, খুলনা ও সাতক্ষীরার সুন্দরবন অংশে প্রায় ১১৪-১২০টি বাঘ বাস করে; বন্যপ্রাণী আইনের ১ নম্বর তফসিলে কঠোরভাবে সংরক্ষিত।",
+      "regionsBn": [
+        "খুলনা বিভাগ",
+        "বরিশাল বিভাগ",
+        "সুন্দরবন সংরক্ষিত বন"
+      ]
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Apex hypercarnivore preying primarily on spotted deer (Axis axis), wild boars (Sus scrofa), rhesus macaques, and occasionally estuarine aquatic animals.",
       "behavior": "Solitary, fiercely territorial predator; patrols large home ranges via scent markings and scratch trees; superb swimmer traversing multi-kilometer wide channels.",
       "reproduction": "Gestation period of 103–105 days; female gives birth to 2–4 cubs in a secluded mangrove thicket or den, rearing them for up to two years.",
-      "ecologicalRole": "Supreme keystone apex carnivore governing herbivore density and preserving the ecological health of the Sundarbans World Heritage biome."
+      "ecologicalRole": "Supreme keystone apex carnivore governing herbivore density and preserving the ecological health of the Sundarbans World Heritage biome.",
+      "dietSummaryBn": "শীর্ষ মাংসাশী শিকারী; প্রধানত চিত্রা হরিণ (Axis axis), বুনো শূকর (Sus scrofa), রেসাস বানর এবং সুযোগ পেলে ম্যানগ্রোভের জলজ প্রাণী শিকার করে।",
+      "behaviorBn": "নিঃসঙ্গ ও কড়া এলাকাভিত্তিক শিকারী; গন্ধযুক্ত মূত্র ও গাছে নখের আঁচড় দিয়ে এলাকা চিহ্নিত করে; চওড়া নদী সহজেই সাঁতরে পাড়ি দেয়।",
+      "reproductionBn": "গর্ভধারণকাল ১০৩-১০৫ দিন; স্ত্রী বাঘ নিরাপদ ঝোপঝাড় বা ডেরায় ২-৪টি শাবক প্রসব করে এবং প্রায় দুই বছর লালন-পালন করে।",
+      "ecologicalRoleBn": "সুন্দরবন বিশ্ব ঐতিহ্য বাস্তুতন্ত্রের ভারসাম্য ও তৃণভোজী প্রাণীর ঘনত্ব নিয়ন্ত্রণকারী চূড়ান্ত কিস্টোন শীর্ষ খাদক।"
     },
     "conservation": {
       "iucnGlobalStatus": "EN",
@@ -15676,7 +15931,12 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Sea level rise inundating mangrove land",
         "Human-tiger conflicts along forest boundaries"
       ],
-      "iucnAssessmentYear": 2024
+      "iucnAssessmentYear": 2024,
+      "threatsBn": [
+        "অবৈধ শিকার ও চামড়া-অঙ্গপ্রত্যঙ্গ পাচার",
+        "জলবায়ু পরিবর্তনে সমুদ্রপৃষ্ঠের উচ্চতা বৃদ্ধিতে বনের জমি নিমজ্জিত হওয়া",
+        "বনের সীমানায় মানুষ-বাঘ দ্বন্দ্ব"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -15776,7 +16036,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "maxStandardLengthCm": 60,
       "dorsalSpinesRays": "D iii-iv, 14-17 (total 18-21)",
       "analSpinesRays": "A ii-iii, 16-20 (total 18-23)",
-      "coloration": "Silvery sheen with iridescent bluish-green dorsum and golden reflections on the operculum and flanks."
+      "coloration": "Silvery sheen with iridescent bluish-green dorsum and golden reflections on the operculum and flanks.",
+      "descriptionBn": "ইলিশ (Tenualosa ilisha) বাংলাদেশের জাতীয় মাছ এবং বঙ্গোপসাগর ও গঙ্গা-মেঘনা-ব্রহ্মপুত্র নদী অববাহিকার অন্যতম প্রধান অর্থনৈতিক সম্পদ। এটি একটি অ্যানাড্রোমাস প্রজাতি, যা পরিপক্ক হলে ডিম পাড়ার উদ্দেশ্যে সমুদ্র থেকে মিষ্টি পানির নদীতে উজানে পরিযান করে।",
+      "diagnosticFeaturesBn": [
+        "দেহ গভীরভাবে চাপা ও চ্যাপ্টা; উদরীয় কিনারায় ধারালো কীল বা স্কুট কাঁটার সারি বিদ্যমান (৩০-৩৩টি স্কুট)।",
+        "উপরের চোয়ালের মাঝখানে স্পষ্ট খাঁজ রয়েছে; মুখে কোনো বার্বেল থাকে না।",
+        "চোখে সুগঠিত অ্যাডিপোজ আইলিড বা চর্বিযুক্ত ঢাকনা বিদ্যমান।",
+        "রূপালী চকচকে পার্শ্বদেশ, তরুণ অবস্থায় কাঁধের পেছনে কালো দাগের সারি দৃশ্যমান থাকে।"
+      ],
+      "colorationBn": "পিঠ সবুজাভ-নীল, পার্শ্বদেশ ও পেট উজ্জ্বল চকচকে রূপালী বর্ণ ধারণ করে।"
     },
     "habitat": {
       "systems": [
@@ -15819,14 +16087,27 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "পদ্মার ইলিশ",
         "জাটকা (juvenile)"
       ],
-      "notes": "Designated as the National Fish of Bangladesh. Contributes ~12% of total national fish production and ~1% of national GDP. Extensive government-enforced sanctuary protection during peak spawning and juvenile (jatka) nursery seasons."
+      "notes": "Designated as the National Fish of Bangladesh. Contributes ~12% of total national fish production and ~1% of national GDP. Extensive government-enforced sanctuary protection during peak spawning and juvenile (jatka) nursery seasons.",
+      "notesBn": "বাংলাদেশের জাতীয় মাছ। জাতীয় মৎস্য উৎপাদনের প্রায় ১২% এবং জিডিপির ১% এর বেশি অবদান রাখে। প্রজনন মৌসুমে সরকারি নিষেধাজ্ঞার মাধ্যমে অভয়াশ্রমে সুরক্ষা নিশ্চিত করা হয়।",
+      "regionsBn": [
+        "পদ্মা নদী",
+        "মেঘনা নদী ও নিম্ন মোহনা",
+        "যমুনা নদী",
+        "কর্ণফুলী মোহনা",
+        "তেঁতুলিয়া নদী",
+        "উপকূলীয় বঙ্গোপসাগর"
+      ]
     },
     "ecology": {
       "dietCategory": "planktivore",
       "dietSummary": "Obligate filter feeder filtering cyanobacteria, diatoms, copepods, rotifers, and organic detritus through fine, crowded gill rakers.",
       "behavior": "Anadromous schooling fish. Performs extensive upstream migratory journeys against river currents to reach freshwater spawning grounds.",
       "reproduction": "External fertilization. High fecundity (up to 2 million eggs in large females). Spawning peaks coincide with full moon and new moon lunar cycles during monsoon.",
-      "ecologicalRole": "Crucial keystone link between estuarine primary/secondary production and higher riverine and marine predators."
+      "ecologicalRole": "Crucial keystone link between estuarine primary/secondary production and higher riverine and marine predators.",
+      "dietSummaryBn": "প্ল্যাঙ্কটনভোজী পরিশ্রাবক; ফুলকার রেকারের সাহায্যে ফাইটোপ্ল্যাঙ্কটন, ব্লু-গ্রিন শৈবাল ও ডায়াটম ছেঁকে গ্রহণ করে।",
+      "behaviorBn": "অ্যানাড্রোমাস পরিযায়ী; বর্ষাকালে সমুদ্রের মোহনা থেকে শত শত কিলোমিটার উজানে মিঠাপানির নদীতে সাঁতরে পরিযান করে।",
+      "reproductionBn": "বর্ষার ভরা পূর্ণিমা ও অমাবস্যায় নদীর প্রধান স্রোতে মুক্তভাবে ভাসমান ডিম ছাড়ে।",
+      "ecologicalRoleBn": "মোহনাজ ও নদীজ খাদ্যশৃঙ্খলের অন্যতম প্রধান প্রাথমিক খাদক এবং উপকূলীয় বাস্তুতন্ত্রের জৈববস্তুর প্রধান ভিত্তি।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -15841,6 +16122,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Overexploitation of juveniles (jatka fishery) using destructive fine-mesh monofilament current nets.",
         "Siltation of river mouths and reduction of dry-season upstream freshwater discharge.",
         "Barrages and physical barriers hindering upstream spawning migration."
+      ],
+      "threatsBn": [
+        "জাটকা ও ডিমওয়ালা মা মাছের অতিরিক্ত নিধন ও ক্ষতিকর কারেন্ট জালের ব্যবহার",
+        "নদীর নাব্যতাহ্রাস ও শুষ্ক মৌসুমে উজানে মিঠাপানির প্রবাহ হ্রাস",
+        "ব্যারাজ ও বাঁধের কারণে প্রাকৃতিক পরিযান পথ রুদ্ধ হওয়া"
       ]
     },
     "lifecycleStatus": "published",
@@ -15930,7 +16216,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "maxStandardLengthCm": 100,
       "dorsalSpinesRays": "D iii-iv, 12-14",
       "analSpinesRays": "A ii-iii, 5",
-      "coloration": "Dorsal surface greyish-brown to dark blue, flank silvery-white with pinkish iridescence; fins dusky with red margins."
+      "coloration": "Dorsal surface greyish-brown to dark blue, flank silvery-white with pinkish iridescence; fins dusky with red margins.",
+      "descriptionBn": "রুই মাছ (Labeo rohita) দক্ষিণ এশিয়ার অন্যতম প্রধান কার্প জাতীয় মাছ। এর পিঠ নীলাভ বা বাদামি এবং পেট রূপালী। জীবিত প্রাপ্তবয়স্ক নমুনায় বক্ষ, শ্রোণি ও পায়ু পাখনার কিনারা লালচে-কমলা আভা ধারণ করে।",
+      "diagnosticFeaturesBn": [
+        "দেহ মাঝারি লম্বা, পিঠের বাঁক পেটের বাঁকের চেয়ে বেশি ধনুকের মতো উত্তল।",
+        "মুখ নিচের দিকে অবস্থিত, ঠোঁট মাংসল ও ঝালরযুক্ত এবং উভয় ঠোঁটে স্পষ্ট ভেতরের ভাঁজ রয়েছে।",
+        "ম্যাক্সিলারি খাঁজে একজোড়া ক্ষুদ্র অস্পষ্ট বার্বেল লুকায়িত থাকে।",
+        "আঁইশ বৃহৎ; পার্শ্বরেখা সম্পূর্ণ এবং এতে ৪০-৪৪টি আঁইশ বিদ্যমান।"
+      ],
+      "colorationBn": "পৃষ্ঠদেশ ধূসর-বাদামি থেকে গাঢ় নীল, পার্শ্বদেশ রূপালী-সাদা ও গোলাপী আভাযুক্ত; পাখনাগুলো গাঢ় ও লালচে প্রান্তযুক্ত।"
     },
     "habitat": {
       "systems": [
@@ -15969,14 +16263,26 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "রুই",
         "রোহিত"
       ],
-      "notes": "Halda River in Chattogram is the only natural tidal freshwater spawning ground in the world where fertilized eggs of Labeo rohita and other major carps are collected directly by local fishers."
+      "notes": "Halda River in Chattogram is the only natural tidal freshwater spawning ground in the world where fertilized eggs of Labeo rohita and other major carps are collected directly by local fishers.",
+      "notesBn": "চট্টগ্রামের হালদা নদী বিশ্বের একমাত্র জোয়ার-ভাটার মিঠাপানির প্রাকৃতিক নদী যেখান থেকে সরাসরি রুই মাছের নিষিক্ত ডিম সংগ্রহ করা হয়।",
+      "regionsBn": [
+        "হালদা নদী",
+        "পদ্মা নদী",
+        "যমুনা নদী",
+        "সুরমা-কুশিয়ারা অববাহিকা",
+        "চলনবিল"
+      ]
     },
     "ecology": {
       "dietCategory": "herbivore",
       "dietSummary": "Herbivorous column feeder, grazing on microscopic planktonic algae, desmids, submerged macroscopic vegetation, and organic biofilm.",
       "behavior": "Potamodromous riverine species. Undertakes short upstream breeding migrations into inundated floodplains during the early monsoon.",
       "reproduction": "Spawns during monsoon floods in fast-flowing river waters over sand or gravel substrate.",
-      "ecologicalRole": "Major primary consumer maintaining aquatic macrophyte and phytoplankton ecological balance in riverine floodplains."
+      "ecologicalRole": "Major primary consumer maintaining aquatic macrophyte and phytoplankton ecological balance in riverine floodplains.",
+      "dietSummaryBn": "তৃণভোজী কলাম ফিডার; ফাইটোপ্ল্যাঙ্কটন, শৈবাল, জলজ উদ্ভিদের অংশ ও জৈব স্তর ভক্ষণ করে।",
+      "behaviorBn": "পোটামোড্রোমাস নদীজ প্রজাতি; প্রাক-বর্ষায় প্লাবিত প্লাবনভূমিতে সংক্ষিপ্ত উজানি প্রজনন পরিযান করে।",
+      "reproductionBn": "বর্ষার প্রবল স্রোতে বালুকাময় তলদেশে ডিম পাড়ে।",
+      "ecologicalRoleBn": "প্লাবনভূমির নদী ও বিলে শৈবাল ও জলজ উদ্ভিদের ভারসাম্য রক্ষাকারী প্রধান প্রাথমিক খাদক।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -15990,6 +16296,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Loss of river connectivity and destruction of natural spawning habitats like the Halda River due to sand extraction.",
         "Pollution from industrial effluent and agricultural runoff in river basins."
+      ],
+      "threatsBn": [
+        "হালদা নদীসহ প্রাকৃতিক প্রজননক্ষেত্রে বালু উত্তোলন ও নদীর স্বাভাবিক গতিপ্রকৃতি নষ্ট হওয়া",
+        "নদী অববাহিকায় শিল্পবর্জ্য ও কৃষি কীটনাশকের দূষণ"
       ]
     },
     "lifecycleStatus": "published",
@@ -16496,7 +16806,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "The ancient river dolphin obligate to the Ganges-Brahmaputra-Meghna and Karnaphuli-Sangu river systems. Greyish-brown body, flexible neck.",
       "maxStandardLengthCm": 260,
-      "coloration": "Uniform lead-grey to dark grey-brown, becoming lighter on the ventral surface."
+      "coloration": "Uniform lead-grey to dark grey-brown, becoming lighter on the ventral surface.",
+      "descriptionBn": "গাঙ্গেয় শুশুক বা নদীজ ডলফিন (Platanista gangetica) গঙ্গা-ব্রহ্মপুত্র-মেঘনা ও কর্ণফুলী-সাঙ্গু নদী অববাহিকার প্রাচীন মিষ্টি পানির স্তন্যপায়ী প্রাণী। এরা কার্যত অন্ধ এবং সম্পূর্ণভাবে উচ্চ-কম্পাঙ্কের বায়োসোনারের ওপর নির্ভর করে জীবন ধারণ করে।",
+      "diagnosticFeaturesBn": [
+        "অত্যন্ত দীর্ঘ ও সরু চোয়াল (রোস্ট্রাম) যাতে মুখ বন্ধ থাকলেও ধারালো বাঁকানো দাঁত বাইরে দৃশ্যমান থাকে।",
+        "চোখে কোনো ক্রিস্টালাইন লেন্স নেই; প্রায় সম্পূর্ণ অন্ধ এবং উচ্চ-কম্পাঙ্কের ইকোলোকেশন ক্লিকের মাধ্যমে নেভিগেট করে।",
+        "পিঠে স্বাভাবিক ডানা নেই, বরং নিচু ত্রিভুজাকার খাঁজ বা রিজ বিদ্যমান।",
+        "চওড়া বৈঠাসদৃশ পেক্টোরাল ফ্লিপার যা নদীজ বাঁকে চটজলদি মোড় নিতে সাহায্য করে।"
+      ],
+      "colorationBn": "সুষম সীসা-ধূসর থেকে গাঢ় ধূসর-বাদামি, পেটের দিকে হালকা রঙের।"
     },
     "habitat": {
       "systems": [
@@ -16533,13 +16851,24 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "localNamesBn": [
         "শুশুক"
       ],
-      "notes": "Designated as a nationally protected mammal under the Wildlife (Conservation and Security) Act of Bangladesh. Protected dolphin sanctuaries established in the Sundarbans and Padma-Jamuna confluences."
+      "notes": "Designated as a nationally protected mammal under the Wildlife (Conservation and Security) Act of Bangladesh. Protected dolphin sanctuaries established in the Sundarbans and Padma-Jamuna confluences.",
+      "notesBn": "বাংলাদেশ বন্যপ্রাণী আইনে কঠোরভাবে সংরক্ষিত জলজ স্তন্যপায়ী; সুন্দরবন ও পদ্মা-যমুনার মিলনস্থলে শুশুক অভয়াশ্রম গড়ে তোলা হয়েছে।",
+      "regionsBn": [
+        "পদ্মা নদী",
+        "যমুনা নদী",
+        "নিম্ন মেঘনা অববাহিকা",
+        "কর্ণফুলী নদী",
+        "সাঙ্গু নদী"
+      ]
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Feeds on bottom-dwelling fish species (catfishes, gobies, carps) and crustaceans located through continuous echolocation clicks.",
       "behavior": "Swims on its side in shallow waters, scanning riverbeds with acoustic biosonar.",
-      "reproduction": "Gestation 10-11 months. Calves born between December and May during low-water river season."
+      "reproduction": "Gestation 10-11 months. Calves born between December and May during low-water river season.",
+      "dietSummaryBn": "তলদেশীয় মাছ (ক্যাটফিশ, গবি, কার্প) এবং চিংড়ি জাতীয় প্রাণী শিকার করে যা একটানা শব্দতরঙ্গ পাঠিয়ে শনাক্ত করে।",
+      "behaviorBn": "নদীর অগভীর স্রোতে একপাশে কাত হয়ে সাঁতার কাটে এবং নদীর তলদেশ স্ক্যান করে।",
+      "reproductionBn": "গর্ভধারণকাল ১০-১১ মাস। শীত ও শুষ্ক মৌসুমে (ডিসেম্বর-মে) নদীর গভীর খাদে একটি করে বাচ্চা প্রসব করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "EN",
@@ -16554,6 +16883,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Water development projects, dams, and barrages fragmenting river populations.",
         "Fatal entanglement in monofilament nylon fishing nets.",
         "Chemical and municipal pollution reducing prey availability in riverine habitats."
+      ],
+      "threatsBn": [
+        "নদী সংযোগহীনতা, বাঁধ ও ফারাক্কা ব্যারাজের প্রভাব",
+        "কারেন্ট ও নাইলন জালে আটকে শ্বাসরোধ হয়ে মৃত্যু",
+        "রাসায়নিক দূষণ ও পলি জমে নদীর গভীরতা হ্রাস"
       ]
     },
     "lifecycleStatus": "published",
@@ -16950,7 +17284,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "maxStandardLengthCm": 90,
       "dorsalSpinesRays": "D 0, 38-45",
       "analSpinesRays": "A 0, 23-28",
-      "coloration": "Olive-brown to dark brown on back; flanks with irregular pale and dark crossbars; belly whitish to pale yellowish."
+      "coloration": "Olive-brown to dark brown on back; flanks with irregular pale and dark crossbars; belly whitish to pale yellowish.",
+      "descriptionBn": "শোল মাছ (Channa striata) দক্ষিণ ও দক্ষিণ-পূর্ব এশিয়ার মিঠাপানির একটি অত্যন্ত সুপরিচিত শিকারী মাছ। এদের অতিরিক্ত শ্বসন অঙ্গ থাকায় এরা জল ছাড়া দীর্ঘ সময় বেঁচে থাকতে পারে।",
+      "diagnosticFeaturesBn": [
+        "দেহ লম্বাটে বেলনাকার; মাথা চ্যাপ্টা ও সাপের মতো আঁইশযুক্ত (স্নেকহেড)।",
+        "পৃষ্ঠ পাখনা অনেক দীর্ঘ, কোনো কাঁটা নেই; পায়ু পাখনাও তুলনামূলকভাবে লম্বা।",
+        "চোয়ালে শক্ত ধারালো দাঁতের সারি বিদ্যমান।",
+        "মুখের গলবিলে বিশেষায়িত অতিরিক্ত শ্বসন অঙ্গ বিদ্যমান যার সাহায্যে বাতাস থেকে সরাসরি অক্সিজেন গ্রহণ করে।"
+      ],
+      "colorationBn": "পিঠ ও পার্শ্বদেশ গাঢ় ধূসর বা কালচে-বাদামি, পার্শ্বদেশে তির্যক গাঢ় ডোরাকাটা দাগ; পেট হালকা সাদাটে।"
     },
     "habitat": {
       "systems": [
@@ -16992,14 +17334,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "শোল",
         "সোল"
       ],
-      "notes": "Ubiquitous and highly valued in Bangladesh. Culturally important: shol curry is a festive dish. Widely used in traditional medicine. Can traverse land during rainy season to colonise new water bodies."
+      "notes": "Ubiquitous and highly valued in Bangladesh. Culturally important: shol curry is a festive dish. Widely used in traditional medicine. Can traverse land during rainy season to colonise new water bodies.",
+      "notesBn": "বাংলাদেশের বিল, হাওর ও প্লাবনভূমির অন্যতম অর্থকরী ও জনপ্রিয় দেশীয় মাছ।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Piscivorous ambush predator; feeds on small fish, frogs, shrimps, and aquatic insects. Juveniles feed on zooplankton and small invertebrates.",
       "behavior": "Solitary, territorial. Uses air-breathing to survive in stagnant, hypoxic water. Guards nest and young.",
       "reproduction": "Builds floating bubble nest at surface; both parents guard eggs and larvae aggressively.",
-      "ecologicalRole": "Apex freshwater predator regulating prey fish and amphibian populations in Bangladesh wetland systems."
+      "ecologicalRole": "Apex freshwater predator regulating prey fish and amphibian populations in Bangladesh wetland systems.",
+      "dietSummaryBn": "মাংসাশী শীর্ষ শিকারী; ছোট মাছ, ব্যাঙ, জলজ কীটপতঙ্গ এবং ক্রাস্টাশিয়ান শিকার করে।",
+      "behaviorBn": "কাদা ও জলজ উদ্ভিদের নিচে লুকিয়ে থেকে হঠাৎ আক্রমণ করে শিকার ধরে; জল শুকিয়ে গেলে কাদার ভেতর বেঁচে থাকে।",
+      "reproductionBn": "বর্ষাকালে জলজ উদ্ভিদের মাঝে ফেনার বাসা তৈরি করে ডিম পাড়ে; মা-বাবা উভয়ই পোনা পাহারা দেয়।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -17013,6 +17359,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Overfishing with fine-mesh nets during monsoon migrations.",
         "Drainage of floodplain marshes for agriculture reducing breeding habitat."
+      ],
+      "threatsBn": [
+        "জলাশয় ভরাট ও শুকিয়ে মাছ ধরা",
+        "কৃষিজমিতে অতিরিক্ত কীটনাশক প্রয়োগ"
       ]
     },
     "lifecycleStatus": "published",
@@ -20281,7 +20631,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "The largest and most commercially valuable portunid crab species, obligate to Indo-Pacific mangrove forests and tidal mudflats.",
       "maxStandardLengthCm": 28,
-      "coloration": "Deep dark green to brownish-black carapace; walking legs and chelae mottled with purplish or yellowish reticulations."
+      "coloration": "Deep dark green to brownish-black carapace; walking legs and chelae mottled with purplish or yellowish reticulations.",
+      "descriptionBn": "শিলা কাঁকড়া বা কাদা কাঁকড়া (Scylla serrata) ইন্দো-প্রশান্ত মহাসাগরীয় উপকূল এবং সুন্দরবন ম্যানগ্রোভ অঞ্চলের অন্যতম মূল্যবান বৃহৎ ক্রাস্টাশিয়ান প্রজাতি।",
+      "diagnosticFeaturesBn": [
+        "মসৃণ, চওড়া ও ডিম্বাকার ক্যারাপেস যার উভয় পাশে ৯টি করে সমান আকৃতির ধারালো দাঁত বা খাঁজ রয়েছে।",
+        "কপালে ৪টি সুস্পষ্ট ভোঁতা দাঁত বিদ্যমান।",
+        "চেলিপেড বা সামনের সাঁড়াশি পা অত্যন্ত বিশাল ও শক্তিশালী, যা শক্ত খোলস ভাঙতে সক্ষম।",
+        "পঞ্চম জোড়া পা চ্যাপ্টা বৈঠার মতো যা চমৎকার সন্তরণে সাহায্য করে।"
+      ],
+      "colorationBn": "গাঢ় সবুজ থেকে কালচে-বাদামি বা জলপাই-সবুজ, চেলিপেডের নিচে হালকা নীলচে বা নীলাভ-সবুজ আভা।"
     },
     "habitat": {
       "systems": [
@@ -20319,14 +20677,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "কাদা কাঁকড়া",
         "শিলা কাঁকড়া"
       ],
-      "notes": "Highly valuable coastal fishery and aquaculture product in the coastal belt of Bangladesh; extensively collected in the Sundarbans."
+      "notes": "Highly valuable coastal fishery and aquaculture product in the coastal belt of Bangladesh; extensively collected in the Sundarbans.",
+      "notesBn": "সুন্দরবন ও উপকূলীয় জেলাগুলোতে অত্যন্ত লাভজনক রপ্তানিমুখী জলজ সম্পদ হিসেবে বিবেচিত।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Nocturnal scavenger and predator crushing hard-shelled bivalves (mussels, clams), small crabs, and carrion using crushing chelae.",
       "behavior": "Excavates deep subterranean mud burrows among mangrove root networks for refuge during low tide.",
       "reproduction": "Females migrate to offshore marine waters to spawn millions of eggs; pelagic zoea and megalopa larvae drift back into mangrove nurseries.",
-      "ecologicalRole": "Benthic bio-engineer aerating mangrove soils and cycling organic matter through crab burrows."
+      "ecologicalRole": "Benthic bio-engineer aerating mangrove soils and cycling organic matter through crab burrows.",
+      "dietSummaryBn": "মাংসাশী ও স্ক্যাভেঞ্জার; মূলত মোলাস্ক (শামুক, ঝিনুক), ছোট কাঁকড়া ও মাছের মৃতদেহ ভক্ষণ করে।",
+      "behaviorBn": "ম্যানগ্রোভের কাদায় গভীর গর্ত তৈরি করে বাস করে; জোয়ারের সময় খাদ্যের সন্ধানে বিচরণ করে।",
+      "reproductionBn": "ডিম পাড়ার জন্য স্ত্রী কাঁকড়া মোহনা থেকে গভীর সমুদ্রে পরিযান করে এবং জয়া লার্ভা মুক্ত করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -20336,6 +20698,10 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "threats": [
         "Overharvesting of wild berried females.",
         "Degradation of coastal mangrove root ecosystems."
+      ],
+      "threatsBn": [
+        "অতিরিক্ত আহরণ ও অপরিপক্ক কাঁকড়া নিধন",
+        "উপকূলীয় ম্যানগ্রোভ আবাসস্থল ধ্বংস"
       ]
     },
     "lifecycleStatus": "published",
@@ -24181,7 +24547,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Penaeus monodon is the largest commercial penaeid shrimp in the Indo-Pacific, growing up to 33 cm. Highly valued capture and aquaculture crustacean.",
       "maxStandardLengthCm": 33,
-      "coloration": "Steel blue to greenish-grey with dark brown or black transverse bands on abdominal segments; pleopods yellowish-red."
+      "coloration": "Steel blue to greenish-grey with dark brown or black transverse bands on abdominal segments; pleopods yellowish-red.",
+      "descriptionBn": "বাগদা চিংড়ি (Penaeus monodon) বা জায়ান্ট টাইগার প্রন বিশ্ব বাণিজ্য ও বাংলাদেশের উপকূলীয় মৎস্য চাষের প্রধানতম রপ্তানি পণ্য।",
+      "diagnosticFeaturesBn": [
+        "বিশাল আকৃতির পেনিইড চিংড়ি, দৈর্ঘ্য ৩৫ সেন্টিমিটার পর্যন্ত হতে পারে।",
+        "রোস্ট্রাম সুগঠিত, যার পৃষ্ঠীয় কিনারায় ৭-৮টি এবং অঙ্কীয় কিনারায় ৩টি দাঁত বিদ্যমান।",
+        "দেহের খোলসে সুনির্দিষ্ট কালচে-বাদামি ও নীলচে ডোরাকাটা বাঘের মতো ব্যান্ড রয়েছে।",
+        "অ্যান্টেনাল ফ্ল্যাজেলা দেহের দৈর্ঘ্যের চেয়েও দ্বিগুণের বেশি দীর্ঘ।"
+      ],
+      "colorationBn": "ধূসর-বাদামি বা নীলচে-সবুজ খোলসের ওপর পর্যায়ক্রমিক কালো ও হলুদাভ উল্লম্ব ডোরা।"
     },
     "habitat": {
       "systems": [
@@ -24215,14 +24589,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "residencyStatus": "resident",
       "residency": "resident",
-      "notes": "Premier export aquaculture and capture crustacean in Bangladesh. Known locally as Bagda Chingri, heavily farmed in southwestern coastal ghers."
+      "notes": "Premier export aquaculture and capture crustacean in Bangladesh. Known locally as Bagda Chingri, heavily farmed in southwestern coastal ghers.",
+      "notesBn": "বাংলাদেশের 'সাদা সোনা' নামে খ্যাত; খুলনা, বাগেরহাট ও সাতক্ষীরার ঘেরে বাণিজ্যিকভাবে উৎপাদিত প্রধান বৈদেশিক মুদ্রা অর্জনকারী জলজ পণ্য।"
     },
     "ecology": {
       "dietCategory": "omnivore",
       "dietSummary": "Opportunistic benthic feeder consuming small polychaete worms, bivalves, small crustaceans, and plant detritus.",
       "behavior": "Nocturnal benthic forager; burrows into sand and mud substrates during daylight hours to avoid predation.",
       "reproduction": "Spawns in offshore marine waters; postlarvae migrate into estuarine mangrove nursery areas like the Sundarbans.",
-      "ecologicalRole": "Key benthic macroinvertebrate consumer and prey item for estuarine and marine fishes and wading birds."
+      "ecologicalRole": "Key benthic macroinvertebrate consumer and prey item for estuarine and marine fishes and wading birds.",
+      "dietSummaryBn": "সর্বভুক ও ডেট্রিটিভোর; ছোট জলজ অমেরুদণ্ডী প্রাণী, পলিকাটা এবং জৈব পচনশীল কণা ভক্ষণ করে।",
+      "behaviorBn": "তলদেশীয় নিশাচর জীব; দিনের বেলা বালু বা কাদার নিচে নিজেকে লুকিয়ে রাখে।",
+      "reproductionBn": "গভীর সমুদ্রে প্রজনন করে; লার্ভা পর্যায়গুলো জোয়ারের সাথে ম্যানগ্রোভ ও মোহনাজ নার্সারিতে প্রবেশ করে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -24235,7 +24613,11 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "Viral pathogens (WSSV)"
       ],
       "bangladeshNationalStatus": "LC",
-      "nationalStatusSource": "IUCN Bangladesh 2015"
+      "nationalStatusSource": "IUCN Bangladesh 2015",
+      "threatsBn": [
+        "প্রাকৃতিক পোস্ট-লার্ভা (পোনা) অতিরিক্ত আহরণ",
+        "উপকূলীয় লবণাক্ততা ও জলবায়ু পরিবর্তনের ঝুঁকি"
+      ]
     },
     "lifecycleStatus": "published",
     "isVerified": true,
@@ -29780,7 +30162,15 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Hirudinaria granulosa is the classic textbook sanguivorous leech of Bangladesh, dissected in undergraduate zoology programs for metamerism, coelomic reduction, and digestive specialization.",
       "maxStandardLengthCm": 30,
-      "coloration": "Olive-green to bright grass-green dorsum decorated with a median black longitudinal stripe and orange marginal stripes; venter striped with yellow and black."
+      "coloration": "Olive-green to bright grass-green dorsum decorated with a median black longitudinal stripe and orange marginal stripes; venter striped with yellow and black.",
+      "descriptionBn": "ভারতীয় গবাদি পশুর জোঁক (Hirudinaria granulosa) দক্ষিণ এশিয়ার একটি অতি পরিচিত এক্টোপ্যারাসাইট বা বহিঃপরজীবী অ্যানেলিড, যা মিঠাপানির জলাশয়ে গবাদি পশু ও মানুষের রক্ত চোষক হিসেবে সুপরিচিত।",
+      "diagnosticFeaturesBn": [
+        "দেহ অত্যন্ত সংকোচনশীল ও প্রসারণশীল, পৃষ্ঠ-অঙ্কীয়ভাবে চ্যাপ্টা এবং ৩৩টি প্রকৃত খণ্ডকে বিভক্ত যা বাহ্যিকভাবে অসংখ্য বলয় বা অ্যানুলিতে বিভক্ত।",
+        "সম্মুখ ও পশ্চাৎ প্রান্তে দুটি শক্তিশালী পেশিবহুল চোষক অঙ্গ বিদ্যমান; পশ্চাৎ চোষকটি চলাচলে এবং সম্মুখ চোষকটি রক্ত চোষণে ব্যবহৃত হয়।",
+        "মুখগহ্বরে তিনটি কাইটিনময় অর্ধচন্দ্রাকার চোয়াল থাকে যাতে অসংখ্য সূক্ষ্ম দাঁতের সারি রয়েছে যা ওয়াই-আকৃতির ক্ষত তৈরি করে।",
+        "লালারসে শক্তিশালী রক্ত জমাট-রোধক হিরুডিন প্রোটিন নিঃসরণ করে যা রক্ত জমাট বাঁধতে বাধা দেয়।"
+      ],
+      "colorationBn": "পৃষ্ঠদেশ জলপাই-সবুজ থেকে গাঢ় বাদামি, উজ্জ্বল কমলা-হলুদ পার্শ্বীয় ডোরা এবং পেটের দিক হালকা হলুদাভ।"
     },
     "habitat": {
       "systems": [
@@ -29826,14 +30216,16 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "গো-জোক",
         "বুনো জোক"
       ],
-      "notes": "Attaches readily to cattle, buffaloes, and human bathers wading in rural water bodies."
+      "notes": "Attaches readily to cattle, buffaloes, and human bathers wading in rural water bodies.",
+      "notesBn": "বাংলাদেশের হাওর, বাওড় ও ধানক্ষেতে গবাদি পশুর সাথে ব্যাপকভাবে দেখা যায়।"
     },
     "ecology": {
       "dietCategory": "carnivore",
       "dietSummary": "Obligate hematophagous ectoparasite feeding on the blood of cattle, buffaloes, frogs, and humans.",
       "behavior": "Graceful serpentine swimmer using undulating body waves; loops caterpillar-like over substrate using anterior and posterior suckers.",
       "reproduction": "Hermaphroditic; secretes a protective spongy cocoon in moist soil along pond banks during pre-monsoon months.",
-      "ecologicalRole": "Hematophagous ectoparasite and important educational model organism."
+      "ecologicalRole": "Hematophagous ectoparasite and important educational model organism.",
+      "dietSummaryBn": "রক্তভোজী (স্যাঙ্গুইনিভোর); গবাদি পশু, মানুষ ও অন্যান্য জলজ মেরুদণ্ডী প্রাণীর রক্ত চুষে বেঁচে থাকে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -29842,6 +30234,9 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "globalStatusSource": "World Register of Marine/Freshwater Hirudinea",
       "threats": [
         "Drainage of wetlands and application of aquatic molluscicides/pesticides."
+      ],
+      "threatsBn": [
+        "জলাভূমিতে অতিরিক্ত কৃষি রাসায়নিক ও বিষাক্ত কীটনাশক প্রয়োগ"
       ]
     },
     "lifecycleStatus": "published",
@@ -30068,7 +30463,16 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       ],
       "description": "Spongilla lacustris is the quintessential textbook freshwater sponge studied globally and throughout Bangladesh for poriferan physiology, cellular totipotency, and gemmule reproduction.",
       "maxStandardLengthCm": 25,
-      "coloration": "Bright emerald-green in sunlit shallow waters; yellowish-white or pale cream in shaded deep waters lacking algal symbionts."
+      "coloration": "Bright emerald-green in sunlit shallow waters; yellowish-white or pale cream in shaded deep waters lacking algal symbionts.",
+      "descriptionBn": "স্পঞ্জিলা ল্যাকুস্ট্রিস (Spongilla lacustris) বিশ্বব্যাপী এবং বাংলাদেশের পাঠ্যপুস্তকে বহুল পঠিত মিঠাপানির আদর্শ স্পঞ্জ। এর কোষে সবুজ শৈবালের সহাবস্থান এবং গেমিউল উৎপাদনের জন্য এটি অত্যন্ত পরিচিত।",
+      "diagnosticFeaturesBn": [
+        "নিমজ্জিত বাঁশের খুঁটি বা গাছের ডালে আঙুলের মতো বা স্তরবিশিষ্ট শাখাবিশিষ্ট সবুজ উপনিবেশ গঠন করে।",
+        "অ্যামিবোসাইট কোষের ভেতর এককোষী জুওক্লোরেলা শৈবালের সহাবস্থানের কারণে উজ্জ্বল সবুজ বর্ণ ধারণ করে।",
+        "কঙ্কাল মসৃণ সূঁচালো সিলিসিয়াস মেগাসক্লের এবং কাঁটাযুক্ত মাইক্রোস্ক্লের দিয়ে গঠিত।",
+        "শীতকাল ও খরার প্রতিকূলতা কাটিয়ে ওঠার জন্য বিশেষায়িত অযৌন প্রজনন অঙ্গ গেমিউল (Gemmule) তৈরি করে।",
+        "লিউকোনয়েড নালী তন্ত্রের মাধ্যমে দেহের অভ্যন্তরীণ জলপ্রবাহ বজায় রাখে।"
+      ],
+      "colorationBn": "রৌদ্রোজ্জ্বল পরিষ্কার পানিতে উজ্জ্বল পান্না-সবুজ; গভীর বা ছায়াযুক্ত স্থানে ফ্যাকাশে ক্রিম বা হলুদাভ-সাদা।"
     },
     "habitat": {
       "systems": [
@@ -30108,14 +30512,18 @@ export const SEED_SPECIES: SpeciesRecord[] = [
         "মিঠাপানির স্পঞ্জ",
         "সবুজ শ্যাওলা স্পঞ্জ"
       ],
-      "notes": "Grows attached to submerged bamboo stakes, tree branches, and brickwork in clean ponds."
+      "notes": "Grows attached to submerged bamboo stakes, tree branches, and brickwork in clean ponds.",
+      "notesBn": "বাংলাদেশের পরিষ্কার মিঠাপানির পুকুর, বিল ও লেকে নিমজ্জিত বাঁশের খুঁটি ও গাছের ডালে জন্মে।"
     },
     "ecology": {
       "dietCategory": "herbivore",
       "dietSummary": "Suspension filter-feeder straining bacteria, unicellular algae, and organic colloidal particles from water currents.",
       "behavior": "Sessile colony; undergoes seasonal regression during winter, releasing gemmules that sprout in spring.",
       "reproduction": "Hermaphroditic sexual reproduction forming flagellated parenchymella larvae; prolific asexual reproduction via gemmules.",
-      "ecologicalRole": "High-capacity biofilter maintaining water transparency in freshwater ecosystems."
+      "ecologicalRole": "High-capacity biofilter maintaining water transparency in freshwater ecosystems.",
+      "dietSummaryBn": "পরিশ্রাবক খাদ্যগ্রহণকারী; জলপ্রবাহ থেকে ব্যাকটেরিয়া, এককোষী শৈবাল ও জৈব কণা ছেঁকে খায়।",
+      "reproductionBn": "উভলিঙ্গিক যৌন জননে ফ্ল্যাজেলাযুক্ত লার্ভা তৈরি হয়; প্রতিকূলতায় গেমিউলের মাধ্যমে ব্যাপক অযৌন বংশবৃদ্ধি ঘটে।",
+      "ecologicalRoleBn": "উচ্চ ধারণক্ষমতার বায়োফিল্টার যা মিঠাপানির স্বচ্ছতা ও পরিবেশগত ভারসাম্য বজায় রাখে।"
     },
     "conservation": {
       "iucnGlobalStatus": "LC",
@@ -30124,6 +30532,9 @@ export const SEED_SPECIES: SpeciesRecord[] = [
       "globalStatusSource": "World Porifera Database",
       "threats": [
         "Water pollution, heavy siltation, and chemical agricultural runoff."
+      ],
+      "threatsBn": [
+        "পুকুর ও জলাশয়ের অতিরিক্ত পলি জমা ও রাসায়নিক দূষণ"
       ]
     },
     "lifecycleStatus": "published",

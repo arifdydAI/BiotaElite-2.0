@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Plus, Search, X, ExternalLink } from 'lucide-react';
 
 export const ReferenceManagerPage: React.FC = () => {
-  const { references, addReference } = useBiodiversity();
+  const { references, addReference, species } = useBiodiversity();
   const { permissions } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -91,39 +91,47 @@ export const ReferenceManagerPage: React.FC = () => {
               <th>Year</th>
               <th>Publication</th>
               <th>Authority Tier</th>
+              <th>Linked Species</th>
               <th>Source Link</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map(ref => (
-              <tr key={ref.id}>
-                <td>
-                  <div style={{ fontWeight: 600, color: '#ffffff' }}>{ref.title}</div>
-                  {ref.doi && (
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                      DOI: {ref.doi}
-                    </div>
-                  )}
-                </td>
-                <td>{ref.authors.join(', ')}</td>
-                <td>{ref.year}</td>
-                <td>{ref.publicationName}</td>
-                <td>
-                  <span
-                    style={{
-                      fontSize: '0.7rem',
-                      fontWeight: 700,
-                      padding: '0.15rem 0.45rem',
-                      borderRadius: '3px',
-                      background: ref.authorityTier === 'tier_1_primary_literature' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(2, 132, 199, 0.15)',
-                      color: ref.authorityTier === 'tier_1_primary_literature' ? '#34d399' : '#38bdf8',
-                    }}
-                  >
-                    {ref.authorityTier.replace(/_/g, ' ')}
-                  </span>
-                </td>
-                <td>
-                  {ref.url ? (
+            {filtered.map(ref => {
+              const citedCount = species.filter(s => s.referenceIds?.includes(ref.id)).length;
+              return (
+                <tr key={ref.id}>
+                  <td>
+                    <div style={{ fontWeight: 600, color: '#ffffff' }}>{ref.title}</div>
+                    {ref.doi && (
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                        DOI: {ref.doi}
+                      </div>
+                    )}
+                  </td>
+                  <td>{ref.authors.join(', ')}</td>
+                  <td>{ref.year}</td>
+                  <td>{ref.publicationName}</td>
+                  <td>
+                    <span
+                      style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '3px',
+                        background: ref.authorityTier === 'tier_1_primary_literature' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(2, 132, 199, 0.15)',
+                        color: ref.authorityTier === 'tier_1_primary_literature' ? '#34d399' : '#38bdf8',
+                      }}
+                    >
+                      {ref.authorityTier.replace(/_/g, ' ')}
+                    </span>
+                  </td>
+                  <td>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8' }}>
+                      {citedCount} species
+                    </span>
+                  </td>
+                  <td>
+                    {ref.url ? (
                     <a
                       href={ref.url}
                       target="_blank"
@@ -138,7 +146,8 @@ export const ReferenceManagerPage: React.FC = () => {
                   )}
                 </td>
               </tr>
-            ))}
+            );
+          })}
           </tbody>
         </table>
       </div>
