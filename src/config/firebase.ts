@@ -38,13 +38,23 @@ if (isLiveFirebaseConfigured) {
     firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
     firebaseAuth = getAuth(firebaseApp);
     firestoreDb = getFirestore(firebaseApp);
-    firebaseStorageInstance = getStorage(firebaseApp);
   } catch (error) {
-    console.warn('[Firebase] Production initialization warning, falling back to local mode:', error);
+    console.warn('[Firebase] Production Auth/Firestore initialization warning:', error);
     firebaseApp = null;
     firebaseAuth = null;
     firestoreDb = null;
-    firebaseStorageInstance = null;
+  }
+
+  // Firebase Storage is optional.
+  // BiotaElite currently uses externally hosted verified media,
+  // so Storage must not affect Auth or Firestore initialization.
+  if (firebaseApp) {
+    try {
+      firebaseStorageInstance = getStorage(firebaseApp);
+    } catch (error) {
+      console.warn('[Firebase] Storage unavailable; continuing without Storage:', error);
+      firebaseStorageInstance = null;
+    }
   }
 }
 
